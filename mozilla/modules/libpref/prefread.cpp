@@ -43,6 +43,7 @@ enum {
 #define BITS_PER_HEX_DIGIT      4
 
 static const char kUserPref[] = "user_pref";
+static const char kLockPref[] = "lockPref";
 static const char kPref[] = "pref";
 static const char kPrefSticky[] = "sticky_pref";
 static const char kTrue[] = "true";

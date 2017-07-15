@@ -117,10 +117,12 @@ class AutoSetHandlingSignal
 # define R13_sig(p) ((p)->sc_r13)
 # define R14_sig(p) ((p)->sc_r14)
 # define R15_sig(p) ((p)->sc_r15)
-#elif defined(__linux__) || defined(SOLARIS)
+#elif defined(__linux__) || defined(SOLARIS) || defined(__GNU__)
 # if defined(__linux__)
 #  define XMM_sig(p,i) ((p)->uc_mcontext.fpregs->_xmm[i])
 #  define EIP_sig(p) ((p)->uc_mcontext.gregs[REG_EIP])
+#  elif defined(__GNU__)
+#   define EIP_sig(p) ((p)->uc_mcontext.gregs[REG_EIP])
 # else
 #  define XMM_sig(p,i) ((p)->uc_mcontext.fpregs.fp_reg_set.fpchip_state.xmm[i])
 #  define EIP_sig(p) ((p)->uc_mcontext.gregs[REG_PC])

@@ -62,7 +62,7 @@ if CONFIG['OS_ARCH'] == 'WINNT':
     SOURCES += [
         'CrossProcessMutex_windows.cpp',
     ]
-elif CONFIG['OS_ARCH'] in ('Linux', 'Darwin'):
+elif CONFIG['OS_ARCH'] in ('Linux', 'Darwin', 'GNU_kFreeBSD', 'GNU'):
     UNIFIED_SOURCES += [
         'CrossProcessMutex_posix.cpp',
     ]

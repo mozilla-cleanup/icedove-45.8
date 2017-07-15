@@ -42,6 +42,18 @@ ifeq ($(OS_ARCH),AIX)
 CXXFLAGS 	:=  $(filter-out $(MOZ_OPTIMIZE_FLAGS), $(CXXFLAGS))
 endif
 
+############
+# SuperH
+############
+#
+#
+# Currently, tested on sh4 and sh4a (non sh4al and sh4al-dsp..)
+ifeq ($(OS_ARCH),Linux)
+ifneq (,$(filter sh4 sh4a,$(OS_TEST)))
+CPPSRCS		:= xptcinvoke_linux_sh.cpp xptcstubs_linux_sh.cpp
+endif
+endif
+
 include $(topsrcdir)/config/rules.mk
 
 ifeq ($(OS_ARCH),Linux)

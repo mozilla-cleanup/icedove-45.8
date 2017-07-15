@@ -56,7 +56,7 @@ namespace base {
 // Define an OS-neutral wrapper for shared library entry points
 #if defined(OS_WIN)
 #define API_CALL __stdcall
-#elif defined(OS_LINUX) || defined(OS_MACOSX)
+#elif defined(OS_LINUX) || defined(OS_MACOSX) || defined(OS_HURD)
 #define API_CALL
 #endif
 

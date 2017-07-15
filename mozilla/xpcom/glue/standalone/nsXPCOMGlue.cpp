@@ -208,6 +208,9 @@ AppendDependentLib(LibHandleType aLibHandle)
 static bool
 ReadDependentCB(pathstr_t aDependentLib, bool aDoPreload)
 {
+  char lib[MAXPATHLEN];
+  if (realpath(aDependentLib, lib))
+      aDependentLib = lib;
   if (aDoPreload) {
     ReadAheadLib(aDependentLib);
   }

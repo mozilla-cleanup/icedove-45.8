@@ -1,0 +1,147 @@
+# -*- mode: makefile; coding: utf-8 -*-
+
+# mozconfig.default
+# default settings for the various builds of Mozilla applications
+# 
+# This file is needed to build multiple applications from the source.
+# It set up some variables that are used in all builds, or they will be
+# overriden later by some builds. The Mozilla buildsystem supports various
+# builds from the same source by seperate obj-$directorys.
+# Further informations around the multiple applications build can be found
+# on
+#
+#   https://developer.mozilla.org/en-US/docs/Configuring_Build_Options#Building_with_an_Objdir
+#
+# The application specific obj-dir is setup within the seperate
+#      mozconfig.$APPLICATION file!
+
+# use/use not packaged software instead of preshipped
+ac_add_options --without-system-jpeg     # Mozilla uses a modified libjpeg
+ac_add_options --with-system-bz2
+ac_add_options --without-system-icu      # Jessie version to old
+ac_add_options --without-system-nspr     # Jessie version to old
+ac_add_options --without-system-nss      # Jessie version to old
+ac_add_options --with-system-zlib=/usr
+
+# other packaged software
+ac_add_options --with-system-libevent
+ac_add_options --without-system-libvpx   # Jessie version to old
+ac_add_options --with-system-ply
+
+# disabled features
+ac_add_options --disable-javaxpcom
+ac_add_options --disable-elf-dynstr-gc
+ac_add_options --disable-gnomevfs
+ac_add_options --disable-install-strip
+ac_add_options --disable-installer
+ac_add_options --disable-mochitest
+ac_add_options --disable-strip
+ac_add_options --disable-strip-libs
+ac_add_options --disable-tests
+ac_add_options --disable-updater
+ac_add_options --disable-gconf
+ac_add_options --disable-rust
+ac_add_options --disable-gio
+ac_add_options --disable-gnomeui
+ac_add_options --disable-dbus
+ac_add_options --disable-synth-speechd
+ac_add_options --disable-websms-backend
+ac_add_options --disable-dbm
+ac_add_options --disable-accessibility
+ac_add_options --disable-webrtc
+ac_add_options --disable-webspeech
+ac_add_options --disable-webspeechtestbackend
+ac_add_options --disable-ffmpeg
+ac_add_options --disable-webm
+ac_add_options --disable-wmf
+ac_add_options --disable-ffmpeg
+ac_add_options --disable-wave
+ac_add_options --disable-pulseaudio
+ac_add_options --disable-gamepad
+ac_add_options --disable-crashreporter
+ac_add_options --disable-mozril-geoloc
+ac_add_options --disable-necko-wifi
+ac_add_options --disable-gstreamer
+ac_add_options --disable-startup-notification
+ac_add_options --disable-alsa
+ac_add_options --disable-readline
+
+# enabled features
+ac_add_options --enable-canvas
+ac_add_options --enable-crypto
+ac_add_options --enable-default-toolkit=cairo-gtk2
+ac_add_options --enable-extensions=default
+ac_add_options --enable-official-branding # use the official artwork
+ac_add_options --enable-optimize
+ac_add_options --enable-pango
+ac_add_options --enable-pie
+ac_add_options --enable-png
+ac_add_options --enable-svg
+ac_add_options --enable-svg-renderer=cairo
+ac_add_options --enable-system-cairo
+ac_add_options --enable-system-ffi
+ac_add_options --enable-system-hunspell
+#ac_add_options --enable-system-sqlite  # Jessie version to old
+ac_add_options --enable-xft
+ac_add_options --enable-xinerama
+
+# Debian specific things
+PARALLEL_BUILD=$(echo $DEB_BUILD_OPTIONS | sed -e '/parallel=/!s/.*/1/;s/.*parallel=\([0-9]\+\).*/\1/g')
+mk_add_options MOZ_MAKE_FLAGS="-j$PARALLEL_BUILD"
+ac_add_options --with-distribution-id=org.debian
+ac_add_options --with-default-mozilla-five-home=/usr/lib/thunderbird
+ac_add_options --with-user-appdir=.mozilla
+ac_add_options --with-pthreads
+ac_add_options --disable-debug
+ac_add_options --prefix=/usr
+ac_add_options --build=$DEB_BUILD_GNU_TYPE
+ac_add_options --host=$DEB_HOST_GNU_TYPE
+#ac_add_options --with-libxul-sdk=
+
+# some platform depended things
+case `dpkg --print-architecture` in
+  amd64)
+    ;;
+  arm64)
+    ac_add_options --enable-optimize=-O1
+    ;;
+  armel)
+    ac_add_options --disable-methodjit
+    ac_add_options --enable-optimize=-O1
+    ;;
+  armhf)
+    ac_add_options --enable-optimize=-O1
+    ;;
+  alpha)
+    ac_add_options --enable-optimize=-O1
+    ;;
+  hurd-i386)
+    ac_add_options --disable-necko-wifi
+    ;;
+  hppa)
+    ac_add_options --disable-optimize
+    ;;
+  i386)
+    ;;
+  ia64)
+    ac_add_options --enable-optimize=-O2
+    ;;
+  kfreebsd-i386)
+    ac_add_options --disable-necko-wifi
+    ;;
+  kfreebsd-amd64)
+    ac_add_options --disable-necko-wifi
+    ;;
+  mips)
+    ac_add_options --disable-ion
+    ;;
+  ppc64)
+    ac_add_options --disable-optimize
+    ;;
+  sparc)
+    ac_add_options --enable-optimize=-O1
+    ;;
+  s390x)
+    ac_add_options --enable-optimize=-O1
+    ;;
+esac

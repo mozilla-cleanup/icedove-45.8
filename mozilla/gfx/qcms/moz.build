@@ -36,6 +36,10 @@ elif 'ppc' in CONFIG['CPU_ARCH']:
     if CONFIG['GNU_CC']:
         use_altivec = True
 
+# detect if we are on powerpcspe
+if 'gnuspe' in CONFIG['target']:
+    use_altivec = False
+
 if use_sse1:
     SOURCES += ['transform-sse1.c']
     SOURCES['transform-sse1.c'].flags += CONFIG['SSE_FLAGS']

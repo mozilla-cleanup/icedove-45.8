@@ -11,16 +11,19 @@
 #include <mach/mach.h>
 #elif defined(OS_NETBSD)
 #include <lwp.h>
-#elif defined(OS_LINUX)
+#elif defined(OS_LINUX) && !defined(__FreeBSD_kernel__) && !defined(__GNU__)
 #include <sys/syscall.h>
 #include <sys/prctl.h>
+//#elif defined(OS_FREEBSD) && !defined(__FreeBSD_kernel__)
+//#include <sys/param.h>
+//#include <sys/thr.h>
 #endif
 
 #if !defined(OS_MACOSX)
 #include <unistd.h>
 #endif
 
-#if defined(OS_BSD) && !defined(OS_NETBSD) && !defined(__GLIBC__)
+#if !defined(OS_BSD) && !defined(NetBSD) && !defined(__FreeBSD_kernel__) && !defined(__GLIBC__)
 #include <pthread_np.h>
 #endif
 
@@ -49,9 +52,13 @@ PlatformThreadId PlatformThread::CurrentId() {
 #ifdef MOZ_WIDGET_GONK
   return (intptr_t) (pthread_self());
 #else
-  return syscall(__NR_gettid);
+#ifdef __NR_gettid
+   return syscall(__NR_gettid);
+#else
+   return getpid();
 #endif
-#elif defined(OS_OPENBSD) || defined(__GLIBC__)
+#endif
+#elif defined(OS_OPENBSD) || defined(__GLIBC__) || defined(OS_HURD)
   return (intptr_t) (pthread_self());
 #elif defined(OS_NETBSD)
   return _lwp_self();
@@ -99,7 +106,7 @@ void PlatformThread::SetName(const char* name) {
   // Note that glibc also has a 'pthread_setname_np' api, but it may not be
   // available everywhere and it's only benefit over using prctl directly is
   // that it can set the name of threads other than the current thread.
-#if defined(OS_LINUX)
+#if defined(OS_LINUX) && !defined(__FreeBSD_kernel__) && !defined(__GNU__)
   prctl(PR_SET_NAME, reinterpret_cast<uintptr_t>(name), 0, 0, 0); 
 #elif defined(OS_NETBSD)
   pthread_setname_np(pthread_self(), "%s", (void *)name);

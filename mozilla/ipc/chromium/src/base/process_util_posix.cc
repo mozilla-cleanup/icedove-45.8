@@ -116,7 +116,7 @@ void CloseSuperfluousFds(const base::InjectiveMultimap& saved_mapping) {
 #if defined(ANDROID)
   static const rlim_t kSystemDefaultMaxFds = 1024;
   static const char kFDDir[] = "/proc/self/fd";
-#elif defined(OS_LINUX)
+#elif defined(OS_LINUX) || defined(OS_HURD)
   static const rlim_t kSystemDefaultMaxFds = 8192;
   static const char kFDDir[] = "/proc/self/fd";
 #elif defined(OS_MACOSX)
@@ -126,6 +126,10 @@ void CloseSuperfluousFds(const base::InjectiveMultimap& saved_mapping) {
   // the getrlimit below should never fail, so whatever ..
   static const rlim_t kSystemDefaultMaxFds = 1024;
   // at least /dev/fd will exist
+  static const char kFDDir[] = "/dev/fd";
+#elif defined(OS_HURD)
+  static const rlim_t kSystemDefaultMaxFds = 1024;
+  // Currently always empty, but it exists
   static const char kFDDir[] = "/dev/fd";
 #endif
 
@@ -210,7 +214,7 @@ void CloseSuperfluousFds(const base::InjectiveMultimap& saved_mapping) {
 void SetAllFDsToCloseOnExec() {
 #if defined(OS_LINUX)
   const char fd_dir[] = "/proc/self/fd";
-#elif defined(OS_MACOSX) || defined(OS_BSD)
+#elif defined(OS_MACOSX) || defined(OS_BSD) || defined(OS_HURD)
   const char fd_dir[] = "/dev/fd";
 #endif
   ScopedDIR dir_closer(opendir(fd_dir));

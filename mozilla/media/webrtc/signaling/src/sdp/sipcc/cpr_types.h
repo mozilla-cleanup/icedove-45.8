@@ -5,7 +5,7 @@
 #ifndef _CPR_TYPES_H_
 #define _CPR_TYPES_H_
 
-#if defined SIP_OS_LINUX
+#if defined SIP_OS_LINUX || defined(SIP_OS_HURD)
 #include "cpr_linux_types.h"
 #elif defined SIP_OS_WINDOWS
 #include "cpr_win_types.h"

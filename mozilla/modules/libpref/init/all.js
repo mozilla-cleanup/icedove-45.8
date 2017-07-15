@@ -1154,6 +1154,7 @@ pref("javascript.options.ion.offthread_compilation", true);
 // memory, but makes things like Function.prototype.toSource()
 // fail.
 pref("javascript.options.discardSystemSource", false);
+pref("javascript.options.showInConsole",    true);
 // This preference limits the memory usage of javascript.
 // If you want to change these values for your device,
 // please find Bug 417052 comment 17 and Bug 456721

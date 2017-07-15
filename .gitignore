@@ -1,0 +1,17 @@
+config.guess.dh-orig
+config.sub.dh-orig
+config.guess
+config.sub
+*.pyc
+
+/.pc
+/obj-thunderbird/
+/_virtualenv/
+/build/unix/gold/
+/confdefs.h
+/confdefs.pytmp
+/config.cache
+/config.log
+/patches/
+/skip_subconfigures
+/subconfigures

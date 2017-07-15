@@ -1,0 +1,656 @@
+From: Christoph Goehre <chris@sigxcpu.org>
+Date: Fri, 11 Mar 2011 19:16:01 +0100
+Subject: disable extension update - extension is managed by apt
+
+Closes: #616102
+---
+ icedove-l10n/ar/install.rdf    | 1 +
+ icedove-l10n/ast/install.rdf   | 1 +
+ icedove-l10n/be/install.rdf    | 1 +
+ icedove-l10n/bg/install.rdf    | 1 +
+ icedove-l10n/bn-BD/install.rdf | 1 +
+ icedove-l10n/br/install.rdf    | 1 +
+ icedove-l10n/ca/install.rdf    | 1 +
+ icedove-l10n/cs/install.rdf    | 1 +
+ icedove-l10n/da/install.rdf    | 1 +
+ icedove-l10n/de/install.rdf    | 1 +
+ icedove-l10n/el/install.rdf    | 1 +
+ icedove-l10n/en-GB/install.rdf | 1 +
+ icedove-l10n/es-AR/install.rdf | 1 +
+ icedove-l10n/es-ES/install.rdf | 1 +
+ icedove-l10n/et/install.rdf    | 1 +
+ icedove-l10n/eu/install.rdf    | 1 +
+ icedove-l10n/fi/install.rdf    | 1 +
+ icedove-l10n/fr/install.rdf    | 1 +
+ icedove-l10n/fy-NL/install.rdf | 1 +
+ icedove-l10n/ga-IE/install.rdf | 1 +
+ icedove-l10n/gd/install.rdf    | 1 +
+ icedove-l10n/gl/install.rdf    | 1 +
+ icedove-l10n/he/install.rdf    | 1 +
+ icedove-l10n/hr/install.rdf    | 1 +
+ icedove-l10n/hu/install.rdf    | 1 +
+ icedove-l10n/hy-AM/install.rdf | 1 +
+ icedove-l10n/id/install.rdf    | 1 +
+ icedove-l10n/is/install.rdf    | 1 +
+ icedove-l10n/it/install.rdf    | 1 +
+ icedove-l10n/ja/install.rdf    | 1 +
+ icedove-l10n/ko/install.rdf    | 1 +
+ icedove-l10n/lt/install.rdf    | 1 +
+ icedove-l10n/nb-NO/install.rdf | 1 +
+ icedove-l10n/nl/install.rdf    | 1 +
+ icedove-l10n/nn-NO/install.rdf | 1 +
+ icedove-l10n/pa-IN/install.rdf | 1 +
+ icedove-l10n/pl/install.rdf    | 1 +
+ icedove-l10n/pt-BR/install.rdf | 1 +
+ icedove-l10n/pt-PT/install.rdf | 1 +
+ icedove-l10n/rm/install.rdf    | 1 +
+ icedove-l10n/ro/install.rdf    | 1 +
+ icedove-l10n/ru/install.rdf    | 1 +
+ icedove-l10n/si/install.rdf    | 1 +
+ icedove-l10n/sk/install.rdf    | 1 +
+ icedove-l10n/sl/install.rdf    | 1 +
+ icedove-l10n/sq/install.rdf    | 1 +
+ icedove-l10n/sr/install.rdf    | 1 +
+ icedove-l10n/sv-SE/install.rdf | 1 +
+ icedove-l10n/ta-LK/install.rdf | 1 +
+ icedove-l10n/tr/install.rdf    | 1 +
+ icedove-l10n/uk/install.rdf    | 1 +
+ icedove-l10n/vi/install.rdf    | 1 +
+ icedove-l10n/zh-CN/install.rdf | 1 +
+ icedove-l10n/zh-TW/install.rdf | 1 +
+ 54 files changed, 54 insertions(+)
+
+diff --git a/icedove-l10n/ar/install.rdf b/icedove-l10n/ar/install.rdf
+index f2a3374..802d7ea 100644
+--- a/icedove-l10n/ar/install.rdf
++++ b/icedove-l10n/ar/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ast/install.rdf b/icedove-l10n/ast/install.rdf
+index 6117538..0c78e0f 100644
+--- a/icedove-l10n/ast/install.rdf
++++ b/icedove-l10n/ast/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/be/install.rdf b/icedove-l10n/be/install.rdf
+index 2c7cd80..fd5ed02 100644
+--- a/icedove-l10n/be/install.rdf
++++ b/icedove-l10n/be/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/bg/install.rdf b/icedove-l10n/bg/install.rdf
+index 5b5398d..f8a31df 100644
+--- a/icedove-l10n/bg/install.rdf
++++ b/icedove-l10n/bg/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/bn-BD/install.rdf b/icedove-l10n/bn-BD/install.rdf
+index fefb0f4..305c477 100644
+--- a/icedove-l10n/bn-BD/install.rdf
++++ b/icedove-l10n/bn-BD/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/br/install.rdf b/icedove-l10n/br/install.rdf
+index 88ad714..bc8d10f 100644
+--- a/icedove-l10n/br/install.rdf
++++ b/icedove-l10n/br/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ca/install.rdf b/icedove-l10n/ca/install.rdf
+index 68a74ec..f5e62c7 100644
+--- a/icedove-l10n/ca/install.rdf
++++ b/icedove-l10n/ca/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/cs/install.rdf b/icedove-l10n/cs/install.rdf
+index 929d1e0..8b1c273 100644
+--- a/icedove-l10n/cs/install.rdf
++++ b/icedove-l10n/cs/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/da/install.rdf b/icedove-l10n/da/install.rdf
+index 8740875..6419bbb 100644
+--- a/icedove-l10n/da/install.rdf
++++ b/icedove-l10n/da/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/de/install.rdf b/icedove-l10n/de/install.rdf
+index d4ecf48..ade3f73 100644
+--- a/icedove-l10n/de/install.rdf
++++ b/icedove-l10n/de/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/el/install.rdf b/icedove-l10n/el/install.rdf
+index 9bc26d2..8a60967 100644
+--- a/icedove-l10n/el/install.rdf
++++ b/icedove-l10n/el/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/en-GB/install.rdf b/icedove-l10n/en-GB/install.rdf
+index a94f371..710e0fc 100644
+--- a/icedove-l10n/en-GB/install.rdf
++++ b/icedove-l10n/en-GB/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/es-AR/install.rdf b/icedove-l10n/es-AR/install.rdf
+index fb17416..0de4d3b 100644
+--- a/icedove-l10n/es-AR/install.rdf
++++ b/icedove-l10n/es-AR/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/es-ES/install.rdf b/icedove-l10n/es-ES/install.rdf
+index c2c1df9..034af8e 100644
+--- a/icedove-l10n/es-ES/install.rdf
++++ b/icedove-l10n/es-ES/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/et/install.rdf b/icedove-l10n/et/install.rdf
+index a32535a..cb58e7e 100644
+--- a/icedove-l10n/et/install.rdf
++++ b/icedove-l10n/et/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/eu/install.rdf b/icedove-l10n/eu/install.rdf
+index 27bd207..f07de56 100644
+--- a/icedove-l10n/eu/install.rdf
++++ b/icedove-l10n/eu/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/fi/install.rdf b/icedove-l10n/fi/install.rdf
+index 38c7525..34ba00b 100644
+--- a/icedove-l10n/fi/install.rdf
++++ b/icedove-l10n/fi/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/fr/install.rdf b/icedove-l10n/fr/install.rdf
+index d3481b8..29722cb 100644
+--- a/icedove-l10n/fr/install.rdf
++++ b/icedove-l10n/fr/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/fy-NL/install.rdf b/icedove-l10n/fy-NL/install.rdf
+index 58dd631..8ccdea5 100644
+--- a/icedove-l10n/fy-NL/install.rdf
++++ b/icedove-l10n/fy-NL/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ga-IE/install.rdf b/icedove-l10n/ga-IE/install.rdf
+index 56248f8..1762a58 100644
+--- a/icedove-l10n/ga-IE/install.rdf
++++ b/icedove-l10n/ga-IE/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/gd/install.rdf b/icedove-l10n/gd/install.rdf
+index a44e74b..64f3562 100644
+--- a/icedove-l10n/gd/install.rdf
++++ b/icedove-l10n/gd/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/gl/install.rdf b/icedove-l10n/gl/install.rdf
+index ff35611..ca5f829 100644
+--- a/icedove-l10n/gl/install.rdf
++++ b/icedove-l10n/gl/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/he/install.rdf b/icedove-l10n/he/install.rdf
+index 16c19598..12b75fa 100644
+--- a/icedove-l10n/he/install.rdf
++++ b/icedove-l10n/he/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/hr/install.rdf b/icedove-l10n/hr/install.rdf
+index 376e31f..4e49475 100644
+--- a/icedove-l10n/hr/install.rdf
++++ b/icedove-l10n/hr/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/hu/install.rdf b/icedove-l10n/hu/install.rdf
+index 4054643..351eb3b 100644
+--- a/icedove-l10n/hu/install.rdf
++++ b/icedove-l10n/hu/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/hy-AM/install.rdf b/icedove-l10n/hy-AM/install.rdf
+index 7bae45a..94102b1 100644
+--- a/icedove-l10n/hy-AM/install.rdf
++++ b/icedove-l10n/hy-AM/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/id/install.rdf b/icedove-l10n/id/install.rdf
+index 7115f0c..577568a 100644
+--- a/icedove-l10n/id/install.rdf
++++ b/icedove-l10n/id/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/is/install.rdf b/icedove-l10n/is/install.rdf
+index fb675ac..3a3c180 100644
+--- a/icedove-l10n/is/install.rdf
++++ b/icedove-l10n/is/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/it/install.rdf b/icedove-l10n/it/install.rdf
+index 601c742..effc10a 100644
+--- a/icedove-l10n/it/install.rdf
++++ b/icedove-l10n/it/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ja/install.rdf b/icedove-l10n/ja/install.rdf
+index 2510183..9a89673 100644
+--- a/icedove-l10n/ja/install.rdf
++++ b/icedove-l10n/ja/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ko/install.rdf b/icedove-l10n/ko/install.rdf
+index 16ddfd2..43a7eb6 100644
+--- a/icedove-l10n/ko/install.rdf
++++ b/icedove-l10n/ko/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/lt/install.rdf b/icedove-l10n/lt/install.rdf
+index 8bb06ff..cfcad11 100644
+--- a/icedove-l10n/lt/install.rdf
++++ b/icedove-l10n/lt/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/nb-NO/install.rdf b/icedove-l10n/nb-NO/install.rdf
+index 2c4801e..11ebb46 100644
+--- a/icedove-l10n/nb-NO/install.rdf
++++ b/icedove-l10n/nb-NO/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/nl/install.rdf b/icedove-l10n/nl/install.rdf
+index 91e849e..5259b66 100644
+--- a/icedove-l10n/nl/install.rdf
++++ b/icedove-l10n/nl/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/nn-NO/install.rdf b/icedove-l10n/nn-NO/install.rdf
+index 8849669..4240433 100644
+--- a/icedove-l10n/nn-NO/install.rdf
++++ b/icedove-l10n/nn-NO/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/pa-IN/install.rdf b/icedove-l10n/pa-IN/install.rdf
+index a7b9c53..3c9c66d 100644
+--- a/icedove-l10n/pa-IN/install.rdf
++++ b/icedove-l10n/pa-IN/install.rdf
+@@ -18,5 +18,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/pl/install.rdf b/icedove-l10n/pl/install.rdf
+index 4e77c07..0d9c71d 100644
+--- a/icedove-l10n/pl/install.rdf
++++ b/icedove-l10n/pl/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/pt-BR/install.rdf b/icedove-l10n/pt-BR/install.rdf
+index c4fe67d..10ec72d 100644
+--- a/icedove-l10n/pt-BR/install.rdf
++++ b/icedove-l10n/pt-BR/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/pt-PT/install.rdf b/icedove-l10n/pt-PT/install.rdf
+index 154fd76..4760f7b 100644
+--- a/icedove-l10n/pt-PT/install.rdf
++++ b/icedove-l10n/pt-PT/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/rm/install.rdf b/icedove-l10n/rm/install.rdf
+index 074e7a5..a714152 100644
+--- a/icedove-l10n/rm/install.rdf
++++ b/icedove-l10n/rm/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ro/install.rdf b/icedove-l10n/ro/install.rdf
+index fd56e00..e69aa9c 100644
+--- a/icedove-l10n/ro/install.rdf
++++ b/icedove-l10n/ro/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ru/install.rdf b/icedove-l10n/ru/install.rdf
+index bdc93af..0b83dfb 100644
+--- a/icedove-l10n/ru/install.rdf
++++ b/icedove-l10n/ru/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/si/install.rdf b/icedove-l10n/si/install.rdf
+index b0918d9..4f45bd1 100644
+--- a/icedove-l10n/si/install.rdf
++++ b/icedove-l10n/si/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/sk/install.rdf b/icedove-l10n/sk/install.rdf
+index c64851d..670f1c5 100644
+--- a/icedove-l10n/sk/install.rdf
++++ b/icedove-l10n/sk/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/sl/install.rdf b/icedove-l10n/sl/install.rdf
+index 22151ed..33ca618 100644
+--- a/icedove-l10n/sl/install.rdf
++++ b/icedove-l10n/sl/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/sq/install.rdf b/icedove-l10n/sq/install.rdf
+index d289b88..84d6ac0 100644
+--- a/icedove-l10n/sq/install.rdf
++++ b/icedove-l10n/sq/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/sr/install.rdf b/icedove-l10n/sr/install.rdf
+index 3416201..f6625d1 100644
+--- a/icedove-l10n/sr/install.rdf
++++ b/icedove-l10n/sr/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/sv-SE/install.rdf b/icedove-l10n/sv-SE/install.rdf
+index 8ee8289..daa5b81 100644
+--- a/icedove-l10n/sv-SE/install.rdf
++++ b/icedove-l10n/sv-SE/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/ta-LK/install.rdf b/icedove-l10n/ta-LK/install.rdf
+index c8e7922..3a239cd 100644
+--- a/icedove-l10n/ta-LK/install.rdf
++++ b/icedove-l10n/ta-LK/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/tr/install.rdf b/icedove-l10n/tr/install.rdf
+index 66f2838..2e8169d 100644
+--- a/icedove-l10n/tr/install.rdf
++++ b/icedove-l10n/tr/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/uk/install.rdf b/icedove-l10n/uk/install.rdf
+index 83de399..ae3f33e 100644
+--- a/icedove-l10n/uk/install.rdf
++++ b/icedove-l10n/uk/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/vi/install.rdf b/icedove-l10n/vi/install.rdf
+index af42de2..8f33fc4 100644
+--- a/icedove-l10n/vi/install.rdf
++++ b/icedove-l10n/vi/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/zh-CN/install.rdf b/icedove-l10n/zh-CN/install.rdf
+index 2d3e146..4a50179 100644
+--- a/icedove-l10n/zh-CN/install.rdf
++++ b/icedove-l10n/zh-CN/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>
+diff --git a/icedove-l10n/zh-TW/install.rdf b/icedove-l10n/zh-TW/install.rdf
+index 072576e..7dd9c7d 100644
+--- a/icedove-l10n/zh-TW/install.rdf
++++ b/icedove-l10n/zh-TW/install.rdf
+@@ -19,5 +19,6 @@
+         <em:maxVersion>45.*</em:maxVersion>
+       </Description>
+     </em:targetApplication>
++    <em:appManaged>true</em:appManaged>
+   </Description>
+ </RDF>

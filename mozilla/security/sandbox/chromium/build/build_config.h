@@ -46,6 +46,8 @@
 // we really are using glibc, not uClibc pretending to be glibc
 #define LIBC_GLIBC 1
 #endif
+#elif defined(__GNU__)
+#define OS_HURD 1
 #elif defined(_WIN32)
 #define OS_WIN 1
 #define TOOLKIT_VIEWS 1
@@ -75,7 +77,7 @@
 // more specific macro.
 #if defined(OS_MACOSX) || defined(OS_LINUX) || defined(OS_FREEBSD) ||     \
     defined(OS_OPENBSD) || defined(OS_SOLARIS) || defined(OS_ANDROID) ||  \
-    defined(OS_NACL) || defined(OS_QNX)
+    defined(OS_NACL) || defined(OS_QNX) || defined(OS_HURD)
 #define OS_POSIX 1
 #endif
 
