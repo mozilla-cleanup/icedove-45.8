@@ -177,6 +177,7 @@ public:
                                         TabId* aTabId) override;
     virtual bool RecvBridgeToChildProcess(const ContentParentId& aCpId) override;
 
+#ifdef MOZ_MEDIA
     virtual bool RecvCreateGMPService() override;
     virtual bool RecvGetGMPPluginVersionForAPI(const nsCString& aAPI,
                                                nsTArray<nsCString>&& aTags,
@@ -186,6 +187,7 @@ public:
                                         const nsCString& aVersion,
                                         bool* aIsPresent,
                                         nsCString* aMessage) override;
+#endif
 
     virtual bool RecvLoadPlugin(const uint32_t& aPluginId, nsresult* aRv, uint32_t* aRunID) override;
     virtual bool RecvConnectPluginBridge(const uint32_t& aPluginId, nsresult* aRv) override;
@@ -591,9 +593,12 @@ private:
 
     static void ForceKillTimerCallback(nsITimer* aTimer, void* aClosure);
 
+#ifdef MOZ_MEDIA
     PGMPServiceParent*
     AllocPGMPServiceParent(mozilla::ipc::Transport* aTransport,
                            base::ProcessId aOtherProcess) override;
+#endif
+
     PCompositorParent*
     AllocPCompositorParent(mozilla::ipc::Transport* aTransport,
                            base::ProcessId aOtherProcess) override;
@@ -723,8 +728,10 @@ private:
     virtual bool RecvPVoicemailConstructor(PVoicemailParent* aActor) override;
     virtual bool DeallocPVoicemailParent(PVoicemailParent* aActor) override;
 
+#ifdef MOZ_MEDIA
     virtual PMediaParent* AllocPMediaParent() override;
     virtual bool DeallocPMediaParent(PMediaParent* aActor) override;
+#endif
 
     virtual bool DeallocPStorageParent(PStorageParent* aActor) override;
 
@@ -732,16 +739,20 @@ private:
     virtual bool DeallocPBluetoothParent(PBluetoothParent* aActor) override;
     virtual bool RecvPBluetoothConstructor(PBluetoothParent* aActor) override;
 
+#ifdef MOZ_MEDIA_FMRADIO
     virtual PFMRadioParent* AllocPFMRadioParent() override;
     virtual bool DeallocPFMRadioParent(PFMRadioParent* aActor) override;
+#endif
 
     virtual PPresentationParent* AllocPPresentationParent() override;
     virtual bool DeallocPPresentationParent(PPresentationParent* aActor) override;
     virtual bool RecvPPresentationConstructor(PPresentationParent* aActor) override;
 
+#ifdef MOZ_WEBSPEECH
     virtual PSpeechSynthesisParent* AllocPSpeechSynthesisParent() override;
     virtual bool DeallocPSpeechSynthesisParent(PSpeechSynthesisParent* aActor) override;
     virtual bool RecvPSpeechSynthesisConstructor(PSpeechSynthesisParent* aActor) override;
+#endif
 
     virtual PWebBrowserPersistDocumentParent* AllocPWebBrowserPersistDocumentParent(PBrowserParent* aBrowser, const uint64_t& aOuterWindowID) override;
     virtual bool DeallocPWebBrowserPersistDocumentParent(PWebBrowserPersistDocumentParent* aActor) override;
@@ -926,9 +937,10 @@ private:
     virtual bool
     RecvFlushPendingFileDeletions() override;
 
+#ifdef MOZ_WEBRTC
     virtual PWebrtcGlobalParent* AllocPWebrtcGlobalParent() override;
     virtual bool DeallocPWebrtcGlobalParent(PWebrtcGlobalParent *aActor) override;
-
+#endif
 
     virtual bool RecvUpdateDropEffect(const uint32_t& aDragAction,
                                       const uint32_t& aDropEffect) override;

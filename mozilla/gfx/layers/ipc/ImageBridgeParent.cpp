@@ -17,7 +17,9 @@
 #include "mozilla/ipc/MessageChannel.h" // for MessageChannel, etc
 #include "mozilla/ipc/ProtocolUtils.h"
 #include "mozilla/ipc/Transport.h"      // for Transport
+#ifdef MOZ_MEDIA
 #include "mozilla/media/MediaSystemResourceManagerParent.h" // for MediaSystemResourceManagerParent
+#endif
 #include "mozilla/layers/CompositableTransactionParent.h"
 #include "mozilla/layers/CompositorParent.h"  // for CompositorParent
 #include "mozilla/layers/LayerManagerComposite.h"
@@ -43,7 +45,9 @@ namespace layers {
 
 using namespace mozilla::ipc;
 using namespace mozilla::gfx;
+#ifdef MOZ_MEDIA
 using namespace mozilla::media;
+#endif
 
 std::map<base::ProcessId, ImageBridgeParent*> ImageBridgeParent::sImageBridges;
 
@@ -260,6 +264,7 @@ ImageBridgeParent::DeallocPTextureParent(PTextureParent* actor)
   return TextureHost::DestroyIPDLActor(actor);
 }
 
+#ifdef MOZ_MEDIA
 PMediaSystemResourceManagerParent*
 ImageBridgeParent::AllocPMediaSystemResourceManagerParent()
 {
@@ -273,6 +278,7 @@ ImageBridgeParent::DeallocPMediaSystemResourceManagerParent(PMediaSystemResource
   delete static_cast<mozilla::media::MediaSystemResourceManagerParent*>(aActor);
   return true;
 }
+#endif /* MOZ_MEDIA */
 
 PImageContainerParent*
 ImageBridgeParent::AllocPImageContainerParent()

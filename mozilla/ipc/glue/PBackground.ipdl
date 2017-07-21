@@ -13,7 +13,6 @@ include protocol PCacheStorage;
 include protocol PCacheStreamControl;
 include protocol PFileDescriptorSet;
 include protocol PMessagePort;
-include protocol PCameras;
 include protocol PNuwa;
 include protocol PQuota;
 include protocol PServiceWorkerManager;
@@ -51,7 +50,6 @@ sync protocol PBackground
   manages PCacheStreamControl;
   manages PFileDescriptorSet;
   manages PMessagePort;
-  manages PCameras;
   manages PNuwa;
   manages PQuota;
   manages PServiceWorkerManager;
@@ -67,8 +65,6 @@ parent:
   PBackgroundIndexedDBUtils();
 
   PVsync();
-
-  PCameras();
 
   PUDPSocket(OptionalPrincipalInfo pInfo, nsCString filter);
   PBroadcastChannel(PrincipalInfo pInfo, nsCString origin, nsString channel,

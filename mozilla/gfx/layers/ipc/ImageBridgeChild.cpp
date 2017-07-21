@@ -22,8 +22,10 @@
 #include "mozilla/ipc/Transport.h"      // for Transport
 #include "mozilla/gfx/Point.h"          // for IntSize
 #include "mozilla/layers/AsyncCanvasRenderer.h"
+#ifdef MOZ_MEDIA
 #include "mozilla/media/MediaSystemResourceManager.h" // for MediaSystemResourceManager
 #include "mozilla/media/MediaSystemResourceManagerChild.h" // for MediaSystemResourceManagerChild
+#endif /* MOZ_MEDIA */
 #include "mozilla/layers/CompositableClient.h"  // for CompositableChild, etc
 #include "mozilla/layers/CompositorParent.h" // for CompositorParent
 #include "mozilla/layers/ISurfaceAllocator.h"  // for ISurfaceAllocator
@@ -53,7 +55,9 @@ using base::Thread;
 using base::ProcessId;
 using namespace mozilla::ipc;
 using namespace mozilla::gfx;
+#ifdef MOZ_MEDIA
 using namespace mozilla::media;
+#endif
 
 typedef std::vector<CompositableOperation> OpVector;
 
@@ -218,7 +222,9 @@ static void ImageBridgeShutdownStep1(ReentrantMonitor *aBarrier, bool *aDone)
   MOZ_ASSERT(InImageBridgeChildThread(),
              "Should be in ImageBridgeChild thread.");
 
+#ifdef MOZ_MEDIA
   MediaSystemResourceManager::Shutdown();
+#endif
 
   if (sImageBridgeChildSingleton) {
     // Force all managed protocols to shut themselves down cleanly
@@ -1040,6 +1046,7 @@ ImageBridgeChild::DeallocPTextureChild(PTextureChild* actor)
   return TextureClient::DestroyIPDLActor(actor);
 }
 
+#ifdef MOZ_MEDIA
 PMediaSystemResourceManagerChild*
 ImageBridgeChild::AllocPMediaSystemResourceManagerChild()
 {
@@ -1054,6 +1061,7 @@ ImageBridgeChild::DeallocPMediaSystemResourceManagerChild(PMediaSystemResourceMa
   delete static_cast<mozilla::media::MediaSystemResourceManagerChild*>(aActor);
   return true;
 }
+#endif /* MOZ_MEDIA */
 
 PImageContainerChild*
 ImageBridgeChild::AllocPImageContainerChild()

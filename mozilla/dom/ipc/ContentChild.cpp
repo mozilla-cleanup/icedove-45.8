@@ -53,7 +53,9 @@
 #include "mozilla/plugins/PluginInstanceParent.h"
 #include "mozilla/plugins/PluginModuleParent.h"
 #include "mozilla/widget/WidgetMessageUtils.h"
+#ifdef MOZ_MEDIA
 #include "mozilla/media/MediaChild.h"
+#endif
 #include "mozilla/BasePrincipal.h"
 #include "mozilla/WebBrowserPersistDocumentChild.h"
 
@@ -172,7 +174,11 @@
 #include "mozilla/dom/PFileSystemRequestChild.h"
 #include "mozilla/dom/FileSystemTaskBase.h"
 #include "mozilla/dom/bluetooth/PBluetoothChild.h"
+
+#ifdef MOZ_MEDIA_FMRADIO
 #include "mozilla/dom/PFMRadioChild.h"
+#endif
+
 #include "mozilla/dom/PPresentationChild.h"
 #include "mozilla/dom/PresentationIPCService.h"
 #include "mozilla/ipc/InputStreamUtils.h"
@@ -195,8 +201,10 @@
 #include "mozilla/net/NeckoMessageUtils.h"
 #include "mozilla/widget/PuppetBidiKeyboard.h"
 #include "mozilla/RemoteSpellCheckEngineChild.h"
+#ifdef MOZ_MEDIA
 #include "GMPServiceChild.h"
 #include "GMPDecoderModule.h"
+#endif
 #include "gfxPlatform.h"
 #include "nscore.h" // for NS_FREE_PERMANENT_DATA
 
@@ -211,9 +219,11 @@ using namespace mozilla::dom::mobileconnection;
 using namespace mozilla::dom::mobilemessage;
 using namespace mozilla::dom::telephony;
 using namespace mozilla::dom::voicemail;
+#ifdef MOZ_MEDIA
 using namespace mozilla::media;
-using namespace mozilla::embedding;
 using namespace mozilla::gmp;
+#endif
+using namespace mozilla::embedding;
 using namespace mozilla::hal_sandbox;
 using namespace mozilla::ipc;
 using namespace mozilla::layers;
@@ -1251,6 +1261,7 @@ ContentChild::AllocPContentBridgeParent(mozilla::ipc::Transport* aTransport,
     return mLastBridge;
 }
 
+#ifdef MOZ_MEDIA
 PGMPServiceChild*
 ContentChild::AllocPGMPServiceChild(mozilla::ipc::Transport* aTransport,
                                     base::ProcessId aOtherProcess)
@@ -1264,6 +1275,7 @@ ContentChild::AllocPCompositorChild(mozilla::ipc::Transport* aTransport,
 {
     return CompositorChild::Create(aTransport, aOtherProcess);
 }
+#endif /* MOZ_MEDIA */
 
 PSharedBufferManagerChild*
 ContentChild::AllocPSharedBufferManagerChild(mozilla::ipc::Transport* aTransport,
@@ -1649,12 +1661,14 @@ ContentChild::RecvNotifyPresentationReceiverCleanUp(const nsString& aSessionId)
   return true;
 }
 
+#ifdef MOZ_MEDIA
 bool
 ContentChild::RecvNotifyGMPsChanged()
 {
   GMPDecoderModule::UpdateUsableCodecs();
   return true;
 }
+#endif
 
 PCrashReporterChild*
 ContentChild::AllocPCrashReporterChild(const mozilla::dom::NativeThreadId& id,
@@ -2002,6 +2016,7 @@ ContentChild::DeallocPVoicemailChild(PVoicemailChild* aActor)
     return true;
 }
 
+#ifdef MOZ_MEDIA
 media::PMediaChild*
 ContentChild::AllocPMediaChild()
 {
@@ -2013,6 +2028,7 @@ ContentChild::DeallocPMediaChild(media::PMediaChild *aActor)
 {
   return media::DeallocPMediaChild(aActor);
 }
+#endif /* MOZ_MEDIA */
 
 PStorageChild*
 ContentChild::AllocPStorageChild()
@@ -2050,6 +2066,7 @@ ContentChild::DeallocPBluetoothChild(PBluetoothChild* aActor)
 #endif
 }
 
+#ifdef MOZ_MEDIA_FMRADIO
 PFMRadioChild*
 ContentChild::AllocPFMRadioChild()
 {
@@ -2073,7 +2090,9 @@ ContentChild::DeallocPFMRadioChild(PFMRadioChild* aActor)
     return false;
 #endif
 }
+#endif /* MOZ_MEDIA_FMRADIO */
 
+#ifdef MOZ_WEBSPEECH
 PSpeechSynthesisChild*
 ContentChild::AllocPSpeechSynthesisChild()
 {
@@ -2094,7 +2113,9 @@ ContentChild::DeallocPSpeechSynthesisChild(PSpeechSynthesisChild* aActor)
     return false;
 #endif
 }
+#endif
 
+#ifdef MOZ_MEDIA
 PWebrtcGlobalChild *
 ContentChild::AllocPWebrtcGlobalChild()
 {
@@ -2116,7 +2137,7 @@ ContentChild::DeallocPWebrtcGlobalChild(PWebrtcGlobalChild *aActor)
     return false;
 #endif
 }
-
+#endif
 
 bool
 ContentChild::RecvRegisterChrome(InfallibleTArray<ChromePackage>&& packages,

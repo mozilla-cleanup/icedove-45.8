@@ -159,7 +159,6 @@ UNIFIED_SOURCES += [
     'nsTextFrame.cpp',
     'nsTextFrameUtils.cpp',
     'nsTextRunTransformations.cpp',
-    'nsVideoFrame.cpp',
     'nsViewportFrame.cpp',
     'RubyUtils.cpp',
     'ScrollbarActivity.cpp',
@@ -167,6 +166,9 @@ UNIFIED_SOURCES += [
     'StickyScrollContainer.cpp',
     'TextOverflow.cpp',
 ]
+
+if CONFIG['MOZ_MEDIA']:
+    UNIFIED_SOURCES += ['nsVideoFrame.cpp']
 
 # nsLineLayout.cpp needs to be built separately because it uses plarena.h.
 # nsPluginFrame.cpp needs to be built separately because of name clashes in the OS X headers.

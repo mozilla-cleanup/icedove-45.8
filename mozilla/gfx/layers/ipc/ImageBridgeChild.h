@@ -202,10 +202,12 @@ public:
   virtual bool
   DeallocPTextureChild(PTextureChild* actor) override;
 
+#if MOZ_MEDIA
   PMediaSystemResourceManagerChild*
   AllocPMediaSystemResourceManagerChild() override;
   bool
   DeallocPMediaSystemResourceManagerChild(PMediaSystemResourceManagerChild* aActor) override;
+#endif
 
   virtual PImageContainerChild*
   AllocPImageContainerChild() override;

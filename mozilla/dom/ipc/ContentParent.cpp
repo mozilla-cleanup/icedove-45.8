@@ -30,7 +30,9 @@
 #include "AudioChannelService.h"
 #include "BlobParent.h"
 #include "CrashReporterParent.h"
+#ifdef MOZ_MEDIA
 #include "GMPServiceParent.h"
+#endif
 #include "HandlerServiceParent.h"
 #include "IHistory.h"
 #include "imgIContainer.h"
@@ -56,7 +58,9 @@
 #include "mozilla/dom/PContentBridgeParent.h"
 #include "mozilla/dom/PContentPermissionRequestParent.h"
 #include "mozilla/dom/PCycleCollectWithLogsParent.h"
+#ifdef MOZ_MEDIA_FMRADIO
 #include "mozilla/dom/PFMRadioParent.h"
+#endif
 #include "mozilla/dom/PMemoryReportRequestParent.h"
 #include "mozilla/dom/ServiceWorkerRegistrar.h"
 #include "mozilla/dom/bluetooth/PBluetoothParent.h"
@@ -87,7 +91,9 @@
 #include "mozilla/layers/ImageBridgeParent.h"
 #include "mozilla/layers/SharedBufferManagerParent.h"
 #include "mozilla/LookAndFeel.h"
+#ifdef MOZ_MEDIA
 #include "mozilla/media/MediaParent.h"
+#endif
 #include "mozilla/Move.h"
 #include "mozilla/net/NeckoParent.h"
 #include "mozilla/plugins/PluginBridge.h"
@@ -294,7 +300,9 @@ using namespace mozilla::dom::mobileconnection;
 using namespace mozilla::dom::mobilemessage;
 using namespace mozilla::dom::telephony;
 using namespace mozilla::dom::voicemail;
+#ifdef MOZ_MEDIA
 using namespace mozilla::media;
+#endif
 using namespace mozilla::embedding;
 using namespace mozilla::gmp;
 using namespace mozilla::hal;
@@ -1141,6 +1149,7 @@ static nsIDocShell* GetOpenerDocShellHelper(Element* aFrameElement)
     return docShell;
 }
 
+#ifdef MOZ_MEDIA
 bool
 ContentParent::RecvCreateGMPService()
 {
@@ -1174,6 +1183,7 @@ ContentParent::RecvIsGMPPresentOnDisk(const nsString& aKeySystem,
 
     return true;
 }
+#endif /* MOZ_MEDIA */
 
 bool
 ContentParent::RecvLoadPlugin(const uint32_t& aPluginId, nsresult* aRv, uint32_t* aRunID)
@@ -3394,18 +3404,22 @@ ContentParent::Observe(nsISupports* aSubject,
         }
     }
 #endif
+#ifdef MOZ_MEDIA
     else if (!strcmp(aTopic, "gmp-changed")) {
       Unused << SendNotifyGMPsChanged();
     }
+#endif
     return NS_OK;
 }
 
+#ifdef MOZ_MEDIA
 PGMPServiceParent*
 ContentParent::AllocPGMPServiceParent(mozilla::ipc::Transport* aTransport,
                                       base::ProcessId aOtherProcess)
 {
     return GMPServiceParent::Create(aTransport, aOtherProcess);
 }
+#endif
 
 PCompositorParent*
 ContentParent::AllocPCompositorParent(mozilla::ipc::Transport* aTransport,
@@ -4100,6 +4114,7 @@ ContentParent::DeallocPVoicemailParent(PVoicemailParent* aActor)
     return true;
 }
 
+#ifdef MOZ_MEDIA
 media::PMediaParent*
 ContentParent::AllocPMediaParent()
 {
@@ -4111,6 +4126,7 @@ ContentParent::DeallocPMediaParent(media::PMediaParent *aActor)
 {
   return media::DeallocPMediaParent(aActor);
 }
+#endif /* MOZ_MEDIA */
 
 PStorageParent*
 ContentParent::AllocPStorageParent()
@@ -4163,6 +4179,7 @@ ContentParent::RecvPBluetoothConstructor(PBluetoothParent* aActor)
 #endif
 }
 
+#ifdef MOZ_MEDIA_FMRADIO
 PFMRadioParent*
 ContentParent::AllocPFMRadioParent()
 {
@@ -4188,6 +4205,7 @@ ContentParent::DeallocPFMRadioParent(PFMRadioParent* aActor)
     return false;
 #endif
 }
+#endif /* MOZ_FMRADIO */
 
 PPresentationParent*
 ContentParent::AllocPPresentationParent()
@@ -4210,36 +4228,26 @@ ContentParent::RecvPPresentationConstructor(PPresentationParent* aActor)
   return static_cast<PresentationParent*>(aActor)->Init();
 }
 
+#ifdef MOZ_WEBSPEECH
 PSpeechSynthesisParent*
 ContentParent::AllocPSpeechSynthesisParent()
 {
-#ifdef MOZ_WEBSPEECH
     return new mozilla::dom::SpeechSynthesisParent();
-#else
-    return nullptr;
-#endif
 }
 
 bool
 ContentParent::DeallocPSpeechSynthesisParent(PSpeechSynthesisParent* aActor)
 {
-#ifdef MOZ_WEBSPEECH
     delete aActor;
     return true;
-#else
-    return false;
-#endif
 }
 
 bool
 ContentParent::RecvPSpeechSynthesisConstructor(PSpeechSynthesisParent* aActor)
 {
-#ifdef MOZ_WEBSPEECH
     return true;
-#else
-    return false;
-#endif
 }
+#endif /* MOZ_WEBSPEECH */
 
 bool
 ContentParent::RecvSpeakerManagerGetSpeakerStatus(bool* aValue)
@@ -5288,26 +5296,20 @@ ContentParent::DeallocPOfflineCacheUpdateParent(POfflineCacheUpdateParent* aActo
     return true;
 }
 
+#ifdef MOZ_WEBRTC
 PWebrtcGlobalParent *
 ContentParent::AllocPWebrtcGlobalParent()
 {
-#ifdef MOZ_WEBRTC
     return WebrtcGlobalParent::Alloc();
-#else
-    return nullptr;
-#endif
 }
 
 bool
 ContentParent::DeallocPWebrtcGlobalParent(PWebrtcGlobalParent *aActor)
 {
-#ifdef MOZ_WEBRTC
     WebrtcGlobalParent::Dealloc(static_cast<WebrtcGlobalParent*>(aActor));
     return true;
-#else
-    return false;
-#endif
 }
+#endif
 
 bool
 ContentParent::RecvSetOfflinePermission(const Principal& aPrincipal)

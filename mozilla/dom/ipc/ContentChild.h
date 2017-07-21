@@ -128,9 +128,11 @@ public:
     AllocPContentBridgeChild(mozilla::ipc::Transport* transport,
                              base::ProcessId otherProcess) override;
 
+#ifdef MOZ_MEDIA
     PGMPServiceChild*
     AllocPGMPServiceChild(mozilla::ipc::Transport* transport,
                           base::ProcessId otherProcess) override;
+#endif
 
     PCompositorChild*
     AllocPCompositorChild(mozilla::ipc::Transport* aTransport,
@@ -290,8 +292,10 @@ public:
     PVoicemailChild* SendPVoicemailConstructor(PVoicemailChild* aActor);
     virtual bool DeallocPVoicemailChild(PVoicemailChild*) override;
 
+#ifdef MOZ_MEDIA
     virtual PMediaChild* AllocPMediaChild() override;
     virtual bool DeallocPMediaChild(PMediaChild* aActor) override;
+#endif
 
     virtual PStorageChild* AllocPStorageChild() override;
     virtual bool DeallocPStorageChild(PStorageChild* aActor) override;
@@ -299,8 +303,10 @@ public:
     virtual PBluetoothChild* AllocPBluetoothChild() override;
     virtual bool DeallocPBluetoothChild(PBluetoothChild* aActor) override;
 
+#ifdef MOZ_MEDIA_FMRADIO
     virtual PFMRadioChild* AllocPFMRadioChild() override;
     virtual bool DeallocPFMRadioChild(PFMRadioChild* aActor) override;
+#endif
 
     virtual PPresentationChild* AllocPPresentationChild() override;
     virtual bool DeallocPPresentationChild(PPresentationChild* aActor) override;
@@ -310,8 +316,10 @@ public:
 
     virtual bool RecvNotifyGMPsChanged() override;
 
+#ifdef MOZ_WEBSPEECH
     virtual PSpeechSynthesisChild* AllocPSpeechSynthesisChild() override;
     virtual bool DeallocPSpeechSynthesisChild(PSpeechSynthesisChild* aActor) override;
+#endif
 
     virtual bool RecvRegisterChrome(InfallibleTArray<ChromePackage>&& packages,
                                     InfallibleTArray<SubstitutionMapping>&& resources,
@@ -490,8 +498,10 @@ public:
     virtual bool
     DeallocPOfflineCacheUpdateChild(POfflineCacheUpdateChild* offlineCacheUpdate) override;
 
+#ifdef MOZ_MEDIA
     virtual PWebrtcGlobalChild* AllocPWebrtcGlobalChild() override;
     virtual bool DeallocPWebrtcGlobalChild(PWebrtcGlobalChild *aActor) override;
+#endif
 
     virtual PContentPermissionRequestChild*
     AllocPContentPermissionRequestChild(const InfallibleTArray<PermissionRequest>& aRequests,

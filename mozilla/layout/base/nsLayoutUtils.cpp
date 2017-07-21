@@ -62,7 +62,9 @@
 #include "gfxPlatform.h"
 #include <algorithm>
 #include <limits>
+#ifdef MOZ_MEDIA
 #include "mozilla/dom/HTMLVideoElement.h"
+#endif
 #include "mozilla/dom/HTMLImageElement.h"
 #include "mozilla/dom/DOMRect.h"
 #include "mozilla/dom/KeyframeEffect.h"
@@ -7067,6 +7069,7 @@ nsLayoutUtils::SurfaceFromElement(HTMLCanvasElement* aElement,
   return result;
 }
 
+#ifdef MOZ_MEDIA
 nsLayoutUtils::SurfaceFromElementResult
 nsLayoutUtils::SurfaceFromElement(HTMLVideoElement* aElement,
                                   uint32_t aSurfaceFlags,
@@ -7126,6 +7129,7 @@ nsLayoutUtils::SurfaceFromElement(HTMLVideoElement* aElement,
 
   return result;
 }
+#endif /* MOZ_MEDIA */
 
 nsLayoutUtils::SurfaceFromElementResult
 nsLayoutUtils::SurfaceFromElement(dom::Element* aElement,
@@ -7138,11 +7142,13 @@ nsLayoutUtils::SurfaceFromElement(dom::Element* aElement,
     return SurfaceFromElement(canvas, aSurfaceFlags, aTarget);
   }
 
+#ifdef MOZ_MEDIA
   // Maybe it's <video>?
   if (HTMLVideoElement* video =
         HTMLVideoElement::FromContentOrNull(aElement)) {
     return SurfaceFromElement(video, aSurfaceFlags, aTarget);
   }
+#endif /* MOZ_MEDIA */
 
   // Finally, check if it's a normal image
   nsCOMPtr<nsIImageLoadingContent> imageLoader = do_QueryInterface(aElement);

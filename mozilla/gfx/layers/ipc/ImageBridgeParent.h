@@ -82,8 +82,10 @@ public:
                                               const TextureFlags& aFlags) override;
   virtual bool DeallocPTextureParent(PTextureParent* actor) override;
 
+#ifdef MOZ_MEDIA
   PMediaSystemResourceManagerParent* AllocPMediaSystemResourceManagerParent() override;
   bool DeallocPMediaSystemResourceManagerParent(PMediaSystemResourceManagerParent* aActor) override;
+#endif
   virtual PImageContainerParent* AllocPImageContainerParent() override;
   virtual bool DeallocPImageContainerParent(PImageContainerParent* actor) override;
 

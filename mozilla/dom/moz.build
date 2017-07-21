@@ -64,16 +64,13 @@ DIRS += [
     'fetch',
     'filehandle',
     'filesystem',
-    'fmradio',
     'geolocation',
     'html',
     'icc',
-    'inputport',
     'json',
     'jsurl',
     'asmjscache',
     'mathml',
-    'media',
     'messages',
     'mobileconnection',
     'notification',
@@ -95,14 +92,12 @@ DIRS += [
     'system',
     'ipc',
     'workers',
-    'camera',
     'audiochannel',
     'broadcastchannel',
     'messagechannel',
     'promise',
     'smil',
     'telephony',
-    'tv',
     'voicemail',
     'inputmethod',
     'webidl',
@@ -155,6 +150,21 @@ if CONFIG['MOZ_B2G']:
         'mobileid',
         'engineeringmode'
     ]
+
+if CONFIG['MOZ_MEDIA']:
+    DIRS += ['media']
+
+if CONFIG['MOZ_MEDIA_TV']:
+    DIRS += ['tv']
+
+if CONFIG['MOZ_MEDIA_FMRADIO']:
+    DIRS += ['fmradio']
+
+if CONFIG['MOZ_MEDIA_CAMERA']:
+    DIRS += ['camera']
+
+if CONFIG['MOZ_MEDIA_INPUTPORT']:
+    DIRS += ['inputport']
 
 DIRS += ['presentation']
 

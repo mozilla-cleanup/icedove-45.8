@@ -70,7 +70,6 @@
 #include "AnimationCommon.h"
 #include "LayerAnimationInfo.h"
 
-#include "AudioChannelService.h"
 #include "mozilla/dom/DataStoreService.h"
 #include "mozilla/dom/PromiseDebugging.h"
 #include "mozilla/dom/WebCryptoThreadPool.h"
@@ -107,7 +106,13 @@
 
 #include "CubebUtils.h"
 #include "Latency.h"
+
+#ifdef MOZ_MEDIA
+#include "AudioChannelService.h"
 #include "WebAudioUtils.h"
+#include "mozilla/dom/HTMLVideoElement.h"
+#include "MediaDecoder.h"
+#endif
 
 #ifdef MOZ_WIDGET_GONK
 #include "nsVolumeService.h"
@@ -133,10 +138,8 @@ using namespace mozilla::system;
 #include "mozilla/EventDispatcher.h"
 #include "mozilla/IMEStateManager.h"
 #include "nsDocument.h"
-#include "mozilla/dom/HTMLVideoElement.h"
 #include "CameraPreferences.h"
 #include "TouchManager.h"
-#include "MediaDecoder.h"
 #include "mozilla/layers/CompositorLRU.h"
 #include "mozilla/dom/devicestorage/DeviceStorageStatics.h"
 
@@ -291,7 +294,9 @@ nsLayoutStatics::Initialize()
   nsCookieService::AppClearDataObserverInit();
   nsApplicationCacheService::AppClearDataObserverInit();
 
+#ifdef MOZ_MEDIA
   HTMLVideoElement::Init();
+#endif
 
 #ifdef MOZ_XUL
   nsMenuBarListener::InitializeStatics();
@@ -316,7 +321,9 @@ nsLayoutStatics::Initialize()
   mozilla::LayerAnimationInfo::Initialize();
 #endif
 
+#ifdef MOZ_MEDIA
   MediaDecoder::InitStatics();
+#endif
 
   PromiseDebugging::Init();
 
@@ -407,7 +414,10 @@ nsLayoutStatics::Shutdown()
 
   CubebUtils::ShutdownLibrary();
   AsyncLatencyLogger::ShutdownLogger();
+
+#ifdef MOZ_MEDIA
   WebAudioUtils::Shutdown();
+#endif
 
 #ifdef MOZ_WIDGET_GONK
   nsVolumeService::Shutdown();

@@ -15,9 +15,12 @@
 
 #include "mozilla/dom/BindingUtils.h"
 #include "mozilla/dom/DOMError.h"
-#include "mozilla/dom/MediaStreamError.h"
 #include "mozilla/dom/PromiseBinding.h"
 #include "mozilla/dom/ScriptSettings.h"
+
+#ifdef MOZ_MEDIA
+#include "mozilla/dom/MediaStreamError.h"
+#endif
 
 #include "jsfriendapi.h"
 #include "js/StructuredClone.h"
@@ -537,10 +540,12 @@ Promise::MaybeReject(JSContext* aCx,
   MaybeRejectInternal(aCx, aValue);
 }
 
+#ifdef MOZ_MEDIA
 void
 Promise::MaybeReject(const RefPtr<MediaStreamError>& aArg) {
   MaybeSomething(aArg, &Promise::MaybeReject);
 }
+#endif
 
 bool
 Promise::PerformMicroTaskCheckpoint()
