@@ -226,7 +226,6 @@
 @RESPATH@/components/dom_telephony.xpt
 @RESPATH@/components/dom_threads.xpt
 @RESPATH@/components/dom_traversal.xpt
-@RESPATH@/components/dom_tv.xpt
 @RESPATH@/components/dom_inputport.xpt
 @RESPATH@/components/dom_views.xpt
 @RESPATH@/components/dom_voicemail.xpt
@@ -421,8 +420,6 @@
 @RESPATH@/components/nsLoginManagerPrompter.js
 @RESPATH@/components/NetworkGeolocationProvider.manifest
 @RESPATH@/components/NetworkGeolocationProvider.js
-@RESPATH@/components/TVSimulatorService.js
-@RESPATH@/components/TVSimulatorService.manifest
 #ifdef MOZ_WEBRTC
 @RESPATH@/components/PeerConnection.js
 @RESPATH@/components/PeerConnection.manifest

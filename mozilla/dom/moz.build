@@ -154,9 +154,6 @@ if CONFIG['MOZ_B2G']:
 if CONFIG['MOZ_MEDIA']:
     DIRS += ['media']
 
-if CONFIG['MOZ_MEDIA_TV']:
-    DIRS += ['tv']
-
 if CONFIG['MOZ_MEDIA_FMRADIO']:
     DIRS += ['fmradio']
 

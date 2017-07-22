@@ -243,13 +243,6 @@ static void Shutdown();
 #include "nsITelephonyService.h"
 #include "nsIVoicemailService.h"
 
-#ifdef MOZ_MEDIA_TV
-#include "mozilla/dom/FakeTVService.h"
-#include "mozilla/dom/TVServiceFactory.h"
-#include "mozilla/dom/TVTypes.h"
-#include "nsITVService.h"
-#endif
-
 #ifdef MOZ_MEDIA_INPUTPORT
 #include "FakeInputPortService.h"
 #include "InputPortData.h"
@@ -407,14 +400,6 @@ NS_GENERIC_FACTORY_SINGLETON_CONSTRUCTOR(nsITelephonyService,
                                          NS_CreateTelephonyService)
 NS_GENERIC_FACTORY_SINGLETON_CONSTRUCTOR(nsIVoicemailService,
                                          NS_CreateVoicemailService)
-
-#ifdef MOZ_MEDIA_TV
-NS_GENERIC_FACTORY_SINGLETON_CONSTRUCTOR(FakeTVService,
-                                         TVServiceFactory::CreateFakeTVService)
-NS_GENERIC_FACTORY_CONSTRUCTOR(TVTunerData)
-NS_GENERIC_FACTORY_CONSTRUCTOR(TVChannelData)
-NS_GENERIC_FACTORY_CONSTRUCTOR(TVProgramData)
-#endif /* MOZ_MEDIA_TV */
 
 NS_GENERIC_FACTORY_CONSTRUCTOR(PresentationDeviceManager)
 NS_GENERIC_FACTORY_CONSTRUCTOR(TextInputProcessor)
@@ -1201,12 +1186,6 @@ static const mozilla::Module::CIDEntry kLayoutCIDs[] = {
   { &kTELEPHONY_SERVICE_CID, false, nullptr, nsITelephonyServiceConstructor },
   { &kNS_MOBILE_CONNECTION_SERVICE_CID, false, NULL, nsIMobileConnectionServiceConstructor },
   { &kNS_VOICEMAIL_SERVICE_CID, false, nullptr, nsIVoicemailServiceConstructor },
-#ifdef MOZ_MEDIA_TV
-  { &kFAKE_TV_SERVICE_CID, false, nullptr, FakeTVServiceConstructor },
-  { &kTV_TUNER_DATA_CID, false, nullptr, TVTunerDataConstructor },
-  { &kTV_CHANNEL_DATA_CID, false, nullptr, TVChannelDataConstructor },
-  { &kTV_PROGRAM_DATA_CID, false, nullptr, TVProgramDataConstructor },
-#endif /* MOZ_MEDIA_TV */
   { &kPRESENTATION_SERVICE_CID, false, nullptr, nsIPresentationServiceConstructor },
   { &kPRESENTATION_DEVICE_MANAGER_CID, false, nullptr, PresentationDeviceManagerConstructor },
   { &kPRESENTATION_SESSION_TRANSPORT_CID, false, nullptr, PresentationSessionTransportConstructor },
