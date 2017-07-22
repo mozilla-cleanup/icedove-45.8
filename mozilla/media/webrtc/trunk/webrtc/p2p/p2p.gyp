@@ -100,14 +100,10 @@
         'cflags_cc!': [
           '-Wnon-virtual-dtor',
         ],
-        'defines': [
-          'FEATURE_ENABLE_VOICEMAIL',
-        ],
       },
       'conditions': [
         ['build_with_chromium==0', {
           'defines': [
-            'FEATURE_ENABLE_VOICEMAIL',
             'FEATURE_ENABLE_PSTN',
           ],
         }],

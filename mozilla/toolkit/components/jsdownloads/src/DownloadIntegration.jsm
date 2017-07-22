@@ -81,10 +81,6 @@ XPCOMUtils.defineLazyServiceGetter(this, "gApplicationReputationService",
            "@mozilla.org/downloads/application-reputation-service;1",
            Ci.nsIApplicationReputationService);
 
-XPCOMUtils.defineLazyServiceGetter(this, "volumeService",
-                                   "@mozilla.org/telephony/volume-service;1",
-                                   "nsIVolumeService");
-
 const Timer = Components.Constructor("@mozilla.org/timer;1", "nsITimer",
                                      "initWithCallback");
 

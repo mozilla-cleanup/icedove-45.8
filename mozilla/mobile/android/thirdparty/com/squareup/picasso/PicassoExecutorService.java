@@ -17,7 +17,6 @@ package com.squareup.picasso;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.telephony.TelephonyManager;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -49,22 +48,6 @@ class PicassoExecutorService extends ThreadPoolExecutor {
         break;
       case ConnectivityManager.TYPE_MOBILE:
         switch (info.getSubtype()) {
-          case TelephonyManager.NETWORK_TYPE_LTE:  // 4G
-          case TelephonyManager.NETWORK_TYPE_HSPAP:
-          case TelephonyManager.NETWORK_TYPE_EHRPD:
-            setThreadCount(3);
-            break;
-          case TelephonyManager.NETWORK_TYPE_UMTS: // 3G
-          case TelephonyManager.NETWORK_TYPE_CDMA:
-          case TelephonyManager.NETWORK_TYPE_EVDO_0:
-          case TelephonyManager.NETWORK_TYPE_EVDO_A:
-          case TelephonyManager.NETWORK_TYPE_EVDO_B:
-            setThreadCount(2);
-            break;
-          case TelephonyManager.NETWORK_TYPE_GPRS: // 2G
-          case TelephonyManager.NETWORK_TYPE_EDGE:
-            setThreadCount(1);
-            break;
           default:
             setThreadCount(DEFAULT_THREAD_COUNT);
         }

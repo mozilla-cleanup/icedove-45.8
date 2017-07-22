@@ -221,7 +221,6 @@ if test -n "$gonkdir" ; then
     15)
         GONK_INCLUDES="-I$gonkdir/frameworks/base/opengl/include -I$gonkdir/frameworks/base/native/include -I$gonkdir/frameworks/base/include -I$gonkdir/frameworks/base/services/camera -I$gonkdir/frameworks/base/include/media/ -I$gonkdir/frameworks/base/include/media/stagefright -I$gonkdir/frameworks/base/include/media/stagefright/openmax -I$gonkdir/frameworks/base/media/libstagefright/rtsp -I$gonkdir/frameworks/base/media/libstagefright/include -I$gonkdir/external/dbus -I$gonkdir/dalvik/libnativehelper/include/nativehelper"
         MOZ_NFC=1
-        MOZ_B2G_CAMERA=1
         MOZ_OMX_DECODER=1
         AC_SUBST(MOZ_OMX_DECODER)
         MOZ_RTSP=1
@@ -233,7 +232,6 @@ if test -n "$gonkdir" ; then
 
         MOZ_RTSP=1
         MOZ_NFC=1
-        MOZ_B2G_CAMERA=1
         MOZ_OMX_DECODER=1
         AC_SUBST(MOZ_OMX_DECODER)
         MOZ_OMX_ENCODER=1
@@ -244,7 +242,6 @@ if test -n "$gonkdir" ; then
         ;;
     19)
         GONK_INCLUDES="-I$gonkdir/frameworks/native/include -I$gonkdir/frameworks/av/include -I$gonkdir/frameworks/av/include/media -I$gonkdir/frameworks/av/include/camera -I$gonkdir/frameworks/native/include/media/openmax -I$gonkdir/frameworks/av/media/libstagefright/include -I$gonkdir/external/mdnsresponder/mDNSShared"
-        MOZ_B2G_CAMERA=1
         MOZ_NFC=1
         MOZ_RTSP=1
         MOZ_OMX_DECODER=1
@@ -265,7 +262,6 @@ if test -n "$gonkdir" ; then
         AC_SUBST(MOZ_AUDIO_OFFLOAD)
         AC_DEFINE(MOZ_AUDIO_OFFLOAD)
         MOZ_FMP4=1
-        MOZ_B2G_CAMERA=1
         MOZ_NFC=1
         MOZ_RTSP=1
         ;;
@@ -2071,7 +2067,6 @@ ia64*-hpux*)
     if test -n "$gonkdir"; then
         _PLATFORM_DEFAULT_TOOLKIT=cairo-gonk
         _PLATFORM_HAVE_RIL=1
-        MOZ_B2G_FM=1
         MOZ_SYNTH_PICO=1
     else
         _PLATFORM_DEFAULT_TOOLKIT=cairo-android
@@ -4022,10 +4017,6 @@ esac
 
 BUILD_BACKENDS="$BUILD_BACKENDS FasterMake"
 
-if test -n "$MOZ_B2G"; then
-    AC_DEFINE(MOZ_B2G)
-fi
-
 # Graphene is a desktop runtime for running applications with a HTML UI.
 if test -n "$MOZ_GRAPHENE"; then
     AC_DEFINE(MOZ_GRAPHENE)
@@ -4033,10 +4024,6 @@ fi
 
 if test -n "$MOZ_MULET"; then
     AC_DEFINE(MOZ_MULET)
-fi
-
-if test -n "$MOZ_B2GDROID"; then
-    AC_DEFINE(MOZ_B2GDROID)
 fi
 
 # Propagate feature switches for code written in rust from confvars.sh
@@ -4049,10 +4036,7 @@ fi
 AC_SUBST(MOZ_BUILD_APP)
 AC_SUBST(MOZ_PHOENIX)
 AC_SUBST(MOZ_XULRUNNER)
-AC_SUBST(MOZ_B2G)
 AC_SUBST(MOZ_MULET)
-AC_SUBST(MOZ_B2G_VERSION)
-AC_SUBST(MOZ_B2GDROID)
 
 AC_DEFINE_UNQUOTED(MOZ_BUILD_APP,$MOZ_BUILD_APP)
 
@@ -4072,13 +4056,13 @@ dnl ========================================================
 
 if test -z "$gonkdir" ; then
     case "$MOZ_BUILD_APP" in
-    mobile/android | mobile/android/b2gdroid)
+    mobile/android | mobile/android)
         case "$target" in
         *-android*|*-linuxandroid*)
             :
             ;;
         *)
-            AC_MSG_ERROR([You must specify --target=arm-linux-androideabi (or some other valid android target) when building with --enable-application=mobile/android or --enable-application=mobile/android/b2gdroid.
+            AC_MSG_ERROR([You must specify --target=arm-linux-androideabi (or some other valid android target) when building with --enable-application=mobile/android or --enable-application=mobile/android.
              See https://wiki.mozilla.org/Mobile/Fennec/Android#Setup_Fennec_mozconfig for more information about the necessary options])
             ;;
         esac
@@ -5575,9 +5559,7 @@ case "$OS_TARGET" in
 WINNT|Darwin|Android|OpenBSD)
     ;;
 *)
-    if test -z "$MOZ_B2G"; then
         MOZ_PULSEAUDIO=1
-    fi
     ;;
 esac
 
@@ -5675,17 +5657,6 @@ if test -n "$MOZ_PERMISSIONS"; then
     AC_DEFINE(MOZ_PERMISSIONS)
 fi
 
-dnl ========================================================
-dnl Child permissions, currently only used for b2g
-dnl ========================================================
-if test -n "$MOZ_B2G"; then
-    if test -n "$MOZ_PERMISSIONS"; then
-        MOZ_CHILD_PERMISSIONS=1
-        AC_DEFINE(MOZ_CHILD_PERMISSIONS)
-    else
-        AC_MSG_ERROR([You need to enable MOZ_PERMISSIONS for MOZ_CHILD_PERMISSIONS])
-    fi
-fi
 AC_SUBST(MOZ_CHILD_PERMISSIONS)
 
 dnl ========================================================
@@ -7509,10 +7480,6 @@ MOZ_ARG_DISABLE_BOOL(startupcache,
     MOZ_DISABLE_STARTUPCACHE=1,
     MOZ_DISABLE_STARTUPCACHE=)
 
-dnl bug 988880: disable startup cache on b2g
-if test -n "$MOZ_B2G"; then
-  MOZ_DISABLE_STARTUPCACHE=1
-fi
 if test -n "$MOZ_DISABLE_STARTUPCACHE"; then
   AC_DEFINE(MOZ_DISABLE_STARTUPCACHE)
 fi
@@ -7546,14 +7513,6 @@ if test x"$MOZ_WIDGET_TOOLKIT" != x"gonk"; then
 fi
 
 dnl ========================================================
-dnl = Enable Radio FM for B2G (Gonk usually)
-dnl ========================================================
-if test -n "$MOZ_B2G_FM"; then
-    AC_DEFINE(MOZ_B2G_FM)
-fi
-AC_SUBST(MOZ_B2G_FM)
-
-dnl ========================================================
 dnl = Enable NFC Interface for B2G (Gonk usually)
 dnl ========================================================
 MOZ_ARG_ENABLE_BOOL(nfc,
@@ -7584,18 +7543,6 @@ if test -n "$MOZ_TIME_MANAGER"; then
     AC_DEFINE(MOZ_TIME_MANAGER)
 fi
 AC_SUBST(MOZ_TIME_MANAGER)
-
-dnl ========================================================
-dnl = Enable Camera Interface for B2G (Gonk usually)
-dnl ========================================================
-MOZ_ARG_ENABLE_BOOL(b2g-camera,
-[  --enable-b2g-camera      Set compile flags necessary for compiling camera API for B2G ],
-    MOZ_B2G_CAMERA=1,
-    MOZ_B2G_CAMERA= )
-if test -n "$MOZ_B2G_CAMERA"; then
-   AC_DEFINE(MOZ_B2G_CAMERA)
-fi
-AC_SUBST(MOZ_B2G_CAMERA)
 
 dnl ========================================================
 dnl = Enable Support for SimplePush (Gonk usually)
@@ -8700,10 +8647,6 @@ else
   MOZ_APP_MAXVERSION=$MOZ_APP_VERSION
 fi
 
-MOZ_B2G_VERSION=${MOZ_B2G_VERSION:-"1.0.0"}
-AC_DEFINE_UNQUOTED(MOZ_B2G_VERSION,"$MOZ_B2G_VERSION")
-AC_DEFINE_UNQUOTED(MOZ_B2G_OS_NAME,"$MOZ_B2G_OS_NAME")
-
 AC_SUBST(MOZ_APP_NAME)
 AC_SUBST(MOZ_APP_REMOTINGNAME)
 AC_SUBST(MOZ_APP_DISPLAYNAME)
@@ -8822,15 +8765,6 @@ if test "$MOZ_WIDGET_TOOLKIT" = gonk -a -n "$MOZ_NUWA_PROCESS"; then
     AC_DEFINE(MOZ_NUWA_PROCESS)
 fi
 AC_SUBST(MOZ_NUWA_PROCESS)
-if test "$MOZ_WIDGET_TOOLKIT" = gonk -a -n "$MOZ_B2G_LOADER"; then
-    if test -z "$MOZ_NUWA_PROCESS"; then
-       AC_MSG_ERROR([B2G loader works with Nuwa]);
-    fi
-    export MOZ_B2G_LOADER
-    AC_DEFINE(MOZ_B2G_LOADER)
-fi
-AC_SUBST(MOZ_B2G_LOADER)
-
 AC_SUBST(MOZ_NATIVE_NSPR)
 
 AC_SUBST(MOZ_NATIVE_NSS)

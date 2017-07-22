@@ -802,9 +802,6 @@ RadioInterface.prototype = {
       case "iccimsi":
         gIccService.notifyImsiChanged(this.clientId, message.imsi);
         break;
-      case "iccmbdn":
-        this.handleIccMbdn(message);
-        break;
       case "iccmwis":
         this.handleIccMwis(message.mwi);
         break;
@@ -986,12 +983,6 @@ RadioInterface.prototype = {
       return;
     }
     gTimeService.set(Date.now() + offset);
-  },
-
-  handleIccMbdn: function(message) {
-    let service = Cc["@mozilla.org/voicemail/voicemailservice;1"]
-                  .getService(Ci.nsIGonkVoicemailService);
-    service.notifyInfoChanged(this.clientId, message.number, message.alphaId);
   },
 
   handleIccMwis: function(mwi) {

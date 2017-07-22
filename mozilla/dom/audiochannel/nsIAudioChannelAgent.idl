@@ -41,7 +41,6 @@ interface nsIAudioChannelAgent : nsISupports
   const long AUDIO_AGENT_CHANNEL_CONTENT            = 1;
   const long AUDIO_AGENT_CHANNEL_NOTIFICATION       = 2;
   const long AUDIO_AGENT_CHANNEL_ALARM              = 3;
-  const long AUDIO_AGENT_CHANNEL_TELEPHONY          = 4;
   const long AUDIO_AGENT_CHANNEL_RINGER             = 5;
   const long AUDIO_AGENT_CHANNEL_PUBLICNOTIFICATION = 6;
   const long AUDIO_AGENT_CHANNEL_SYSTEM             = 7;

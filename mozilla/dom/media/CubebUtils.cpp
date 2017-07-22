@@ -176,8 +176,6 @@ cubeb_stream_type ConvertChannelToCubebType(dom::AudioChannel aChannel)
       return CUBEB_STREAM_TYPE_NOTIFICATION;
     case dom::AudioChannel::Alarm:
       return CUBEB_STREAM_TYPE_ALARM;
-    case dom::AudioChannel::Telephony:
-      return CUBEB_STREAM_TYPE_VOICE_CALL;
     case dom::AudioChannel::Ringer:
       return CUBEB_STREAM_TYPE_RING;
     case dom::AudioChannel::System:

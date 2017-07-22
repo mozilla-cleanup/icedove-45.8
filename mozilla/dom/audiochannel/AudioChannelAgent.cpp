@@ -88,7 +88,6 @@ AudioChannelAgent::InitInternal(nsIDOMWindow* aWindow, int32_t aChannelType,
              int(AUDIO_AGENT_CHANNEL_CONTENT) == int(AudioChannel::Content) &&
              int(AUDIO_AGENT_CHANNEL_NOTIFICATION) == int(AudioChannel::Notification) &&
              int(AUDIO_AGENT_CHANNEL_ALARM) == int(AudioChannel::Alarm) &&
-             int(AUDIO_AGENT_CHANNEL_TELEPHONY) == int(AudioChannel::Telephony) &&
              int(AUDIO_AGENT_CHANNEL_RINGER) == int(AudioChannel::Ringer) &&
              int(AUDIO_AGENT_CHANNEL_SYSTEM) == int(AudioChannel::System) &&
              int(AUDIO_AGENT_CHANNEL_PUBLICNOTIFICATION) == int(AudioChannel::Publicnotification),

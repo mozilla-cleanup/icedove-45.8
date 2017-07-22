@@ -112,7 +112,6 @@ static const uint32_t sChannelStreamTbl[NUMBER_OF_AUDIO_CHANNELS] = {
   AUDIO_STREAM_MUSIC,           // AudioChannel::Content
   AUDIO_STREAM_NOTIFICATION,    // AudioChannel::Notification
   AUDIO_STREAM_ALARM,           // AudioChannel::Alarm
-  AUDIO_STREAM_VOICE_CALL,      // AudioChannel::Telephony
   AUDIO_STREAM_RING,            // AudioChannel::Ringer
   AUDIO_STREAM_ENFORCED_AUDIBLE,// AudioChannel::Publicnotification
   AUDIO_STREAM_SYSTEM,          // AudioChannel::System
@@ -150,7 +149,6 @@ static const VolumeData gVolumeData[] = {
   {"audio.volume.content",      AUDIO_STREAM_MUSIC},
   {"audio.volume.notification", AUDIO_STREAM_NOTIFICATION},
   {"audio.volume.alarm",        AUDIO_STREAM_ALARM},
-  {"audio.volume.telephony",    AUDIO_STREAM_VOICE_CALL},
 };
 
 class RunnableCallTask : public Task
@@ -451,9 +449,6 @@ AudioManager::HandleAudioChannelProcessChanged()
   }
 
   RefPtr<AudioChannelService> service = AudioChannelService::GetOrCreate();
-  bool telephonyChannelIsActive = service && service->TelephonyChannelIsActive();
-  telephonyChannelIsActive ? SetPhoneState(PHONE_STATE_IN_COMMUNICATION) :
-                             SetPhoneState(PHONE_STATE_NORMAL);
 }
 
 nsresult
@@ -718,35 +713,6 @@ AudioManager::GetForceForUse(int32_t aUsage, int32_t* aForce) {
   NS_NOTREACHED("Doesn't support force routing on GB version");
   return NS_ERROR_UNEXPECTED;
 #endif
-}
-
-NS_IMETHODIMP
-AudioManager::GetFmRadioAudioEnabled(bool *aFmRadioAudioEnabled)
-{
-  *aFmRadioAudioEnabled = IsFmOutConnected();
-  return NS_OK;
-}
-
-NS_IMETHODIMP
-AudioManager::SetFmRadioAudioEnabled(bool aFmRadioAudioEnabled)
-{
-  UpdateDeviceConnectionState(aFmRadioAudioEnabled,
-                              AUDIO_DEVICE_OUT_FM,
-                              NS_LITERAL_CSTRING(""));
-  // AUDIO_STREAM_FM is not used on recent gonk.
-  // AUDIO_STREAM_MUSIC is used for FM radio volume control.
-#if ANDROID_VERSION < 19
-  // sync volume with music after powering on fm radio
-  if (aFmRadioAudioEnabled) {
-    uint32_t volIndex = mStreamStates[AUDIO_STREAM_MUSIC]->GetVolumeIndex();
-    nsresult rv = mStreamStates[AUDIO_STREAM_FM]->
-      SetVolumeIndex(volIndex, AUDIO_DEVICE_OUT_FM);
-    if (NS_WARN_IF(NS_FAILED(rv))) {
-      return rv;
-    }
-  }
-#endif
-  return NS_OK;
 }
 
 NS_IMETHODIMP

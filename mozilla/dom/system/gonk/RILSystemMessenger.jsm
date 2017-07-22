@@ -48,7 +48,6 @@ RILSystemMessenger.prototype = {
    * Wrapper to send "telephony-new-call" system message.
    */
   notifyNewCall: function() {
-    this.broadcastMessage("telephony-new-call", {});
   },
 
   /**

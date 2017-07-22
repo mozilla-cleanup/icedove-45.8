@@ -322,13 +322,6 @@ partial interface Navigator {
   Promise<sequence<VRDevice>> getVRDevices();
 };
 
-#ifdef MOZ_B2G_FM
-partial interface Navigator {
-  [Throws, CheckAnyPermissions="fmradio", UnsafeInPrerendering]
-  readonly attribute FMRadio mozFMRadio;
-};
-#endif // MOZ_B2G_FM
-
 #ifdef MOZ_TIME_MANAGER
 // nsIDOMMozNavigatorTime
 partial interface Navigator {

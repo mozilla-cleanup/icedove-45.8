@@ -726,12 +726,6 @@ SmsService.prototype = {
   },
 
   _handleMwis: function(aMwi, aServiceId) {
-    let service = Cc["@mozilla.org/voicemail/voicemailservice;1"]
-                  .getService(Ci.nsIGonkVoicemailService);
-    service.notifyStatusChanged(aServiceId, aMwi.active, aMwi.msgCount,
-                                aMwi.returnNumber, aMwi.returnMessage);
-
-    gRadioInterfaces[aServiceId].sendWorkerMessage("updateMwis", { mwi: aMwi });
   },
 
   _portAddressedSmsApps: null,

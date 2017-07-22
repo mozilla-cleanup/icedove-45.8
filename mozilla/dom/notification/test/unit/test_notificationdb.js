@@ -153,7 +153,7 @@ add_test(function test_delete_previous() {
 // Store two notifications from same origin with the same tag
 add_test(function test_send_two_get_one() {
   let requestID = 10;
-  let tag = "voicemail";
+  let tag = "foo";
 
   let systemNotification1 =
     getNotificationObject("system", "{f271f9ee-3955-4c10-b1f2-af552fb270ee}", tag);
@@ -221,7 +221,7 @@ add_test(function test_delete_previous() {
 // Store two notifications from two origins with the same tag
 add_test(function test_send_two_get_two() {
   let requestID = 20;
-  let tag = "voicemail";
+  let tag = "foo";
 
   let systemNotification1 = systemNotification;
   systemNotification1.tag = tag;

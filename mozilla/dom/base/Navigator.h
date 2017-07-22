@@ -58,10 +58,6 @@ namespace battery {
 class BatteryManager;
 } // namespace battery
 
-#ifdef MOZ_B2G_FM
-class FMRadio;
-#endif
-
 class Promise;
 
 class DesktopNotificationCenter;
@@ -83,8 +79,6 @@ class Connection;
 class PowerManager;
 class CellBroadcast;
 class IccManager;
-class Telephony;
-class Voicemail;
 class InputPortManager;
 class DeviceStorageAreaListener;
 class Presentation;
@@ -228,8 +222,6 @@ public:
   CellBroadcast* GetMozCellBroadcast(ErrorResult& aRv);
   IccManager* GetMozIccManager(ErrorResult& aRv);
   MobileMessageManager* GetMozMobileMessage();
-  Telephony* GetMozTelephony(ErrorResult& aRv);
-  Voicemail* GetMozVoicemail(ErrorResult& aRv);
   InputPortManager* GetInputPortManager(ErrorResult& aRv);
   already_AddRefed<LegacyMozTCPSocket> MozTCPSocket();
   network::Connection* GetConnection(ErrorResult& aRv);
@@ -249,9 +241,6 @@ public:
   void GetGamepads(nsTArray<RefPtr<Gamepad> >& aGamepads, ErrorResult& aRv);
 #endif // MOZ_GAMEPAD
   already_AddRefed<Promise> GetVRDevices(ErrorResult& aRv);
-#ifdef MOZ_B2G_FM
-  FMRadio* GetMozFMRadio(ErrorResult& aRv);
-#endif
 #ifdef MOZ_TIME_MANAGER
   time::TimeManager* GetMozTime(ErrorResult& aRv);
 #endif // MOZ_TIME_MANAGER
@@ -356,15 +345,10 @@ private:
   RefPtr<DesktopNotificationCenter> mNotification;
   RefPtr<battery::BatteryManager> mBatteryManager;
   RefPtr<Promise> mBatteryPromise;
-#ifdef MOZ_B2G_FM
-  RefPtr<FMRadio> mFMRadio;
-#endif
   RefPtr<PowerManager> mPowerManager;
   RefPtr<CellBroadcast> mCellBroadcast;
   RefPtr<IccManager> mIccManager;
   RefPtr<MobileMessageManager> mMobileMessageManager;
-  RefPtr<Telephony> mTelephony;
-  RefPtr<Voicemail> mVoicemail;
   RefPtr<InputPortManager> mInputPortManager;
   RefPtr<network::Connection> mConnection;
 #ifdef MOZ_AUDIO_CHANNEL_MANAGER

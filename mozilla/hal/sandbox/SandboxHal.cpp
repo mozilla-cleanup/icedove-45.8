@@ -366,63 +366,6 @@ SetThreadPriority(PlatformThreadId aThreadId,
   NS_RUNTIMEABORT("Setting thread priority cannot be called from sandboxed contexts.");
 }
 
-void
-EnableFMRadio(const hal::FMRadioSettings& aSettings)
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-}
-
-void
-DisableFMRadio()
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-}
-
-void
-FMRadioSeek(const hal::FMRadioSeekDirection& aDirection)
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-}
-
-void
-GetFMRadioSettings(FMRadioSettings* aSettings)
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-}
-
-void
-SetFMRadioFrequency(const uint32_t aFrequency)
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-}
-
-uint32_t
-GetFMRadioFrequency()
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-  return 0;
-}
-
-bool
-IsFMRadioOn()
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-  return false;
-}
-
-uint32_t
-GetFMRadioSignalStrength()
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-  return 0;
-}
-
-void
-CancelFMRadioSeek()
-{
-  NS_RUNTIMEABORT("FM radio cannot be called from sandboxed contexts.");
-}
-
 bool
 EnableRDS(uint32_t aMask)
 {

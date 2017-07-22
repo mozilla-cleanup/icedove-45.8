@@ -282,13 +282,6 @@ public:
     virtual PSmsChild* AllocPSmsChild() override;
     virtual bool DeallocPSmsChild(PSmsChild*) override;
 
-    virtual PTelephonyChild* AllocPTelephonyChild() override;
-    virtual bool DeallocPTelephonyChild(PTelephonyChild*) override;
-
-    virtual PVoicemailChild* AllocPVoicemailChild() override;
-    PVoicemailChild* SendPVoicemailConstructor(PVoicemailChild* aActor);
-    virtual bool DeallocPVoicemailChild(PVoicemailChild*) override;
-
 #ifdef MOZ_MEDIA
     virtual PMediaChild* AllocPMediaChild() override;
     virtual bool DeallocPMediaChild(PMediaChild* aActor) override;
@@ -296,11 +289,6 @@ public:
 
     virtual PStorageChild* AllocPStorageChild() override;
     virtual bool DeallocPStorageChild(PStorageChild* aActor) override;
-
-#ifdef MOZ_MEDIA_FMRADIO
-    virtual PFMRadioChild* AllocPFMRadioChild() override;
-    virtual bool DeallocPFMRadioChild(PFMRadioChild* aActor) override;
-#endif
 
     virtual PPresentationChild* AllocPPresentationChild() override;
     virtual bool DeallocPPresentationChild(PPresentationChild* aActor) override;

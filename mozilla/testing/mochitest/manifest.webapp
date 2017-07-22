@@ -12,8 +12,6 @@
     "power":{},
     "webapps-manage":{},
     "mobileconnection":{},
-    "telephony":{},
-    "voicemail":{},
     "device-storage:pictures":{ "access": "readwrite" },
     "device-storage:sdcard":{ "access": "readwrite" },
     "settings":{ "access": "readwrite" },

@@ -330,8 +330,6 @@ WEBIDL_FILES = [
     'MozSelfSupport.webidl',
     'MozTetheringManager.webidl',
     'MozTimeManager.webidl',
-    'MozVoicemail.webidl',
-    'MozVoicemailStatus.webidl',
     'MozWakeLock.webidl',
     'MutationEvent.webidl',
     'MutationObserver.webidl',
@@ -728,11 +726,6 @@ else:
         'InstallTrigger.webidl',
     ]
 
-if CONFIG['MOZ_B2G_FM']:
-    WEBIDL_FILES += [
-        'FMRadio.webidl',
-    ]
-
 GENERATED_EVENTS_WEBIDL_FILES = [
     'AnimationPlaybackEvent.webidl',
     'AutocompleteErrorEvent.webidl',
@@ -775,7 +768,6 @@ GENERATED_EVENTS_WEBIDL_FILES = [
     'MozSettingsTransactionEvent.webidl',
     'MozSmsEvent.webidl',
     'MozStkCommandEvent.webidl',
-    'MozVoicemailEvent.webidl',
     'PageTransitionEvent.webidl',
     'PerformanceEntryEvent.webidl',
     'PluginCrashedEvent.webidl',

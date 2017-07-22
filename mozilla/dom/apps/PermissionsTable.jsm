@@ -121,11 +121,6 @@ this.PermissionsTable =  { geolocation: {
                              privileged: ALLOW_ACTION,
                              certified: ALLOW_ACTION
                            },
-                           telephony: {
-                             app: DENY_ACTION,
-                             privileged: DENY_ACTION,
-                             certified: ALLOW_ACTION
-                           },
                            browser: {
                              app: DENY_ACTION,
                              privileged: ALLOW_ACTION,
@@ -187,11 +182,6 @@ this.PermissionsTable =  { geolocation: {
                              privileged: DENY_ACTION,
                              certified: ALLOW_ACTION
                            },
-                           fmradio: {
-                             app: DENY_ACTION,
-                             privileged: ALLOW_ACTION,
-                             certified: ALLOW_ACTION
-                           },
                            attention: {
                              app: DENY_ACTION,
                              privileged: DENY_ACTION,
@@ -248,11 +238,6 @@ this.PermissionsTable =  { geolocation: {
                              privileged: ALLOW_ACTION,
                              certified: ALLOW_ACTION
                            },
-                           "voicemail": {
-                             app: DENY_ACTION,
-                             privileged: DENY_ACTION,
-                             certified: ALLOW_ACTION
-                           },
                            "idle": {
                              app: DENY_ACTION,
                              privileged: DENY_ACTION,
@@ -307,17 +292,6 @@ this.PermissionsTable =  { geolocation: {
                              app: DENY_ACTION,
                              privileged: ALLOW_ACTION,
                              certified: ALLOW_ACTION
-                           },
-                           "audio-channel-telephony": {
-                             app: DENY_ACTION,
-                             privileged: DENY_ACTION,
-                             certified: ALLOW_ACTION
-                           },
-                           "moz-audio-channel-telephony": {
-                             app: DENY_ACTION,
-                             privileged: ALLOW_ACTION,
-                             certified: ALLOW_ACTION,
-                             substitute: ["audio-channel-telephony"]
                            },
                            "audio-channel-ringer": {
                              app: DENY_ACTION,

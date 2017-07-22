@@ -64,10 +64,6 @@ XPCOMUtils.defineLazyServiceGetter(this, "gDataCallManager",
                                    "@mozilla.org/datacall/manager;1",
                                    "nsIDataCallManager");
 
-XPCOMUtils.defineLazyModuleGetter(this, "gTelephonyUtils",
-                                  "resource://gre/modules/TelephonyUtils.jsm",
-                                  "TelephonyUtils");
-
 XPCOMUtils.defineLazyGetter(this, "gRadioInterfaceLayer", function() {
   let ril = { numRadioInterfaces: 0 };
   try {
@@ -533,20 +529,6 @@ MobileConnectionProvider.prototype = {
     let key = "ro.moz.ril." + this._clientId + ".network_types";
     let supportedNetworkTypes = libcutils.property_get(key, "").split(",");
 
-    // If mozRIL system property is not available, fallback to AOSP system
-    // property for support network types.
-    if (supportedNetworkTypes.length === 1 && supportedNetworkTypes[0] === "") {
-      key = "ro.telephony.default_network";
-      let indexString = libcutils.property_get(key, "");
-      let index = parseInt(indexString, 10);
-      if (DEBUG) this._debug("Fallback to " + key + ": " + index);
-
-      let networkTypes = RIL.RIL_PREFERRED_NETWORK_TYPE_TO_GECKO[index];
-      supportedNetworkTypes = networkTypes ?
-        networkTypes.replace(/-auto/g, "").split("/") :
-        RIL.GECKO_SUPPORTED_NETWORK_TYPES_DEFAULT.split(",");
-    }
-
     let enumNetworkTypes = [];
     for (let type of supportedNetworkTypes) {
       // If the value in system property is not valid, use the default one which
@@ -786,17 +768,6 @@ MobileConnectionProvider.prototype = {
       }
 
       this._dataRegistrationFailed = true;
-      // If there is any ongoing call, wait for them to disconnect.
-      if (gTelephonyUtils.hasAnyCalls(this._clientId)) {
-        gTelephonyUtils.waitForNoCalls(this._clientId)
-          .then(() => {
-            if (this._dataRegistrationFailed) {
-              this._recoverDataRegistration();
-            }
-          });
-        return;
-      }
-
       this._recoverDataRegistration();
     }
   },

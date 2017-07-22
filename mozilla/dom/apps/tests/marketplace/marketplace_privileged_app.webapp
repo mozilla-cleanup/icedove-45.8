@@ -33,9 +33,6 @@
       "access": "readwrite",
       "description": "Testing"
     },
-    "fmradio": {
-      "description": "Testing"
-    },
     "storage": {
       "description": "Testing"
     },

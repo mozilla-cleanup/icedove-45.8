@@ -41,7 +41,6 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -228,19 +227,6 @@ public class SUTAgentAndroid extends Activity
                         if (macAddress != null)
                             sUniqueID = macAddress;
                     }
-            }
-
-        if (sUniqueID == null)
-            {
-            TelephonyManager mTelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-            if (mTelephonyMgr != null)
-                {
-                sUniqueID = mTelephonyMgr.getDeviceId();
-                if (sUniqueID == null)
-                    {
-                    sUniqueID = "0011223344556677";
-                    }
-                }
             }
 
         String hwid = getHWID(this);
@@ -744,12 +730,6 @@ public class SUTAgentAndroid extends Activity
 
         if (sHWID != null)
             return sHWID;
-
-        // Otherwise, try from the telephony manager
-        TelephonyManager mTelephonyMgr = (TelephonyManager) cx.getSystemService(TELEPHONY_SERVICE);
-        if (mTelephonyMgr != null) {
-            sHWID = mTelephonyMgr.getDeviceId();
-        }
 
         if (sHWID != null)
             return sHWID;

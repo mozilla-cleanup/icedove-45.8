@@ -174,10 +174,6 @@
 #include "mozilla/dom/PFileSystemRequestChild.h"
 #include "mozilla/dom/FileSystemTaskBase.h"
 
-#ifdef MOZ_MEDIA_FMRADIO
-#include "mozilla/dom/PFMRadioChild.h"
-#endif
-
 #include "mozilla/dom/PPresentationChild.h"
 #include "mozilla/dom/PresentationIPCService.h"
 #include "mozilla/ipc/InputStreamUtils.h"
@@ -194,9 +190,7 @@
 #include "DomainPolicy.h"
 #include "mozilla/dom/DataStoreService.h"
 #include "mozilla/dom/ipc/StructuredCloneData.h"
-#include "mozilla/dom/telephony/PTelephonyChild.h"
 #include "mozilla/dom/time/DateCacheCleaner.h"
-#include "mozilla/dom/voicemail/VoicemailIPCService.h"
 #include "mozilla/net/NeckoMessageUtils.h"
 #include "mozilla/widget/PuppetBidiKeyboard.h"
 #include "mozilla/RemoteSpellCheckEngineChild.h"
@@ -215,8 +209,6 @@ using namespace mozilla::dom::icc;
 using namespace mozilla::dom::ipc;
 using namespace mozilla::dom::mobileconnection;
 using namespace mozilla::dom::mobilemessage;
-using namespace mozilla::dom::telephony;
-using namespace mozilla::dom::voicemail;
 #ifdef MOZ_MEDIA
 using namespace mozilla::media;
 using namespace mozilla::gmp;
@@ -1940,43 +1932,6 @@ ContentChild::DeallocPSmsChild(PSmsChild* aSms)
     return true;
 }
 
-PTelephonyChild*
-ContentChild::AllocPTelephonyChild()
-{
-    MOZ_CRASH("No one should be allocating PTelephonyChild actors");
-}
-
-bool
-ContentChild::DeallocPTelephonyChild(PTelephonyChild* aActor)
-{
-    delete aActor;
-    return true;
-}
-
-PVoicemailChild*
-ContentChild::AllocPVoicemailChild()
-{
-    MOZ_CRASH("No one should be allocating PVoicemailChild actors");
-}
-
-PVoicemailChild*
-ContentChild::SendPVoicemailConstructor(PVoicemailChild* aActor)
-{
-    aActor = PContentChild::SendPVoicemailConstructor(aActor);
-    if (aActor) {
-        static_cast<VoicemailIPCService*>(aActor)->AddRef();
-    }
-
-    return aActor;
-}
-
-bool
-ContentChild::DeallocPVoicemailChild(PVoicemailChild* aActor)
-{
-    static_cast<VoicemailIPCService*>(aActor)->Release();
-    return true;
-}
-
 #ifdef MOZ_MEDIA
 media::PMediaChild*
 ContentChild::AllocPMediaChild()
@@ -2005,32 +1960,6 @@ ContentChild::DeallocPStorageChild(PStorageChild* aActor)
     child->ReleaseIPDLReference();
     return true;
 }
-
-#ifdef MOZ_MEDIA_FMRADIO
-PFMRadioChild*
-ContentChild::AllocPFMRadioChild()
-{
-#ifdef MOZ_B2G_FM
-    NS_RUNTIMEABORT("No one should be allocating PFMRadioChild actors");
-    return nullptr;
-#else
-    NS_RUNTIMEABORT("No support for FMRadio on this platform!");
-    return nullptr;
-#endif
-}
-
-bool
-ContentChild::DeallocPFMRadioChild(PFMRadioChild* aActor)
-{
-#ifdef MOZ_B2G_FM
-    delete aActor;
-    return true;
-#else
-    NS_RUNTIMEABORT("No support for FMRadio on this platform!");
-    return false;
-#endif
-}
-#endif /* MOZ_MEDIA_FMRADIO */
 
 #ifdef MOZ_WEBSPEECH
 PSpeechSynthesisChild*

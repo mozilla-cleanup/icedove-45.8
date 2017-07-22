@@ -159,7 +159,6 @@ static const nsAttrValue::EnumTable kMozAudioChannelAttributeTable[] = {
   { "content",            (int16_t)AudioChannel::Content },
   { "notification",       (int16_t)AudioChannel::Notification },
   { "alarm",              (int16_t)AudioChannel::Alarm },
-  { "telephony",          (int16_t)AudioChannel::Telephony },
   { "ringer",             (int16_t)AudioChannel::Ringer },
   { "publicnotification", (int16_t)AudioChannel::Publicnotification },
   { "system",             (int16_t)AudioChannel::System },
@@ -238,7 +237,6 @@ NS_IMPL_RELEASE(AudioChannelService)
 
 AudioChannelService::AudioChannelService()
   : mDefChannelChildID(CONTENT_PROCESS_ID_UNKNOWN)
-  , mTelephonyChannel(false)
   , mContentOrNormalChannel(false)
   , mAnyChannel(false)
 {
@@ -383,32 +381,6 @@ AudioChannelService::GetState(nsPIDOMWindow* aWindow, uint32_t aAudioChannel,
 
     // If there is no parent, or we are the toplevel we don't continue.
   } while (window && window != aWindow);
-}
-
-bool
-AudioChannelService::TelephonyChannelIsActive()
-{
-  nsTObserverArray<nsAutoPtr<AudioChannelWindow>>::ForwardIterator windowsIter(mWindows);
-  while (windowsIter.HasMore()) {
-    AudioChannelWindow* next = windowsIter.GetNext();
-    if (next->mChannels[(uint32_t)AudioChannel::Telephony].mNumberOfAgents != 0 &&
-        !next->mChannels[(uint32_t)AudioChannel::Telephony].mMuted) {
-      return true;
-    }
-  }
-
-  if (IsParentProcess()) {
-    nsTObserverArray<nsAutoPtr<AudioChannelChildStatus>>::ForwardIterator
-      childrenIter(mPlayingChildren);
-    while (childrenIter.HasMore()) {
-      AudioChannelChildStatus* child = childrenIter.GetNext();
-      if (child->mActiveTelephonyChannel) {
-        return true;
-      }
-    }
-  }
-
-  return false;
 }
 
 bool
@@ -923,30 +895,16 @@ AudioChannelService::MaybeSendStatusUpdate()
     return;
   }
 
-  bool telephonyChannel = TelephonyChannelIsActive();
   bool contentOrNormalChannel = ContentOrNormalChannelIsActive();
   bool anyChannel = AnyAudioChannelIsActive();
 
-  if (telephonyChannel == mTelephonyChannel &&
-      contentOrNormalChannel == mContentOrNormalChannel &&
-      anyChannel == mAnyChannel) {
-    return;
-  }
-
-  mTelephonyChannel = telephonyChannel;
   mContentOrNormalChannel = contentOrNormalChannel;
   mAnyChannel = anyChannel;
-
-  ContentChild* cc = ContentChild::GetSingleton();
-  if (cc) {
-    cc->SendAudioChannelServiceStatus(telephonyChannel, contentOrNormalChannel,
-                                      anyChannel);
-  }
 }
 
 void
 AudioChannelService::ChildStatusReceived(uint64_t aChildID,
-                                         bool aTelephonyChannel,
+                                         bool dummy,
                                          bool aContentOrNormalChannel,
                                          bool aAnyChannel)
 {
@@ -961,7 +919,6 @@ AudioChannelService::ChildStatusReceived(uint64_t aChildID,
     mPlayingChildren.AppendElement(data);
   }
 
-  data->mActiveTelephonyChannel = aTelephonyChannel;
   data->mActiveContentOrNormalChannel = aContentOrNormalChannel;
 }
 

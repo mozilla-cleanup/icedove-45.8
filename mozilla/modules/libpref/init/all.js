@@ -4798,11 +4798,6 @@ pref("dom.mozInputMethod.enabled", false);
 // DataStore is disabled by default
 pref("dom.datastore.enabled", false);
 
-pref("dom.telephony.enabled", false);
-// Numeric default service id for WebTelephony API calls with |serviceId|
-// parameter omitted.
-pref("dom.telephony.defaultServiceId", 0);
-
 // Cell Broadcast API
 pref("dom.cellbroadcast.enabled", false);
 
@@ -4811,12 +4806,6 @@ pref("dom.icc.enabled", false);
 
 // Mobile Connection API
 pref("dom.mobileconnection.enabled", false);
-
-// Voice Mail API
-pref("dom.voicemail.enabled", false);
-// Numeric default service id for Voice Mail API calls with |serviceId|
-// parameter omitted.
-pref("dom.voicemail.defaultServiceId", 0);
 
 // DOM Inter-App Communication API.
 pref("dom.inter-app-communication-api.enabled", false);

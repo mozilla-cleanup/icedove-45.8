@@ -6209,21 +6209,6 @@ GsmPDUHelperObject.prototype = {
 
         // If TP-UDH is present, these values will be overwritten
         switch (dcs & PDU_DCS_MWI_TYPE_BITS) {
-          case PDU_DCS_MWI_TYPE_VOICEMAIL:
-            let mwi = msg.mwi;
-            if (!mwi) {
-              mwi = msg.mwi = {};
-            }
-
-            mwi.active = active;
-            mwi.discard = (dcs & PDU_DCS_CODING_GROUP_BITS) == 0xC0;
-            mwi.msgCount = active ? GECKO_VOICEMAIL_MESSAGE_COUNT_UNKNOWN : 0;
-
-            if (DEBUG) {
-              this.context.debug("MWI in DCS received for voicemail: " +
-                                 JSON.stringify(mwi));
-            }
-            break;
           case PDU_DCS_MWI_TYPE_FAX:
             if (DEBUG) this.context.debug("MWI in DCS received for fax");
             break;
@@ -8238,7 +8223,6 @@ CdmaPDUHelperObject.prototype = {
         switch (msgType) {
           case PDU_CDMA_MSG_CODING_IS_91_TYPE_SMS:
           case PDU_CDMA_MSG_CODING_IS_91_TYPE_SMS_FULL:
-          case PDU_CDMA_MSG_CODING_IS_91_TYPE_VOICEMAIL_STATUS:
             while(msgBodySize > 0) {
               msgDigit = String.fromCharCode(BitBufferHelper.readBits(6) + 0x20);
               result += msgDigit;
@@ -12760,8 +12744,7 @@ SimRecordHelperObject.prototype = {
         // Normally, when mwi is active, the msgCount must be larger than 0.
         // Refer to other reference phone,
         // 0 is usually treated as UNKNOWN for storing 2nd level MWI status (DCS).
-        mwi.msgCount = (mwis[1] === 0) ? GECKO_VOICEMAIL_MESSAGE_COUNT_UNKNOWN
-                                       : mwis[1];
+        mwi.msgCount = : mwis[1];
       } else {
         mwi.msgCount = 0;
       }
@@ -12791,8 +12774,7 @@ SimRecordHelperObject.prototype = {
     function dataWriter(recordSize) {
       let mwis = RIL.iccInfoPrivate.mwis;
 
-      let msgCount =
-          (mwi.msgCount === GECKO_VOICEMAIL_MESSAGE_COUNT_UNKNOWN) ? 0 : mwi.msgCount;
+      let msgCount = mwi.msgCount;
 
       [mwis[0], mwis[1]] = (mwi.active) ? [(mwis[0] | 0x01), msgCount]
                                         : [(mwis[0] & 0xFE), 0];

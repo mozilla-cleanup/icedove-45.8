@@ -84,12 +84,6 @@ public:
   bool IsAudioChannelActive(nsPIDOMWindow* aWindow, AudioChannel aChannel);
 
   /**
-   * Return true if there is a telephony channel active in this process
-   * or one of its subprocesses.
-   */
-  bool TelephonyChannelIsActive();
-
-  /**
    * Return true if a normal or content channel is active for the given
    * process ID.
    */
@@ -138,7 +132,7 @@ public:
 
   void Notify(uint64_t aWindowID);
 
-  void ChildStatusReceived(uint64_t aChildID, bool aTelephonyChannel,
+  void ChildStatusReceived(uint64_t aChildID, bool dummy,
                            bool aContentOrNormalChannel, bool aAnyChannel);
 
 private:
@@ -200,12 +194,10 @@ private:
   {
     explicit AudioChannelChildStatus(uint64_t aChildID)
       : mChildID(aChildID)
-      , mActiveTelephonyChannel(false)
       , mActiveContentOrNormalChannel(false)
     {}
 
     uint64_t mChildID;
-    bool mActiveTelephonyChannel;
     bool mActiveContentOrNormalChannel;
   };
 
@@ -229,7 +221,6 @@ private:
 
   // These boolean are used to know if we have to send an status update to the
   // service running in the main process.
-  bool mTelephonyChannel;
   bool mContentOrNormalChannel;
   bool mAnyChannel;
 

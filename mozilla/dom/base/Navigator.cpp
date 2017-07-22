@@ -44,8 +44,6 @@
 #include "mozilla/dom/Presentation.h"
 #include "mozilla/dom/ServiceWorkerContainer.h"
 #include "mozilla/dom/TCPSocket.h"
-#include "mozilla/dom/Telephony.h"
-#include "mozilla/dom/Voicemail.h"
 #include "mozilla/dom/VRDevice.h"
 #include "mozilla/Hal.h"
 #include "nsISiteSpecificUserAgent.h"
@@ -83,10 +81,6 @@
 
 #ifdef MOZ_AUDIO_CHANNEL_MANAGER
 #include "AudioChannelManager.h"
-#endif
-
-#ifdef MOZ_B2G_FM
-#include "mozilla/dom/FMRadio.h"
 #endif
 
 #include "nsIDOMGlobalPropertyInitializer.h"
@@ -186,8 +180,6 @@ NS_IMPL_CYCLE_COLLECTION_TRAVERSE_BEGIN(Navigator)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mCellBroadcast)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mIccManager)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mMobileMessageManager)
-  NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mTelephony)
-  NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mVoicemail)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mInputPortManager)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mConnection)
 #ifdef MOZ_AUDIO_CHANNEL_MANAGER
@@ -244,13 +236,6 @@ Navigator::Invalidate()
 
   mBatteryPromise = nullptr;
 
-#ifdef MOZ_B2G_FM
-  if (mFMRadio) {
-    mFMRadio->Shutdown();
-    mFMRadio = nullptr;
-  }
-#endif
-
   if (mPowerManager) {
     mPowerManager->Shutdown();
     mPowerManager = nullptr;
@@ -268,15 +253,6 @@ Navigator::Invalidate()
   if (mMobileMessageManager) {
     mMobileMessageManager->Shutdown();
     mMobileMessageManager = nullptr;
-  }
-
-  if (mTelephony) {
-    mTelephony = nullptr;
-  }
-
-  if (mVoicemail) {
-    mVoicemail->Shutdown();
-    mVoicemail = nullptr;
   }
 
   if (mInputPortManager) {
@@ -1384,30 +1360,6 @@ Navigator::GetMozNotification(ErrorResult& aRv)
   return mNotification;
 }
 
-#ifdef MOZ_B2G_FM
-
-using mozilla::dom::FMRadio;
-
-FMRadio*
-Navigator::GetMozFMRadio(ErrorResult& aRv)
-{
-  if (!mFMRadio) {
-    if (!mWindow) {
-      aRv.Throw(NS_ERROR_UNEXPECTED);
-      return nullptr;
-    }
-
-    NS_ENSURE_TRUE(mWindow->GetDocShell(), nullptr);
-
-    mFMRadio = new FMRadio();
-    mFMRadio->Init(mWindow);
-  }
-
-  return mFMRadio;
-}
-
-#endif  // MOZ_B2G_FM
-
 //*****************************************************************************
 //    Navigator::nsINavigatorBattery
 //*****************************************************************************
@@ -1710,20 +1662,6 @@ Navigator::GetMozMobileMessage()
   return mMobileMessageManager;
 }
 
-Telephony*
-Navigator::GetMozTelephony(ErrorResult& aRv)
-{
-  if (!mTelephony) {
-    if (!mWindow) {
-      aRv.Throw(NS_ERROR_UNEXPECTED);
-      return nullptr;
-    }
-    mTelephony = Telephony::Create(mWindow, aRv);
-  }
-
-  return mTelephony;
-}
-
 InputPortManager*
 Navigator::GetInputPortManager(ErrorResult& aRv)
 {
@@ -1799,21 +1737,6 @@ Navigator::GetMozCellBroadcast(ErrorResult& aRv)
   }
 
   return mCellBroadcast;
-}
-
-Voicemail*
-Navigator::GetMozVoicemail(ErrorResult& aRv)
-{
-  if (!mVoicemail) {
-    if (!mWindow) {
-      aRv.Throw(NS_ERROR_UNEXPECTED);
-      return nullptr;
-    }
-
-    mVoicemail = Voicemail::Create(mWindow, aRv);
-  }
-
-  return mVoicemail;
 }
 
 IccManager*

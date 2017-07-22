@@ -721,24 +721,12 @@ private:
     virtual PSmsParent* AllocPSmsParent() override;
     virtual bool DeallocPSmsParent(PSmsParent*) override;
 
-    virtual PTelephonyParent* AllocPTelephonyParent() override;
-    virtual bool DeallocPTelephonyParent(PTelephonyParent*) override;
-
-    virtual PVoicemailParent* AllocPVoicemailParent() override;
-    virtual bool RecvPVoicemailConstructor(PVoicemailParent* aActor) override;
-    virtual bool DeallocPVoicemailParent(PVoicemailParent* aActor) override;
-
 #ifdef MOZ_MEDIA
     virtual PMediaParent* AllocPMediaParent() override;
     virtual bool DeallocPMediaParent(PMediaParent* aActor) override;
 #endif
 
     virtual bool DeallocPStorageParent(PStorageParent* aActor) override;
-
-#ifdef MOZ_MEDIA_FMRADIO
-    virtual PFMRadioParent* AllocPFMRadioParent() override;
-    virtual bool DeallocPFMRadioParent(PFMRadioParent* aActor) override;
-#endif
 
     virtual PPresentationParent* AllocPPresentationParent() override;
     virtual bool DeallocPPresentationParent(PPresentationParent* aActor) override;
@@ -849,7 +837,7 @@ private:
     virtual bool RecvAudioChannelChangeDefVolChannel(const int32_t& aChannel,
                                                      const bool& aHidden) override;
 
-    virtual bool RecvAudioChannelServiceStatus(const bool& aTelephonyChannel,
+    virtual bool RecvAudioChannelServiceStatus(const bool& dummy,
                                                const bool& aContentOrNormalChannel,
                                                const bool& aAnyChannel) override;
 

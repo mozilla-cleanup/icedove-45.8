@@ -58,9 +58,6 @@
 #include "mozilla/dom/PContentBridgeParent.h"
 #include "mozilla/dom/PContentPermissionRequestParent.h"
 #include "mozilla/dom/PCycleCollectWithLogsParent.h"
-#ifdef MOZ_MEDIA_FMRADIO
-#include "mozilla/dom/PFMRadioParent.h"
-#endif
 #include "mozilla/dom/PMemoryReportRequestParent.h"
 #include "mozilla/dom/ServiceWorkerRegistrar.h"
 #include "mozilla/dom/cellbroadcast/CellBroadcastParent.h"
@@ -73,9 +70,7 @@
 #include "mozilla/dom/PresentationParent.h"
 #include "mozilla/dom/PPresentationParent.h"
 #include "mozilla/dom/quota/QuotaManagerService.h"
-#include "mozilla/dom/telephony/TelephonyParent.h"
 #include "mozilla/dom/time/DateCacheCleaner.h"
-#include "mozilla/dom/voicemail/VoicemailParent.h"
 #include "mozilla/embedding/printingui/PrintingParent.h"
 #include "mozilla/hal_sandbox/PHalParent.h"
 #include "mozilla/ipc/BackgroundChild.h"
@@ -232,10 +227,6 @@ using namespace mozilla::system;
 
 #include "mozilla/RemoteSpellCheckEngineParent.h"
 
-#ifdef MOZ_B2G_FM
-#include "mozilla/dom/FMRadioParent.h"
-#endif
-
 #include "Crypto.h"
 
 #ifdef MOZ_WEBSPEECH
@@ -291,8 +282,6 @@ using namespace mozilla::dom::indexedDB;
 using namespace mozilla::dom::power;
 using namespace mozilla::dom::mobileconnection;
 using namespace mozilla::dom::mobilemessage;
-using namespace mozilla::dom::telephony;
-using namespace mozilla::dom::voicemail;
 #ifdef MOZ_MEDIA
 using namespace mozilla::media;
 #endif
@@ -3034,14 +3023,14 @@ ContentParent::RecvAudioChannelChangeDefVolChannel(const int32_t& aChannel,
 
 bool
 ContentParent::RecvAudioChannelServiceStatus(
-                                           const bool& aTelephonyChannel,
+                                           const bool& dummy,
                                            const bool& aContentOrNormalChannel,
                                            const bool& aAnyChannel)
 {
     RefPtr<AudioChannelService> service = AudioChannelService::GetOrCreate();
     MOZ_ASSERT(service);
 
-    service->ChildStatusReceived(mChildID, aTelephonyChannel,
+    service->ChildStatusReceived(mChildID, dummy,
                                  aContentOrNormalChannel, aAnyChannel);
     return true;
 }
@@ -4037,50 +4026,6 @@ ContentParent::DeallocPSmsParent(PSmsParent* aSms)
     return true;
 }
 
-PTelephonyParent*
-ContentParent::AllocPTelephonyParent()
-{
-    if (!AssertAppProcessPermission(this, "telephony")) {
-        return nullptr;
-    }
-
-    TelephonyParent* actor = new TelephonyParent();
-    NS_ADDREF(actor);
-    return actor;
-}
-
-bool
-ContentParent::DeallocPTelephonyParent(PTelephonyParent* aActor)
-{
-    static_cast<TelephonyParent*>(aActor)->Release();
-    return true;
-}
-
-PVoicemailParent*
-ContentParent::AllocPVoicemailParent()
-{
-    if (!AssertAppProcessPermission(this, "voicemail")) {
-        return nullptr;
-    }
-
-    VoicemailParent* actor = new VoicemailParent();
-    actor->AddRef();
-    return actor;
-}
-
-bool
-ContentParent::RecvPVoicemailConstructor(PVoicemailParent* aActor)
-{
-    return static_cast<VoicemailParent*>(aActor)->Init();
-}
-
-bool
-ContentParent::DeallocPVoicemailParent(PVoicemailParent* aActor)
-{
-    static_cast<VoicemailParent*>(aActor)->Release();
-    return true;
-}
-
 #ifdef MOZ_MEDIA
 media::PMediaParent*
 ContentParent::AllocPMediaParent()
@@ -4108,34 +4053,6 @@ ContentParent::DeallocPStorageParent(PStorageParent* aActor)
     child->ReleaseIPDLReference();
     return true;
 }
-
-#ifdef MOZ_MEDIA_FMRADIO
-PFMRadioParent*
-ContentParent::AllocPFMRadioParent()
-{
-#ifdef MOZ_B2G_FM
-    if (!AssertAppProcessPermission(this, "fmradio")) {
-        return nullptr;
-    }
-    return new FMRadioParent();
-#else
-    NS_WARNING("No support for FMRadio on this platform!");
-    return nullptr;
-#endif
-}
-
-bool
-ContentParent::DeallocPFMRadioParent(PFMRadioParent* aActor)
-{
-#ifdef MOZ_B2G_FM
-    delete aActor;
-    return true;
-#else
-    NS_WARNING("No support for FMRadio on this platform!");
-    return false;
-#endif
-}
-#endif /* MOZ_FMRADIO */
 
 PPresentationParent*
 ContentParent::AllocPPresentationParent()

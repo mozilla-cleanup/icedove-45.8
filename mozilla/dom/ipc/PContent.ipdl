@@ -39,9 +39,7 @@ include protocol PScreenManager;
 include protocol PSharedBufferManager;
 include protocol PSms;
 include protocol PStorage;
-include protocol PTelephony;
 include protocol PTestShell;
-include protocol PVoicemail;
 include protocol PJavaScript;
 include protocol PRemoteSpellcheckEngine;
 include protocol PWebBrowserPersistDocument;
@@ -208,40 +206,6 @@ union DeviceStorageParams
   DeviceStorageFormatParams;
   DeviceStorageMountParams;
   DeviceStorageUnmountParams;
-};
-
-struct FMRadioRequestEnableParams
-{
-  double frequency;
-};
-
-struct FMRadioRequestDisableParams
-{
-
-};
-
-struct FMRadioRequestSetFrequencyParams
-{
-  double frequency;
-};
-
-struct FMRadioRequestSeekParams
-{
-  bool upward;
-};
-
-struct FMRadioRequestCancelSeekParams
-{
-
-};
-
-union FMRadioRequestParams
-{
-  FMRadioRequestEnableParams;
-  FMRadioRequestDisableParams;
-  FMRadioRequestSetFrequencyParams;
-  FMRadioRequestSeekParams;
-  FMRadioRequestCancelSeekParams;
 };
 
 struct FileSystemCreateDirectoryParams
@@ -467,9 +431,7 @@ prio(normal upto urgent) sync protocol PContent
     manages PScreenManager;
     manages PSms;
     manages PStorage;
-    manages PTelephony;
     manages PTestShell;
-    manages PVoicemail;
     manages PJavaScript;
     manages PRemoteSpellcheckEngine;
     manages PWebBrowserPersistDocument;
@@ -816,10 +778,6 @@ parent:
 
     prio(urgent) async PStorage();
 
-    PTelephony();
-
-    PVoicemail();
-
     PPresentation();
 
     // Services remoting
@@ -922,7 +880,7 @@ parent:
     // Tell the parent that the child has gone idle for the first time
     async FirstIdle();
 
-    async AudioChannelServiceStatus(bool aActiveTelephonyChannel,
+    async AudioChannelServiceStatus(bool dummy,
                                     bool aContentOrNormalChannel,
                                     bool aAnyActiveChannel);
 

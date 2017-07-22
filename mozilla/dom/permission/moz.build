@@ -31,9 +31,6 @@ XPCSHELL_TESTS_MANIFESTS += ['tests/unit/xpcshell.ini']
 
 MOCHITEST_MANIFESTS += ['tests/mochitest.ini']
 
-if CONFIG['MOZ_B2G_FM']:
-    MOCHITEST_MANIFESTS += ['tests/mochitest-fm.ini']
-
 if CONFIG['MOZ_WEBSMS_BACKEND']:
     MOCHITEST_MANIFESTS += ['tests/mochitest-websms.ini']
 
