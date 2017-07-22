@@ -80,10 +80,6 @@ namespace network {
 class Connection;
 } // namespace network
 
-#ifdef MOZ_B2G_RIL
-class MobileConnectionArray;
-#endif
-
 class PowerManager;
 class CellBroadcast;
 class IccManager;
@@ -249,9 +245,6 @@ public:
   already_AddRefed<Promise> GetMobileIdAssertion(const MobileIdOptions& options,
                                                  ErrorResult& aRv);
 #endif
-#ifdef MOZ_B2G_RIL
-  MobileConnectionArray* GetMozMobileConnections(ErrorResult& aRv);
-#endif // MOZ_B2G_RIL
 #ifdef MOZ_GAMEPAD
   void GetGamepads(nsTArray<RefPtr<Gamepad> >& aGamepads, ErrorResult& aRv);
 #endif // MOZ_GAMEPAD
@@ -374,9 +367,6 @@ private:
   RefPtr<Voicemail> mVoicemail;
   RefPtr<InputPortManager> mInputPortManager;
   RefPtr<network::Connection> mConnection;
-#ifdef MOZ_B2G_RIL
-  RefPtr<MobileConnectionArray> mMobileConnections;
-#endif
 #ifdef MOZ_AUDIO_CHANNEL_MANAGER
   RefPtr<system::AudioChannelManager> mAudioChannelManager;
 #endif

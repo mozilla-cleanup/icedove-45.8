@@ -323,7 +323,6 @@ WEBIDL_FILES = [
     'MozIccManager.webidl',
     'MozMobileCellInfo.webidl',
     'MozMobileConnection.webidl',
-    'MozMobileConnectionArray.webidl',
     'MozMobileConnectionInfo.webidl',
     'MozMobileMessageManager.webidl',
     'MozMobileNetworkInfo.webidl',

@@ -38,9 +38,6 @@
 #ifdef MOZ_WIDGET_ANDROID
 #include "android/MobileMessageDatabaseService.h"
 #include "android/SmsService.h"
-#elif defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-#include "nsIGonkMobileMessageDatabaseService.h"
-#include "nsIGonkSmsService.h"
 #endif
 #include "nsXULAppAPI.h" // For XRE_GetProcessType()
 
@@ -853,8 +850,6 @@ NS_CreateSmsService()
   } else {
 #ifdef MOZ_WIDGET_ANDROID
     smsService = new SmsService();
-#elif defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-    smsService = do_GetService(GONK_SMSSERVICE_CONTRACTID);
 #endif
   }
 
@@ -870,9 +865,6 @@ NS_CreateMobileMessageDatabaseService()
   } else {
 #ifdef MOZ_WIDGET_ANDROID
     mobileMessageDBService = new MobileMessageDatabaseService();
-#elif defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-    mobileMessageDBService =
-      do_CreateInstance(GONK_MOBILE_MESSAGE_DATABASE_SERVICE_CONTRACTID);
 #endif
   }
 
@@ -886,10 +878,6 @@ NS_CreateMmsService()
 
   if (XRE_IsContentProcess()) {
     mmsService = SmsIPCService::GetSingleton();
-  } else {
-#if defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-    mmsService = do_CreateInstance("@mozilla.org/mms/gonkmmsservice;1");
-#endif
   }
 
   return mmsService.forget();

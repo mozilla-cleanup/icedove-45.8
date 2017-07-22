@@ -14,9 +14,6 @@
 #include "nsIIccInfo.h"
 // Service instantiation
 #include "ipc/IccIPCService.h"
-#if defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-#include "nsIGonkIccService.h"
-#endif
 #include "nsXULAppAPI.h" // For XRE_GetProcessType()
 
 using namespace mozilla::dom;
@@ -145,10 +142,6 @@ NS_CreateIccService()
 
   if (XRE_IsContentProcess()) {
     service = new mozilla::dom::icc::IccIPCService();
-#if defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-  } else {
-    service = do_GetService(GONK_ICC_SERVICE_CONTRACTID);
-#endif
   }
 
   return service.forget();

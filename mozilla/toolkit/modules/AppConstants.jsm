@@ -205,13 +205,6 @@ this.AppConstants = Object.freeze({
   false,
 #endif
 
-  MOZ_B2G_RIL:
-#ifdef MOZ_B2G_RIL
-  true,
-#else
-  false,
-#endif
-
   MOZ_B2GDROID:
 #ifdef MOZ_B2GDROID
   true,

@@ -18,12 +18,5 @@ XPIDL_SOURCES += [
     'nsIWapPushApplication.idl',
 ]
 
-if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'gonk' and CONFIG['MOZ_B2G_RIL']:
-    XPIDL_SOURCES += [
-        'nsIGonkMobileMessageDatabaseService.idl',
-        'nsIGonkSmsService.idl',
-        'nsISmsMessenger.idl',
-    ]
-
 XPIDL_MODULE = 'dom_mobilemessage'
 

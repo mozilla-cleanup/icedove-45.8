@@ -17,9 +17,6 @@
 
 // Service instantiation
 #include "ipc/VoicemailIPCService.h"
-#if defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-#include "nsIGonkVoicemailService.h"
-#endif
 #include "nsXULAppAPI.h" // For XRE_GetProcessType()
 
 using namespace mozilla::dom;
@@ -252,12 +249,6 @@ NS_CreateVoicemailService()
 
   if (XRE_IsContentProcess()) {
     service = new mozilla::dom::voicemail::VoicemailIPCService();
-  } else {
-#if defined(MOZ_B2G_RIL)
-#if defined(MOZ_WIDGET_GONK)
-    service = do_GetService(GONK_VOICEMAIL_SERVICE_CONTRACTID);
-#endif // MOZ_WIDGET_GONK
-#endif // MOZ_B2G_RIL
   }
 
   return service.forget();

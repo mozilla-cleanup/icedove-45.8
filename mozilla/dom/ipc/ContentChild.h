@@ -239,9 +239,6 @@ public:
     virtual bool RecvPTestShellConstructor(PTestShellChild*) override;
     jsipc::CPOWManager* GetCPOWManager() override;
 
-    PMobileConnectionChild*
-    SendPMobileConnectionConstructor(PMobileConnectionChild* aActor,
-                                     const uint32_t& aClientId);
     virtual PMobileConnectionChild*
     AllocPMobileConnectionChild(const uint32_t& aClientId) override;
     virtual bool

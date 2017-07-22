@@ -57,9 +57,6 @@
 #ifdef MOZ_B2G
 #include "nsIMobileIdentityService.h"
 #endif
-#ifdef MOZ_B2G_RIL
-#include "mozilla/dom/MobileConnectionArray.h"
-#endif
 #include "nsIIdleObserver.h"
 #include "nsIPermissionManager.h"
 #include "nsMimeTypes.h"
@@ -193,9 +190,6 @@ NS_IMPL_CYCLE_COLLECTION_TRAVERSE_BEGIN(Navigator)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mVoicemail)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mInputPortManager)
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mConnection)
-#ifdef MOZ_B2G_RIL
-  NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mMobileConnections)
-#endif
 #ifdef MOZ_AUDIO_CHANNEL_MANAGER
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mAudioChannelManager)
 #endif
@@ -293,12 +287,6 @@ Navigator::Invalidate()
     mConnection->Shutdown();
     mConnection = nullptr;
   }
-
-#ifdef MOZ_B2G_RIL
-  if (mMobileConnections) {
-    mMobileConnections = nullptr;
-  }
-#endif
 
   mCameraManager = nullptr;
   mMediaDevices = nullptr;
@@ -1798,24 +1786,6 @@ Navigator::GetMobileIdAssertion(const MobileIdOptions& aOptions,
   return p.forget();
 }
 #endif // MOZ_B2G
-
-#ifdef MOZ_B2G_RIL
-
-MobileConnectionArray*
-Navigator::GetMozMobileConnections(ErrorResult& aRv)
-{
-  if (!mMobileConnections) {
-    if (!mWindow) {
-      aRv.Throw(NS_ERROR_UNEXPECTED);
-      return nullptr;
-    }
-    mMobileConnections = new MobileConnectionArray(mWindow);
-  }
-
-  return mMobileConnections;
-}
-
-#endif // MOZ_B2G_RIL
 
 CellBroadcast*
 Navigator::GetMozCellBroadcast(ErrorResult& aRv)

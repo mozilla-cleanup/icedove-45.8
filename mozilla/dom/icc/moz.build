@@ -40,14 +40,6 @@ IPDL_SOURCES += [
     'ipc/PIccTypes.ipdlh',
 ]
 
-if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'gonk' and CONFIG['MOZ_B2G_RIL']:
-    EXTRA_COMPONENTS += [
-        'gonk/IccService.js',
-        'gonk/IccService.manifest',
-        'gonk/StkCmdFactory.js',
-        'gonk/StkCmdFactory.manifest'
-    ]
-
 include('/ipc/chromium/chromium-config.mozbuild')
 
 FINAL_LIBRARY = 'xul'

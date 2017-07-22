@@ -179,10 +179,6 @@
 @RESPATH@/components/dom_wifi.xpt
 @RESPATH@/components/dom_system_gonk.xpt
 #endif
-#ifdef MOZ_B2G_RIL
-@RESPATH@/components/dom_wappush.xpt
-@RESPATH@/components/dom_mobileconnection.xpt
-#endif
 #ifdef MOZ_B2G_CAMERA
 @RESPATH@/components/dom_camera.xpt
 #endif
@@ -492,44 +488,6 @@
 @RESPATH@/components/ResourceStatsManager.js
 @RESPATH@/components/ResourceStatsManager.manifest
 #endif // MOZ_WIDGET_GONK
-
-; RIL
-#if defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-@RESPATH@/components/CellBroadcastService.js
-@RESPATH@/components/CellBroadcastService.manifest
-@RESPATH@/components/DataCallManager.js
-@RESPATH@/components/DataCallManager.manifest
-@RESPATH@/components/IccService.js
-@RESPATH@/components/IccService.manifest
-@RESPATH@/components/MmsService.js
-@RESPATH@/components/MmsService.manifest
-@RESPATH@/components/MobileMessageDatabaseService.js
-@RESPATH@/components/MobileMessageDatabaseService.manifest
-#ifndef DISABLE_MOZ_RIL_GEOLOC
-@RESPATH@/components/DataCallInterfaceService.js
-@RESPATH@/components/DataCallInterfaceService.manifest
-@RESPATH@/components/MobileConnectionService.js
-@RESPATH@/components/MobileConnectionService.manifest
-@RESPATH@/components/RadioInterfaceLayer.js
-@RESPATH@/components/RadioInterfaceLayer.manifest
-@RESPATH@/components/SmsService.js
-@RESPATH@/components/SmsService.manifest
-#endif
-@RESPATH@/components/StkCmdFactory.js
-@RESPATH@/components/StkCmdFactory.manifest
-@RESPATH@/components/RILSystemMessengerHelper.js
-@RESPATH@/components/RILSystemMessengerHelper.manifest
-@RESPATH@/components/TelephonyAudioService.js
-@RESPATH@/components/TelephonyAudioService.manifest
-@RESPATH@/components/USSDReceivedWrapper.js
-@RESPATH@/components/USSDReceivedWrapper.manifest
-#ifndef DISABLE_MOZ_RIL_GEOLOC
-@RESPATH@/components/TelephonyService.js
-@RESPATH@/components/TelephonyService.manifest
-@RESPATH@/components/VoicemailService.js
-@RESPATH@/components/VoicemailService.manifest
-#endif
-#endif // MOZ_WIDGET_GONK && MOZ_B2G_RIL
 
 #ifndef MOZ_WIDGET_GONK
 @RESPATH@/components/addonManager.js

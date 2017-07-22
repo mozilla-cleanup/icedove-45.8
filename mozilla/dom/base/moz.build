@@ -465,7 +465,7 @@ include('/ipc/chromium/chromium-config.mozbuild')
 
 FINAL_LIBRARY = 'xul'
 
-for var in ('MOZ_B2G_RIL', 'MOZ_B2G_FM'):
+for var in ('MOZ_B2G_FM'):
     if CONFIG[var]:
         DEFINES[var] = True
 

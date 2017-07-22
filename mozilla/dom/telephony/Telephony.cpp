@@ -28,9 +28,6 @@
 
 // Service instantiation
 #include "ipc/TelephonyIPCService.h"
-#if defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-#include "nsIGonkTelephonyService.h"
-#endif
 #include "nsXULAppAPI.h" // For XRE_GetProcessType()
 
 using namespace mozilla::dom;
@@ -843,10 +840,6 @@ NS_CreateTelephonyService()
 
   if (XRE_IsContentProcess()) {
     service = new mozilla::dom::telephony::TelephonyIPCService();
-  } else {
-#if defined(MOZ_WIDGET_GONK) && defined(MOZ_B2G_RIL)
-    service = do_CreateInstance(GONK_TELEPHONY_SERVICE_CONTRACTID);
-#endif
   }
 
   return service.forget();

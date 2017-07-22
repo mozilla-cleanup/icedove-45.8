@@ -20,12 +20,6 @@ Cu.import("resource://gre/modules/Task.jsm");
 
 var Path = OS.Path;
 
-#ifdef MOZ_B2G_RIL
-XPCOMUtils.defineLazyServiceGetter(this, "gIccService",
-                                   "@mozilla.org/icc/iccservice;1",
-                                   "nsIIccService");
-#endif
-
 function debug(aMsg) {
   //dump("-*-*- OperatorApps.jsm : " + aMsg + "\n");
 }
@@ -59,87 +53,12 @@ function isFirstRunWithSIM() {
   return true;
 }
 
-#ifdef MOZ_B2G_RIL
-var iccListener = {
-  notifyStkCommand: function() {},
-
-  notifyStkSessionEnd: function() {},
-
-  notifyCardStateChanged: function() {},
-
-  notifyIccInfoChanged: function() {
-    // TODO: Bug 927709 - OperatorApps for multi-sim
-    // In Multi-sim, there is more than one client in IccService. Each
-    // client represents a icc handle. To maintain the backward compatibility
-    // with single sim, we always use client 0 for now. Adding support for
-    // multiple sim will be addressed in bug 927709, if needed.
-    let clientId = 0;
-    let icc = gIccService.getIccByServiceId(clientId);
-    let iccInfo = icc && icc.iccInfo;
-    if (iccInfo && iccInfo.mcc && iccInfo.mnc) {
-      let mcc = iccInfo.mcc;
-      let mnc = iccInfo.mnc;
-      debug("******* iccListener cardIccInfo MCC-MNC: " + mcc + "-" + mnc);
-      icc.unregisterListener(this);
-      OperatorAppsRegistry._installOperatorApps(mcc, mnc);
-
-      debug("Broadcast message first-run-with-sim");
-      let messenger = Cc["@mozilla.org/system-message-internal;1"]
-                        .getService(Ci.nsISystemMessagesInternal);
-      messenger.broadcastMessage("first-run-with-sim", { mcc: mcc,
-                                                         mnc: mnc });
-    }
-  }
-};
-#endif
-
 this.OperatorAppsRegistry = {
 
   _baseDirectory: null,
 
   init: function() {
     debug("init");
-#ifdef MOZ_B2G_RIL
-    if (isFirstRunWithSIM()) {
-      debug("First Run with SIM");
-      Task.spawn(function() {
-        try {
-          yield this._initializeSourceDir();
-          // TODO: Bug 927709 - OperatorApps for multi-sim
-          // In Multi-sim, there is more than one client in IccService. Each
-          // client represents a icc handle. To maintain the backward
-          // compatibility with single sim, we always use client 0 for now.
-          // Adding support for multiple sim will be addressed in bug 927709, if
-          // needed.
-          let clientId = 0;
-          let icc = gIccService.getIccByServiceId(clientId);
-          let iccInfo = icc && icc.iccInfo;
-          let mcc = 0;
-          let mnc = 0;
-          if (iccInfo && iccInfo.mcc) {
-            mcc = iccInfo.mcc;
-          }
-          if (iccInfo && iccInfo.mnc) {
-            mnc = iccInfo.mnc;
-          }
-          if (mcc && mnc) {
-            this._installOperatorApps(mcc, mnc);
-            let messenger = Cc["@mozilla.org/system-message-internal;1"]
-                              .getService(Ci.nsISystemMessagesInternal);
-            messenger.broadcastMessage("first-run-with-sim", { mcc: mcc,
-                                                               mnc: mnc });
-
-          } else {
-            icc.registerListener(iccListener);
-          }
-        } catch (e) {
-          debug("Error Initializing OperatorApps. " + e);
-        }
-      }.bind(this));
-    } else {
-      debug("No First Run with SIM");
-    }
-#endif
   },
 
   _copyDirectory: function(aOrg, aDst) {

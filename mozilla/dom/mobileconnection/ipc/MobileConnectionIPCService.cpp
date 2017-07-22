@@ -52,8 +52,6 @@ MobileConnectionIPCService::GetItemByServiceId(uint32_t aServiceId,
 
     // |SendPMobileConnectionConstructor| adds another reference to the child
     // actor and removes in |DeallocPMobileConnectionChild|.
-    ContentChild::GetSingleton()->SendPMobileConnectionConstructor(child,
-                                                                   aServiceId);
     child->Init();
 
     mItems[aServiceId] = child;

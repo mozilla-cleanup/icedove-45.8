@@ -130,7 +130,7 @@ PaymentProvider.prototype = {
                                          Ci.nsIDOMGlobalPropertyInitializer])
 };
 
-#if defined(MOZ_B2G_RIL) || defined(MOZ_WIDGET_ANDROID)
+#if defined(MOZ_WIDGET_ANDROID)
 
 XPCOMUtils.defineLazyServiceGetter(this, "smsService",
                                    "@mozilla.org/sms/smsservice;1",

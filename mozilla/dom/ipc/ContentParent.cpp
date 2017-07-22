@@ -3879,32 +3879,6 @@ ContentParent::DeallocPTestShellParent(PTestShellParent* shell)
     return true;
 }
 
-PMobileConnectionParent*
-ContentParent::AllocPMobileConnectionParent(const uint32_t& aClientId)
-{
-#ifdef MOZ_B2G_RIL
-    RefPtr<MobileConnectionParent> parent = new MobileConnectionParent(aClientId);
-    // We release this ref in DeallocPMobileConnectionParent().
-    parent->AddRef();
-
-    return parent;
-#else
-    MOZ_CRASH("No support for mobileconnection on this platform!");
-#endif
-}
-
-bool
-ContentParent::DeallocPMobileConnectionParent(PMobileConnectionParent* aActor)
-{
-#ifdef MOZ_B2G_RIL
-    // MobileConnectionParent is refcounted, must not be freed manually.
-    static_cast<MobileConnectionParent*>(aActor)->Release();
-    return true;
-#else
-    MOZ_CRASH("No support for mobileconnection on this platform!");
-#endif
-}
-
 PNeckoParent*
 ContentParent::AllocPNeckoParent()
 {

@@ -9,7 +9,6 @@ MOCHITEST_MANIFESTS += ['tests/mochitest/mochitest.ini']
 EXPORTS.mozilla.dom += [
     'MobileCellInfo.h',
     'MobileConnection.h',
-    'MobileConnectionArray.h',
     'MobileConnectionInfo.h',
     'MobileNetworkInfo.h',
 ]
@@ -39,7 +38,6 @@ UNIFIED_SOURCES += [
     'ipc/MobileConnectionParent.cpp',
     'MobileCallForwardingOptions.cpp',
     'MobileCellInfo.cpp',
-    'MobileConnectionArray.cpp',
     'MobileConnectionCallback.cpp',
     'MobileConnectionInfo.cpp',
     'MobileNetworkInfo.cpp',
@@ -57,17 +55,6 @@ IPDL_SOURCES += [
     'ipc/PMobileConnectionRequest.ipdl',
     'ipc/PMobileConnectionTypes.ipdlh',
 ]
-
-if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'gonk' and CONFIG['MOZ_B2G_RIL']:
-    XPIDL_SOURCES += [
-        'gonk/nsIGonkMobileConnectionService.idl',
-        'gonk/nsIMobileConnectionMessenger.idl',
-    ]
-    if not CONFIG['DISABLE_MOZ_RIL_GEOLOC']:
-        EXTRA_COMPONENTS += [
-            'gonk/MobileConnectionService.js',
-            'gonk/MobileConnectionService.manifest',
-        ]
 
 LOCAL_INCLUDES += [
     '/dom/system/gonk',
