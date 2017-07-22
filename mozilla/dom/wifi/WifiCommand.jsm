@@ -345,15 +345,6 @@ this.WifiCommand = function(aControlMessage, aInterface, aSdkVersion) {
     });
   };
 
-  command.setBluetoothCoexistenceMode = function (mode, callback) {
-    doBooleanCommand("DRIVER BTCOEXMODE " + mode, "OK", callback);
-  };
-
-  command.setBluetoothCoexistenceScanMode = function (mode, callback) {
-    doBooleanCommand("DRIVER BTCOEXSCAN-" + (mode ? "START" : "STOP"),
-                     "OK", callback);
-  };
-
   command.saveConfig = function (callback) {
     // Make sure we never write out a value for AP_SCAN other than 1.
     doBooleanCommand("AP_SCAN 1", "OK", function(ok) {

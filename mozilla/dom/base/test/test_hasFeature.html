@@ -26,7 +26,6 @@ function pref(name) {
 function testAPIs() {
   var APIEndPoints = [
     { name: "MozMobileNetworkInfo", enabled: pref("dom.mobileconnection.enabled") },
-    // { name: "Navigator.mozBluetooth", enabled: b2gOnly }, // conditional on MOZ_B2G_BT, tricky to test
     { name: "Navigator.mozContacts", enabled: pref("dom.mozContacts.enabled") },
     { name: "Navigator.getDeviceStorage", enabled: pref("device.storage.enabled") },
     { name: "Navigator.addIdleObserver", enabled: true },

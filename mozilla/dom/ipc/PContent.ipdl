@@ -6,7 +6,6 @@
 
 include protocol PBackground;
 include protocol PBlob;
-include protocol PBluetooth;
 include protocol PBrowser;
 include protocol PCellBroadcast;
 include protocol PCompositor;
@@ -446,7 +445,6 @@ prio(normal upto urgent) sync protocol PContent
     child opens PBackground;
 
     manages PBlob;
-    manages PBluetooth;
     manages PBrowser;
     manages PCellBroadcast;
     manages PContentPermissionRequest;
@@ -821,8 +819,6 @@ parent:
     PTelephony();
 
     PVoicemail();
-
-    PBluetooth();
 
     PPresentation();
 

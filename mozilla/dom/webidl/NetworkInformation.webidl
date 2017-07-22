@@ -10,7 +10,6 @@
 
 enum ConnectionType {
     "cellular",
-    "bluetooth",
     "ethernet",
     "wifi",
     "other",

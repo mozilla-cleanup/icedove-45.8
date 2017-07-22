@@ -43,7 +43,6 @@ enum SourceEventType {
   Touch,
   Mouse,
   Key,
-  Bluetooth,
   Unixsocket,
   Wifi
 };

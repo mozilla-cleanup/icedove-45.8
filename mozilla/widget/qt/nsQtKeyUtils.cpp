@@ -431,7 +431,6 @@ QtKeyCodeToDOMKeyNameIndex(int aKeysym)
         case Qt::Key_Messenger:
         case Qt::Key_Pictures:
         case Qt::Key_Battery:
-        case Qt::Key_Bluetooth:
         case Qt::Key_WLAN:
         case Qt::Key_UWB:
         case Qt::Key_AudioRepeat:

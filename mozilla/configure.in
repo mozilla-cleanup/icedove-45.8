@@ -219,9 +219,7 @@ if test -n "$gonkdir" ; then
 
     case "$ANDROID_VERSION" in
     15)
-        GONK_INCLUDES="-I$gonkdir/frameworks/base/opengl/include -I$gonkdir/frameworks/base/native/include -I$gonkdir/frameworks/base/include -I$gonkdir/frameworks/base/services/camera -I$gonkdir/frameworks/base/include/media/ -I$gonkdir/frameworks/base/include/media/stagefright -I$gonkdir/frameworks/base/include/media/stagefright/openmax -I$gonkdir/frameworks/base/media/libstagefright/rtsp -I$gonkdir/frameworks/base/media/libstagefright/include -I$gonkdir/external/dbus -I$gonkdir/external/bluetooth/bluez/lib -I$gonkdir/dalvik/libnativehelper/include/nativehelper"
-        MOZ_B2G_BT=1
-        MOZ_B2G_BT_BLUEZ=1
+        GONK_INCLUDES="-I$gonkdir/frameworks/base/opengl/include -I$gonkdir/frameworks/base/native/include -I$gonkdir/frameworks/base/include -I$gonkdir/frameworks/base/services/camera -I$gonkdir/frameworks/base/include/media/ -I$gonkdir/frameworks/base/include/media/stagefright -I$gonkdir/frameworks/base/include/media/stagefright/openmax -I$gonkdir/frameworks/base/media/libstagefright/rtsp -I$gonkdir/frameworks/base/media/libstagefright/include -I$gonkdir/external/dbus -I$gonkdir/dalvik/libnativehelper/include/nativehelper"
         MOZ_NFC=1
         MOZ_B2G_CAMERA=1
         MOZ_OMX_DECODER=1
@@ -232,14 +230,6 @@ if test -n "$gonkdir" ; then
         ;;
     17|18)
         GONK_INCLUDES="-I$gonkdir/frameworks/native/include -I$gonkdir/frameworks/av/include -I$gonkdir/frameworks/av/include/media -I$gonkdir/frameworks/av/include/camera -I$gonkdir/frameworks/native/include/media/openmax -I$gonkdir/frameworks/av/media/libstagefright/include -I$gonkdir/external/mdnsresponder/mDNSShared"
-        if test -d "$gonkdir/external/bluetooth/bluez"; then
-            GONK_INCLUDES="$GONK_INCLUDES -I$gonkdir/external/dbus -I$gonkdir/external/bluetooth/bluez/lib"
-            MOZ_B2G_BT=1
-            MOZ_B2G_BT_BLUEZ=1
-        elif test -d "$gonkdir/system/bluetoothd"; then
-            MOZ_B2G_BT=1
-            MOZ_B2G_BT_DAEMON=1
-        fi
 
         MOZ_RTSP=1
         MOZ_NFC=1
@@ -255,10 +245,6 @@ if test -n "$gonkdir" ; then
     19)
         GONK_INCLUDES="-I$gonkdir/frameworks/native/include -I$gonkdir/frameworks/av/include -I$gonkdir/frameworks/av/include/media -I$gonkdir/frameworks/av/include/camera -I$gonkdir/frameworks/native/include/media/openmax -I$gonkdir/frameworks/av/media/libstagefright/include -I$gonkdir/external/mdnsresponder/mDNSShared"
         MOZ_B2G_CAMERA=1
-        if test -d "$gonkdir/system/bluetoothd"; then
-            MOZ_B2G_BT=1
-            MOZ_B2G_BT_DAEMON=1
-        fi
         MOZ_NFC=1
         MOZ_RTSP=1
         MOZ_OMX_DECODER=1
@@ -280,10 +266,6 @@ if test -n "$gonkdir" ; then
         AC_DEFINE(MOZ_AUDIO_OFFLOAD)
         MOZ_FMP4=1
         MOZ_B2G_CAMERA=1
-        if test -d "$gonkdir/system/bluetoothd"; then
-            MOZ_B2G_BT=1
-            MOZ_B2G_BT_DAEMON=1
-        fi
         MOZ_NFC=1
         MOZ_RTSP=1
         ;;
@@ -7587,20 +7569,6 @@ if test -n "$MOZ_B2G_FM"; then
     AC_DEFINE(MOZ_B2G_FM)
 fi
 AC_SUBST(MOZ_B2G_FM)
-
-dnl ========================================================
-dnl = Enable Bluetooth Interface for B2G (Gonk usually)
-dnl ========================================================
-MOZ_ARG_ENABLE_BOOL(b2g-bt,
-[  --enable-b2g-bt      Set compile flags necessary for compiling Bluetooth API for B2G ],
-    MOZ_B2G_BT=1,
-    MOZ_B2G_BT= )
-if test -n "$MOZ_B2G_BT"; then
-    AC_DEFINE(MOZ_B2G_BT)
-fi
-AC_SUBST(MOZ_B2G_BT)
-AC_SUBST(MOZ_B2G_BT_BLUEZ)
-AC_SUBST(MOZ_B2G_BT_DAEMON)
 
 dnl ========================================================
 dnl = Enable NFC Interface for B2G (Gonk usually)

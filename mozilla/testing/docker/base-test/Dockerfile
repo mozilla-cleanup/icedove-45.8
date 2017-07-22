@@ -9,10 +9,6 @@ RUN apt-get update && apt-get install -y --force-yes \
   alsa-base \
   alsa-utils \
   autoconf2.13 \
-  bluez-alsa \
-  bluez-alsa:i386 \
-  bluez-cups \
-  bluez-gstreamer \
   build-essential \
   ca-certificates \
   ccache \
@@ -27,7 +23,6 @@ RUN apt-get update && apt-get install -y --force-yes \
   fonts-vlgothic \
   g++-multilib \
   gcc-multilib \
-  gir1.2-gnomebluetooth-1.0 \
   git \
   gstreamer0.10-alsa \
   gstreamer0.10-ffmpeg \
@@ -56,7 +51,6 @@ RUN apt-get update && apt-get install -y --force-yes \
   libglapi-mesa:i386 \
   libglu1-mesa \
   libglu1-mesa:i386 \
-  libgnome-bluetooth8 \
   libgstreamer-plugins-base0.10-dev \
   libgstreamer0.10-dev \
   libgtk2.0-dev \
@@ -89,7 +83,6 @@ RUN apt-get update && apt-get install -y --force-yes \
   nano \
   pulseaudio \
   pulseaudio-module-X11 \
-  pulseaudio-module-bluetooth \
   pulseaudio-module-gconf \
   python-dev \
   python-pip \

@@ -35,30 +35,6 @@ this.SystemMessagePermissionsTable = {
   "alarm": {
     "alarms": []
   },
-  "bluetooth-dialer-command": {
-    "telephony": []
-  },
-  "bluetooth-cancel": {
-    "bluetooth": []
-  },
-  "bluetooth-hid-status-changed": {
-    "bluetooth": []
-  },
-  "bluetooth-pairing-request": {
-    "bluetooth": []
-  },
-  "bluetooth-opp-transfer-complete": {
-    "bluetooth": []
-  },
-  "bluetooth-opp-update-progress": {
-    "bluetooth": []
-  },
-  "bluetooth-opp-receiving-file-confirmation": {
-    "bluetooth": []
-  },
-  "bluetooth-opp-transfer-start": {
-    "bluetooth": []
-  },
   "cellbroadcast-received": {
     "cellbroadcast": []
   },

@@ -51,7 +51,6 @@ public class GeckoNetworkManager extends BroadcastReceiver implements NativeEven
     // Connection Type defined in Network Information API v3.
     private enum ConnectionType {
         CELLULAR(0),
-        BLUETOOTH(1),
         ETHERNET(2),
         WIFI(3),
         OTHER(4),
@@ -308,8 +307,6 @@ public class GeckoNetworkManager extends BroadcastReceiver implements NativeEven
         }
 
         switch (ni.getType()) {
-        case ConnectivityManager.TYPE_BLUETOOTH:
-            return ConnectionType.BLUETOOTH;
         case ConnectivityManager.TYPE_ETHERNET:
             return ConnectionType.ETHERNET;
         case ConnectivityManager.TYPE_MOBILE:

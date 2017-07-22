@@ -340,10 +340,7 @@ Files: mozilla/dom/base/nsDOMScriptObjectFactory.cpp
 Copyright: 2000, International Business Machines (IBM)
 License: MPL-2.0
 
-Files: mozilla/dom/bluetooth/bluedroid/BluetoothServiceBluedroid.cpp
-       mozilla/dom/bluetooth/bluez/BluetoothDBusService.cpp
-       mozilla/dom/bluetooth/bluez/BluetoothUnixSocketConnector.cpp
-       mozilla/dom/camera/GonkCameraListener.h
+Files: mozilla/dom/camera/GonkCameraListener.h
        mozilla/dom/camera/GonkCameraSource.h
        mozilla/dom/camera/GonkRecorder.h
 Copyright: 2005-2013, The Android Open Source Project

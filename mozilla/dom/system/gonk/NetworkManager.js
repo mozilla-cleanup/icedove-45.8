@@ -56,7 +56,6 @@ const IPV6_MAX_PREFIX_LENGTH           = 128;
 
 // Connection Type for Network Information API
 const CONNECTION_TYPE_CELLULAR  = 0;
-const CONNECTION_TYPE_BLUETOOTH = 1;
 const CONNECTION_TYPE_ETHERNET  = 2;
 const CONNECTION_TYPE_WIFI      = 3;
 const CONNECTION_TYPE_OTHER     = 4;

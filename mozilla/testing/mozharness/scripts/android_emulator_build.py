@@ -72,7 +72,6 @@ MOZILLA_DEVICE_DEFINITION = """
         </d:touch>
       </d:screen>
       <d:networking>
-Bluetooth
 Wifi
 NFC</d:networking>
       <d:sensors>
@@ -109,7 +108,6 @@ mips</d:abi>
     <d:software>
       <d:api-level>-</d:api-level>
       <d:live-wallpaper-support>true</d:live-wallpaper-support>
-      <d:bluetooth-profiles/>
       <d:gl-version>2.0</d:gl-version>
       <d:gl-extensions/>
       <d:status-bar>false</d:status-bar>

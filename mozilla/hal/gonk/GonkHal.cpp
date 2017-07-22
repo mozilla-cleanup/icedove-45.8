@@ -125,7 +125,6 @@ enum LightType {
   eHalLightID_Battery       = 3,
   eHalLightID_Notifications = 4,
   eHalLightID_Attention     = 5,
-  eHalLightID_Bluetooth     = 6,
   eHalLightID_Wifi          = 7,
   eHalLightID_Count  // This should stay at the end
 };
@@ -188,8 +187,6 @@ InitLights()
              = GetDevice(module, LIGHT_ID_NOTIFICATIONS);
       sLights[eHalLightID_Attention]
              = GetDevice(module, LIGHT_ID_ATTENTION);
-      sLights[eHalLightID_Bluetooth]
-             = GetDevice(module, LIGHT_ID_BLUETOOTH);
       sLights[eHalLightID_Wifi]
              = GetDevice(module, LIGHT_ID_WIFI);
         }

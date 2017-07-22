@@ -53,7 +53,7 @@ if [ "x$(id -u)" != x0 ]; then
 fi
 
 # Packages needed for chromeos only
-chromeos_dev_list="libbluetooth-dev libpulse-dev"
+chromeos_dev_list="libpulse-dev"
 
 # Packages need for development
 dev_list="apache2.2-bin bison curl elfutils fakeroot flex g++ gperf

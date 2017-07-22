@@ -17,7 +17,6 @@ XPCOMUtils.defineLazyServiceGetter(this, "cpmm",
 const DEBUG = false;
 
 const TETHERING_TYPE_WIFI       = "wifi";
-const TETHERING_TYPE_BLUETOOTH  = "bt";
 const TETHERING_TYPE_USB        = "usb";
 
 function TetheringManager() {
@@ -68,7 +67,6 @@ TetheringManager.prototype = {
           let data = { resolverId: aResolverId, enabled: aEnabled, config: aConfig };
           cpmm.sendAsyncMessage("WifiManager:setWifiTethering", { data: data});
         });
-      case TETHERING_TYPE_BLUETOOTH:
       case TETHERING_TYPE_USB:
       default:
         debug("tethering type(" + aType + ") doesn't support");

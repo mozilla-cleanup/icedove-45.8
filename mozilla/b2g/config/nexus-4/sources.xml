@@ -40,7 +40,6 @@
   <project name="platform/bionic" path="bionic" revision="0d910c2a305f6b223b7b879a4532df1d0ec73030"/>
   <project name="platform/bootable/recovery" path="bootable/recovery" revision="b279a60d33785df6d08065a2b082eeecb64af759"/>
   <project name="platform/external/aac" path="external/aac" revision="67e322018c4ae56213dec4083f1e37cf7e087a05"/>
-  <project name="platform/external/bluetooth/bluedroid" path="external/bluetooth/bluedroid" revision="72573746f78ed1bce49e93737f33d0248ee6da97"/>
   <project name="platform/external/bison" path="external/bison" revision="28effbb752100922ad6c80a98c8bb10e133a4d2a"/>
   <project name="platform/external/bsdiff" path="external/bsdiff" revision="5ffcc745e11ceee2bae573156b6f1e6adfc626fb"/>
   <project name="platform/external/bzip2" path="external/bzip2" revision="a5ee05561c389494e79b8ae9531079f8ede18172"/>
@@ -118,8 +117,6 @@
   <project name="platform/prebuilts/ndk" path="prebuilts/ndk" revision="e52099755d0bd3a579130eefe8e58066cc6c0cb6"/>
   <project name="platform/prebuilts/sdk" path="prebuilts/sdk" revision="842e33e43a55ea44833b9e23e4d180fa17c843af"/>
   <project name="platform/prebuilts/tools" path="prebuilts/tools" revision="5db24726f0f42124304195a6bdea129039eeeaeb"/>
-  <project name="platform/system/bluetooth" path="system/bluetooth" revision="930ae098543881f47eac054677726ee4b998b2f8"/>
-  <project name="platform_system_bluetoothd" path="system/bluetoothd" remote="b2g" revision="570531db9e81a871c421b27025ae558022b1015a"/>
   <project name="platform_system_core" path="system/core" remote="b2g" revision="542d1f59dc331b472307e5bd043101d14d5a3a3e"/>
   <project name="platform/system/extras" path="system/extras" revision="18c1180e848e7ab8691940481f5c1c8d22c37b3e"/>
   <project name="platform_system_libfdio" path="system/libfdio" remote="b2g" revision="34adfb400e031f3dd3353d92413572db5e3a7376"/>

@@ -70,7 +70,6 @@ typedef enum {
     AUDIO_STREAM_MUSIC            = 3,
     AUDIO_STREAM_ALARM            = 4,
     AUDIO_STREAM_NOTIFICATION     = 5,
-    AUDIO_STREAM_BLUETOOTH_SCO    = 6,
     AUDIO_STREAM_ENFORCED_AUDIBLE = 7, /* Sounds that cannot be muted by user and must be routed to speaker */
     AUDIO_STREAM_DTMF             = 8,
     AUDIO_STREAM_TTS              = 9,
@@ -246,12 +245,6 @@ typedef enum {
     AUDIO_DEVICE_OUT_SPEAKER                   = 0x2,
     AUDIO_DEVICE_OUT_WIRED_HEADSET             = 0x4,
     AUDIO_DEVICE_OUT_WIRED_HEADPHONE           = 0x8,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO             = 0x10,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET     = 0x20,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT      = 0x40,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP            = 0x80,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES = 0x100,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER    = 0x200,
     AUDIO_DEVICE_OUT_AUX_DIGITAL               = 0x400,
     AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET         = 0x800,
     AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET         = 0x1000,
@@ -266,12 +259,6 @@ typedef enum {
                                  AUDIO_DEVICE_OUT_SPEAKER |
                                  AUDIO_DEVICE_OUT_WIRED_HEADSET |
                                  AUDIO_DEVICE_OUT_WIRED_HEADPHONE |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER |
                                  AUDIO_DEVICE_OUT_AUX_DIGITAL |
                                  AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET |
                                  AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET |
@@ -282,17 +269,10 @@ typedef enum {
                                  AUDIO_DEVICE_OUT_DIRECTOUTPUT |
                                  AUDIO_DEVICE_OUT_PROXY |
                                  AUDIO_DEVICE_OUT_DEFAULT),
-    AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER),
-    AUDIO_DEVICE_OUT_ALL_SCO  = (AUDIO_DEVICE_OUT_BLUETOOTH_SCO |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT),
     /* input devices */
     AUDIO_DEVICE_IN_COMMUNICATION         = 0x100000,
     AUDIO_DEVICE_IN_AMBIENT               = 0x200000,
     AUDIO_DEVICE_IN_BUILTIN_MIC           = 0x400000,
-    AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET = 0x800000,
     AUDIO_DEVICE_IN_WIRED_HEADSET         = 0x1000000,
     AUDIO_DEVICE_IN_AUX_DIGITAL           = 0x2000000,
     AUDIO_DEVICE_IN_VOICE_CALL            = 0x4000000,
@@ -305,7 +285,6 @@ typedef enum {
     AUDIO_DEVICE_IN_ALL     = (AUDIO_DEVICE_IN_COMMUNICATION |
                                AUDIO_DEVICE_IN_AMBIENT |
                                AUDIO_DEVICE_IN_BUILTIN_MIC |
-                               AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET |
                                AUDIO_DEVICE_IN_WIRED_HEADSET |
                                AUDIO_DEVICE_IN_AUX_DIGITAL |
                                AUDIO_DEVICE_IN_VOICE_CALL |
@@ -314,7 +293,6 @@ typedef enum {
                                AUDIO_DEVICE_IN_FM_RX |
                                AUDIO_DEVICE_IN_FM_RX_A2DP |
                                AUDIO_DEVICE_IN_DEFAULT),
-    AUDIO_DEVICE_IN_ALL_SCO = AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
 } audio_devices_t;
 #elif ANDROID_VERSION < 21
 enum {
@@ -327,12 +305,6 @@ enum {
     AUDIO_DEVICE_OUT_SPEAKER                   = 0x2,
     AUDIO_DEVICE_OUT_WIRED_HEADSET             = 0x4,
     AUDIO_DEVICE_OUT_WIRED_HEADPHONE           = 0x8,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO             = 0x10,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET     = 0x20,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT      = 0x40,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP            = 0x80,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES = 0x100,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER    = 0x200,
     AUDIO_DEVICE_OUT_AUX_DIGITAL               = 0x400,
     AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET         = 0x800,
     AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET         = 0x1000,
@@ -349,12 +321,6 @@ enum {
                                  AUDIO_DEVICE_OUT_SPEAKER |
                                  AUDIO_DEVICE_OUT_WIRED_HEADSET |
                                  AUDIO_DEVICE_OUT_WIRED_HEADPHONE |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER |
                                  AUDIO_DEVICE_OUT_AUX_DIGITAL |
                                  AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET |
                                  AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET |
@@ -367,12 +333,6 @@ enum {
                                  AUDIO_DEVICE_OUT_FM |
                                  AUDIO_DEVICE_OUT_FM_TX |
                                  AUDIO_DEVICE_OUT_DEFAULT),
-    AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER),
-    AUDIO_DEVICE_OUT_ALL_SCO  = (AUDIO_DEVICE_OUT_BLUETOOTH_SCO |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT),
     AUDIO_DEVICE_OUT_ALL_USB  = (AUDIO_DEVICE_OUT_USB_ACCESSORY |
                                  AUDIO_DEVICE_OUT_USB_DEVICE),
 
@@ -380,7 +340,6 @@ enum {
     AUDIO_DEVICE_IN_COMMUNICATION         = AUDIO_DEVICE_BIT_IN | 0x1,
     AUDIO_DEVICE_IN_AMBIENT               = AUDIO_DEVICE_BIT_IN | 0x2,
     AUDIO_DEVICE_IN_BUILTIN_MIC           = AUDIO_DEVICE_BIT_IN | 0x4,
-    AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET = AUDIO_DEVICE_BIT_IN | 0x8,
     AUDIO_DEVICE_IN_WIRED_HEADSET         = AUDIO_DEVICE_BIT_IN | 0x10,
     AUDIO_DEVICE_IN_AUX_DIGITAL           = AUDIO_DEVICE_BIT_IN | 0x20,
     AUDIO_DEVICE_IN_VOICE_CALL            = AUDIO_DEVICE_BIT_IN | 0x40,
@@ -399,7 +358,6 @@ enum {
     AUDIO_DEVICE_IN_ALL     = (AUDIO_DEVICE_IN_COMMUNICATION |
                                AUDIO_DEVICE_IN_AMBIENT |
                                AUDIO_DEVICE_IN_BUILTIN_MIC |
-                               AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET |
                                AUDIO_DEVICE_IN_WIRED_HEADSET |
                                AUDIO_DEVICE_IN_AUX_DIGITAL |
                                AUDIO_DEVICE_IN_VOICE_CALL |
@@ -414,7 +372,6 @@ enum {
                                AUDIO_DEVICE_IN_FM_RX_A2DP |
                                AUDIO_DEVICE_IN_PROXY |
                                AUDIO_DEVICE_IN_DEFAULT),
-    AUDIO_DEVICE_IN_ALL_SCO = AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
 };
 
 typedef uint32_t audio_devices_t;
@@ -429,12 +386,6 @@ enum {
     AUDIO_DEVICE_OUT_SPEAKER                   = 0x2,
     AUDIO_DEVICE_OUT_WIRED_HEADSET             = 0x4,
     AUDIO_DEVICE_OUT_WIRED_HEADPHONE           = 0x8,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO             = 0x10,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET     = 0x20,
-    AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT      = 0x40,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP            = 0x80,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES = 0x100,
-    AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER    = 0x200,
     AUDIO_DEVICE_OUT_AUX_DIGITAL               = 0x400,
     AUDIO_DEVICE_OUT_HDMI                      = AUDIO_DEVICE_OUT_AUX_DIGITAL,
     /* uses an analog connection (multiplexed over the USB connector pins for instance) */
@@ -464,12 +415,6 @@ enum {
                                  AUDIO_DEVICE_OUT_SPEAKER |
                                  AUDIO_DEVICE_OUT_WIRED_HEADSET |
                                  AUDIO_DEVICE_OUT_WIRED_HEADPHONE |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER |
                                  AUDIO_DEVICE_OUT_AUX_DIGITAL |
                                  AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET |
                                  AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET |
@@ -484,19 +429,12 @@ enum {
                                  AUDIO_DEVICE_OUT_AUX_LINE |
                                  AUDIO_DEVICE_OUT_SPEAKER_SAFE |
                                  AUDIO_DEVICE_OUT_DEFAULT),
-    AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER),
-    AUDIO_DEVICE_OUT_ALL_SCO  = (AUDIO_DEVICE_OUT_BLUETOOTH_SCO |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
-                                 AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT),
     AUDIO_DEVICE_OUT_ALL_USB  = (AUDIO_DEVICE_OUT_USB_ACCESSORY |
                                  AUDIO_DEVICE_OUT_USB_DEVICE),
     /* input devices */
     AUDIO_DEVICE_IN_COMMUNICATION         = AUDIO_DEVICE_BIT_IN | 0x1,
     AUDIO_DEVICE_IN_AMBIENT               = AUDIO_DEVICE_BIT_IN | 0x2,
     AUDIO_DEVICE_IN_BUILTIN_MIC           = AUDIO_DEVICE_BIT_IN | 0x4,
-    AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET = AUDIO_DEVICE_BIT_IN | 0x8,
     AUDIO_DEVICE_IN_WIRED_HEADSET         = AUDIO_DEVICE_BIT_IN | 0x10,
     AUDIO_DEVICE_IN_AUX_DIGITAL           = AUDIO_DEVICE_BIT_IN | 0x20,
     AUDIO_DEVICE_IN_HDMI                  = AUDIO_DEVICE_IN_AUX_DIGITAL,
@@ -516,13 +454,11 @@ enum {
     AUDIO_DEVICE_IN_LINE                  = AUDIO_DEVICE_BIT_IN | 0x8000,
     /* S/PDIF in */
     AUDIO_DEVICE_IN_SPDIF                 = AUDIO_DEVICE_BIT_IN | 0x10000,
-    AUDIO_DEVICE_IN_BLUETOOTH_A2DP        = AUDIO_DEVICE_BIT_IN | 0x20000,
     AUDIO_DEVICE_IN_LOOPBACK              = AUDIO_DEVICE_BIT_IN | 0x40000,
     AUDIO_DEVICE_IN_DEFAULT               = AUDIO_DEVICE_BIT_IN | AUDIO_DEVICE_BIT_DEFAULT,
     AUDIO_DEVICE_IN_ALL     = (AUDIO_DEVICE_IN_COMMUNICATION |
                                AUDIO_DEVICE_IN_AMBIENT |
                                AUDIO_DEVICE_IN_BUILTIN_MIC |
-                               AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET |
                                AUDIO_DEVICE_IN_WIRED_HEADSET |
                                AUDIO_DEVICE_IN_AUX_DIGITAL |
                                AUDIO_DEVICE_IN_VOICE_CALL |
@@ -536,10 +472,8 @@ enum {
                                AUDIO_DEVICE_IN_TV_TUNER |
                                AUDIO_DEVICE_IN_LINE |
                                AUDIO_DEVICE_IN_SPDIF |
-                               AUDIO_DEVICE_IN_BLUETOOTH_A2DP |
                                AUDIO_DEVICE_IN_LOOPBACK |
                                AUDIO_DEVICE_IN_DEFAULT),
-    AUDIO_DEVICE_IN_ALL_SCO = AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
     AUDIO_DEVICE_IN_ALL_USB = (AUDIO_DEVICE_IN_USB_ACCESSORY |
                                AUDIO_DEVICE_IN_USB_DEVICE),
 };
@@ -593,7 +527,6 @@ public:
         MUSIC            = 3,
         ALARM            = 4,
         NOTIFICATION     = 5,
-        BLUETOOTH_SCO    = 6,
         ENFORCED_AUDIBLE = 7, // Sounds that cannot be muted by user and must be routed to speaker
         DTMF             = 8,
         TTS              = 9,
@@ -812,26 +745,16 @@ public:
         DEVICE_OUT_SPEAKER = 0x2,
         DEVICE_OUT_WIRED_HEADSET = 0x4,
         DEVICE_OUT_WIRED_HEADPHONE = 0x8,
-        DEVICE_OUT_BLUETOOTH_SCO = 0x10,
-        DEVICE_OUT_BLUETOOTH_SCO_HEADSET = 0x20,
-        DEVICE_OUT_BLUETOOTH_SCO_CARKIT = 0x40,
-        DEVICE_OUT_BLUETOOTH_A2DP = 0x80,
-        DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES = 0x100,
-        DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER = 0x200,
         DEVICE_OUT_AUX_DIGITAL = 0x400,
         DEVICE_OUT_DEFAULT = 0x8000,
         DEVICE_OUT_ALL = (DEVICE_OUT_EARPIECE | DEVICE_OUT_SPEAKER | DEVICE_OUT_WIRED_HEADSET |
-                DEVICE_OUT_WIRED_HEADPHONE | DEVICE_OUT_BLUETOOTH_SCO | DEVICE_OUT_BLUETOOTH_SCO_HEADSET |
-                DEVICE_OUT_BLUETOOTH_SCO_CARKIT | DEVICE_OUT_BLUETOOTH_A2DP | DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER | DEVICE_OUT_AUX_DIGITAL | DEVICE_OUT_DEFAULT),
-        DEVICE_OUT_ALL_A2DP = (DEVICE_OUT_BLUETOOTH_A2DP | DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER),
+                DEVICE_OUT_WIRED_HEADPHONE |
+                DEVICE_OUT_AUX_DIGITAL | DEVICE_OUT_DEFAULT),
 
         // input devices
         DEVICE_IN_COMMUNICATION = 0x10000,
         DEVICE_IN_AMBIENT = 0x20000,
         DEVICE_IN_BUILTIN_MIC = 0x40000,
-        DEVICE_IN_BLUETOOTH_SCO_HEADSET = 0x80000,
         DEVICE_IN_WIRED_HEADSET = 0x100000,
         DEVICE_IN_AUX_DIGITAL = 0x200000,
         DEVICE_IN_VOICE_CALL = 0x400000,
@@ -839,7 +762,7 @@ public:
         DEVICE_IN_DEFAULT = 0x80000000,
 
         DEVICE_IN_ALL = (DEVICE_IN_COMMUNICATION | DEVICE_IN_AMBIENT | DEVICE_IN_BUILTIN_MIC |
-                DEVICE_IN_BLUETOOTH_SCO_HEADSET | DEVICE_IN_WIRED_HEADSET | DEVICE_IN_AUX_DIGITAL |
+                DEVICE_IN_WIRED_HEADSET | DEVICE_IN_AUX_DIGITAL |
                 DEVICE_IN_VOICE_CALL | DEVICE_IN_BACK_MIC | DEVICE_IN_DEFAULT)
     };
 
@@ -1005,7 +928,6 @@ public:
     static bool isOutputDevice(audio_devices device);
     static bool isInputDevice(audio_devices device);
     static bool isA2dpDevice(audio_devices device);
-    static bool isBluetoothScoDevice(audio_devices device);
     static bool isSeperatedStream(stream_type stream);
     static bool isLowVisibility(stream_type stream);
     static bool isOutputChannel(uint32_t channel);

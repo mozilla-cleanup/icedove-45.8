@@ -827,13 +827,6 @@ DOMApplicationRegistry.registryReady.then(function () {
   }, /* noPending */ true);
 });
 
-Services.obs.addObserver(function onBluetoothVolumeChange(subject, topic, data) {
-  shell.sendChromeEvent({
-    type: "bluetooth-volumeset",
-    value: data
-  });
-}, 'bluetooth-volume-change', false);
-
 Services.obs.addObserver(function(subject, topic, data) {
   shell.sendCustomEvent('mozmemorypressure');
 }, 'memory-pressure', false);

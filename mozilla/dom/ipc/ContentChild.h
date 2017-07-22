@@ -300,9 +300,6 @@ public:
     virtual PStorageChild* AllocPStorageChild() override;
     virtual bool DeallocPStorageChild(PStorageChild* aActor) override;
 
-    virtual PBluetoothChild* AllocPBluetoothChild() override;
-    virtual bool DeallocPBluetoothChild(PBluetoothChild* aActor) override;
-
 #ifdef MOZ_MEDIA_FMRADIO
     virtual PFMRadioChild* AllocPFMRadioChild() override;
     virtual bool DeallocPFMRadioChild(PFMRadioChild* aActor) override;

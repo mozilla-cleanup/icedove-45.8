@@ -183,9 +183,6 @@
 @RESPATH@/components/dom_wappush.xpt
 @RESPATH@/components/dom_mobileconnection.xpt
 #endif
-#ifdef MOZ_B2G_BT
-@RESPATH@/components/dom_bluetooth.xpt
-#endif
 #ifdef MOZ_B2G_CAMERA
 @RESPATH@/components/dom_camera.xpt
 #endif

@@ -590,12 +590,6 @@ enum audio_device_e {
     DEVICE_SPEAKER = 0x2,                       // speaker
     DEVICE_WIRED_HEADSET = 0x4,                 // wired headset, with microphone
     DEVICE_WIRED_HEADPHONE = 0x8,               // wired headphone, without microphone
-    DEVICE_BLUETOOTH_SCO = 0x10,                // generic bluetooth SCO
-    DEVICE_BLUETOOTH_SCO_HEADSET = 0x20,        // bluetooth SCO headset
-    DEVICE_BLUETOOTH_SCO_CARKIT = 0x40,         // bluetooth SCO car kit
-    DEVICE_BLUETOOTH_A2DP = 0x80,               // generic bluetooth A2DP
-    DEVICE_BLUETOOTH_A2DP_HEADPHONES = 0x100,   // bluetooth A2DP headphones
-    DEVICE_BLUETOOTH_A2DP_SPEAKER = 0x200,      // bluetooth A2DP speakers
     DEVICE_AUX_DIGITAL = 0x400,                 // digital output
     DEVICE_EXTERNAL_SPEAKER = 0x800             // external speaker (stereo and High quality)
 };

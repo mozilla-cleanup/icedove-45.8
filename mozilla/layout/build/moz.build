@@ -103,11 +103,6 @@ if CONFIG['MOZ_B2G_FM']:
         '/dom/fmradio',
     ]
 
-if CONFIG['MOZ_B2G_BT']:
-    LOCAL_INCLUDES += [
-        '/dom/bluetooth/common',
-    ]
-
 if CONFIG['MOZ_WEBSPEECH']:
     LOCAL_INCLUDES += [
         '/dom/media/webspeech/recognition',

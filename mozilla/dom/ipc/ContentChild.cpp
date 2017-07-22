@@ -173,7 +173,6 @@
 #include "mozilla/dom/devicestorage/DeviceStorageRequestChild.h"
 #include "mozilla/dom/PFileSystemRequestChild.h"
 #include "mozilla/dom/FileSystemTaskBase.h"
-#include "mozilla/dom/bluetooth/PBluetoothChild.h"
 
 #ifdef MOZ_MEDIA_FMRADIO
 #include "mozilla/dom/PFMRadioChild.h"
@@ -210,7 +209,6 @@
 
 using namespace mozilla;
 using namespace mozilla::docshell;
-using namespace mozilla::dom::bluetooth;
 using namespace mozilla::dom::cellbroadcast;
 using namespace mozilla::dom::devicestorage;
 using namespace mozilla::dom::icc;
@@ -2043,27 +2041,6 @@ ContentChild::DeallocPStorageChild(PStorageChild* aActor)
     DOMStorageDBChild* child = static_cast<DOMStorageDBChild*>(aActor);
     child->ReleaseIPDLReference();
     return true;
-}
-
-PBluetoothChild*
-ContentChild::AllocPBluetoothChild()
-{
-#ifdef MOZ_B2G_BT
-    MOZ_CRASH("No one should be allocating PBluetoothChild actors");
-#else
-    MOZ_CRASH("No support for bluetooth on this platform!");
-#endif
-}
-
-bool
-ContentChild::DeallocPBluetoothChild(PBluetoothChild* aActor)
-{
-#ifdef MOZ_B2G_BT
-    delete aActor;
-    return true;
-#else
-    MOZ_CRASH("No support for bluetooth on this platform!");
-#endif
 }
 
 #ifdef MOZ_MEDIA_FMRADIO

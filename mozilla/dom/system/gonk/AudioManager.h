@@ -45,13 +45,11 @@ namespace gonk {
  * FxOS can remeber the separate volume settings on difference output profiles.
  * (1) Primary : speaker, receiver
  * (2) Headset : wired headphone/headset
- * (3) Bluetooth : BT SCO/A2DP devices
  **/
 enum AudioOutputProfiles {
   DEVICE_ERROR        = -1,
   DEVICE_PRIMARY      = 0,
   DEVICE_HEADSET      = 1,
-  DEVICE_BLUETOOTH    = 2,
   DEVICE_TOTAL_NUMBER = 3,
 };
 
@@ -130,12 +128,6 @@ protected:
 
   bool mSwitchDone;
 
-#if defined(MOZ_B2G_BT) || ANDROID_VERSION >= 17
-  bool mBluetoothA2dpEnabled;
-#endif
-#ifdef MOZ_B2G_BT
-  bool mA2dpSwitchDone;
-#endif
   nsTArray<UniquePtr<VolumeStreamState> > mStreamStates;
   uint32_t mLastChannelVolume[AUDIO_STREAM_CNT];
 
@@ -161,9 +153,6 @@ private:
   bool                                    mIsMicMuted;
 #endif
 
-  void HandleBluetoothStatusChanged(nsISupports* aSubject,
-                                    const char* aTopic,
-                                    const nsCString aAddress);
   void HandleAudioChannelProcessChanged();
 
   // Initialize volume index for audio output profile

@@ -1339,7 +1339,7 @@ bool EventHub::isExternalDeviceLocked(Device* device) {
             return !value;
         }
     }
-    return device->identifier.bus == BUS_USB || device->identifier.bus == BUS_BLUETOOTH;
+    return device->identifier.bus == BUS_USB;
 }
 
 bool EventHub::hasKeycodeLocked(Device* device, int keycode) const {

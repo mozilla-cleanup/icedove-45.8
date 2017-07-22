@@ -67,8 +67,3 @@ LOCAL_INCLUDES += [
     '/layout/style',
     '/xpcom/reflect/xptinfo',
 ]
-
-if CONFIG['MOZ_B2G_BT']:
-    LOCAL_INCLUDES += [
-        '/dom/bluetooth/common',
-    ]

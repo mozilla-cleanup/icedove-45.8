@@ -352,13 +352,6 @@ partial interface Navigator {
   Promise<sequence<VRDevice>> getVRDevices();
 };
 
-#ifdef MOZ_B2G_BT
-partial interface Navigator {
-  [Throws, CheckAnyPermissions="bluetooth", UnsafeInPrerendering]
-  readonly attribute BluetoothManager mozBluetooth;
-};
-#endif // MOZ_B2G_BT
-
 #ifdef MOZ_B2G_FM
 partial interface Navigator {
   [Throws, CheckAnyPermissions="fmradio", UnsafeInPrerendering]

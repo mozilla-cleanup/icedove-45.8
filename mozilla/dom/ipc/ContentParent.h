@@ -735,10 +735,6 @@ private:
 
     virtual bool DeallocPStorageParent(PStorageParent* aActor) override;
 
-    virtual PBluetoothParent* AllocPBluetoothParent() override;
-    virtual bool DeallocPBluetoothParent(PBluetoothParent* aActor) override;
-    virtual bool RecvPBluetoothConstructor(PBluetoothParent* aActor) override;
-
 #ifdef MOZ_MEDIA_FMRADIO
     virtual PFMRadioParent* AllocPFMRadioParent() override;
     virtual bool DeallocPFMRadioParent(PFMRadioParent* aActor) override;

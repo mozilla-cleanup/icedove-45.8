@@ -35,9 +35,6 @@
 #include "mozilla/dom/ScriptSettings.h"
 #include "base/message_loop.h"
 
-#include "BluetoothCommon.h"
-#include "BluetoothHfpManagerBase.h"
-
 #include "nsJSUtils.h"
 #include "nsThreadUtils.h"
 #include "nsServiceManagerUtils.h"
@@ -51,7 +48,6 @@ using namespace mozilla::dom;
 using namespace mozilla::dom::gonk;
 using namespace android;
 using namespace mozilla;
-using namespace mozilla::dom::bluetooth;
 
 #undef LOG
 #define LOG(args...)  __android_log_print(ANDROID_LOG_INFO, "AudioManager" , ## args)
@@ -106,7 +102,6 @@ static const int32_t sStreamVolumeAliasTbl[AUDIO_STREAM_CNT] = {
   AUDIO_STREAM_MUSIC,           // music
   AUDIO_STREAM_ALARM,           // alarm
   AUDIO_STREAM_NOTIFICATION,    // notification
-  AUDIO_STREAM_BLUETOOTH_SCO,   // BT SCO
   AUDIO_STREAM_ENFORCED_AUDIBLE,// enforced audible
   AUDIO_STREAM_DTMF,            // DTMF
   AUDIO_STREAM_TTS,             // TTS
@@ -130,7 +125,6 @@ static const uint32_t sChannelStreamTbl[NUMBER_OF_AUDIO_CHANNELS] = {
 static const nsAttrValue::EnumTable kAudioOutputProfilesTable[] = {
   { "primary",   DEVICE_PRIMARY },
   { "headset",   DEVICE_HEADSET },
-  { "bluetooth", DEVICE_BLUETOOTH },
   { nullptr }
 };
 
@@ -149,7 +143,6 @@ namespace gonk {
  * (2) Notification : ringer, notification ...
  * (3) Alarm : alarm
  * (4) Telephony : GSM call, WebRTC call
- * (5) Bluetooth SCO : SCO call
  **/
 struct VolumeData {
   const char* mChannelName;
@@ -161,7 +154,6 @@ static const VolumeData gVolumeData[] = {
   {"audio.volume.notification", AUDIO_STREAM_NOTIFICATION},
   {"audio.volume.alarm",        AUDIO_STREAM_ALARM},
   {"audio.volume.telephony",    AUDIO_STREAM_VOICE_CALL},
-  {"audio.volume.bt_sco",       AUDIO_STREAM_BLUETOOTH_SCO}
 };
 
 class RunnableCallTask : public Task
@@ -444,96 +436,6 @@ AudioManager::SetAllDeviceConnectionStates()
 }
 
 void
-AudioManager::HandleBluetoothStatusChanged(nsISupports* aSubject,
-                                           const char* aTopic,
-                                           const nsCString aAddress)
-{
-#ifdef MOZ_B2G_BT
-  bool isConnected = false;
-  if (!strcmp(aTopic, BLUETOOTH_SCO_STATUS_CHANGED_ID)) {
-    BluetoothHfpManagerBase* hfp =
-      static_cast<BluetoothHfpManagerBase*>(aSubject);
-    isConnected = hfp->IsScoConnected();
-  } else {
-    BluetoothProfileManagerBase* profile =
-      static_cast<BluetoothProfileManagerBase*>(aSubject);
-    isConnected = profile->IsConnected();
-  }
-
-  if (!strcmp(aTopic, BLUETOOTH_SCO_STATUS_CHANGED_ID)) {
-    if (isConnected) {
-      String8 cmd;
-      cmd.appendFormat("bt_samplerate=%d", kBtSampleRate);
-      AudioSystem::setParameters(0, cmd);
-      SetForceForUse(nsIAudioManager::USE_COMMUNICATION, nsIAudioManager::FORCE_BT_SCO);
-    } else {
-      int32_t force;
-      GetForceForUse(nsIAudioManager::USE_COMMUNICATION, &force);
-      if (force == nsIAudioManager::FORCE_BT_SCO) {
-        SetForceForUse(nsIAudioManager::USE_COMMUNICATION, nsIAudioManager::FORCE_NONE);
-      }
-    }
-  } else if (!strcmp(aTopic, BLUETOOTH_A2DP_STATUS_CHANGED_ID)) {
-    if (!isConnected && mA2dpSwitchDone) {
-      RefPtr<AudioManager> self = this;
-      nsCOMPtr<nsIRunnable> runnable =
-        NS_NewRunnableFunction([self, isConnected, aAddress]() {
-          if (self->mA2dpSwitchDone) {
-            return;
-          }
-          self->UpdateDeviceConnectionState(isConnected,
-                                            AUDIO_DEVICE_OUT_BLUETOOTH_A2DP,
-                                            aAddress);
-
-          String8 cmd("bluetooth_enabled=false");
-          AudioSystem::setParameters(0, cmd);
-          cmd.setTo("A2dpSuspended=true");
-          AudioSystem::setParameters(0, cmd);
-          self->mA2dpSwitchDone = true;
-        });
-      MessageLoop::current()->PostDelayedTask(
-        FROM_HERE, new RunnableCallTask(runnable), 1000);
-
-      mA2dpSwitchDone = false;
-    } else {
-      UpdateDeviceConnectionState(isConnected,
-                                  AUDIO_DEVICE_OUT_BLUETOOTH_A2DP,
-                                  aAddress);
-      String8 cmd("bluetooth_enabled=true");
-      AudioSystem::setParameters(0, cmd);
-      cmd.setTo("A2dpSuspended=false");
-      AudioSystem::setParameters(0, cmd);
-      mA2dpSwitchDone = true;
-#if ANDROID_VERSION >= 17
-      if (AudioSystem::getForceUse(AUDIO_POLICY_FORCE_FOR_MEDIA) == AUDIO_POLICY_FORCE_NO_BT_A2DP) {
-        SetForceForUse(AUDIO_POLICY_FORCE_FOR_MEDIA, AUDIO_POLICY_FORCE_NONE);
-      }
-#endif
-    }
-    mBluetoothA2dpEnabled = isConnected;
-  } else if (!strcmp(aTopic, BLUETOOTH_HFP_STATUS_CHANGED_ID)) {
-    UpdateDeviceConnectionState(isConnected,
-                                AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET,
-                                aAddress);
-    UpdateDeviceConnectionState(isConnected,
-                                AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
-                                aAddress);
-  } else if (!strcmp(aTopic, BLUETOOTH_HFP_NREC_STATUS_CHANGED_ID)) {
-      String8 cmd;
-      BluetoothHfpManagerBase* hfp =
-          static_cast<BluetoothHfpManagerBase*>(aSubject);
-      if (hfp->IsNrecEnabled()) {
-          cmd.setTo("bt_headset_name=<unknown>;bt_headset_nrec=on");
-          AudioSystem::setParameters(0, cmd);
-      } else {
-          cmd.setTo("bt_headset_name=<unknown>;bt_headset_nrec=off");
-          AudioSystem::setParameters(0, cmd);
-      }
-  }
-#endif
-}
-
-void
 AudioManager::HandleAudioChannelProcessChanged()
 {
   // Note: If the user answers a VoIP call (e.g. WebRTC calls) during the
@@ -562,21 +464,7 @@ AudioManager::Observe(nsISupports* aSubject,
                       const char* aTopic,
                       const char16_t* aData)
 {
-  if ((strcmp(aTopic, BLUETOOTH_SCO_STATUS_CHANGED_ID) == 0) ||
-      (strcmp(aTopic, BLUETOOTH_HFP_STATUS_CHANGED_ID) == 0) ||
-      (strcmp(aTopic, BLUETOOTH_HFP_NREC_STATUS_CHANGED_ID) == 0) ||
-      (strcmp(aTopic, BLUETOOTH_A2DP_STATUS_CHANGED_ID) == 0)) {
-    nsCString address = NS_ConvertUTF16toUTF8(nsDependentString(aData));
-    if (address.IsEmpty()) {
-      NS_WARNING(nsPrintfCString("Invalid address of %s", aTopic).get());
-      return NS_ERROR_FAILURE;
-    }
-
-    HandleBluetoothStatusChanged(aSubject, aTopic, address);
-    return NS_OK;
-  }
-
-  else if (!strcmp(aTopic, AUDIO_CHANNEL_PROCESS_CHANGED)) {
+  if (!strcmp(aTopic, AUDIO_CHANNEL_PROCESS_CHANGED)) {
     HandleAudioChannelProcessChanged();
     return NS_OK;
   }
@@ -661,9 +549,7 @@ AudioManager::HandleHeadphoneSwitchEvent(const hal::SwitchEvent& aEvent)
 #if ANDROID_VERSION >= 17
   int32_t forceUse = 0;
   GetForceForUse(AUDIO_POLICY_FORCE_FOR_MEDIA, &forceUse);
-  if (aEvent.status() != hal::SWITCH_STATE_OFF && mBluetoothA2dpEnabled) {
-    SetForceForUse(AUDIO_POLICY_FORCE_FOR_MEDIA, AUDIO_POLICY_FORCE_NO_BT_A2DP);
-  } else if (forceUse == AUDIO_POLICY_FORCE_NO_BT_A2DP) {
+  if (forceUse == AUDIO_POLICY_FORCE_NO_BT_A2DP) {
     SetForceForUse(AUDIO_POLICY_FORCE_FOR_MEDIA, AUDIO_POLICY_FORCE_NONE);
   }
 #endif
@@ -674,16 +560,7 @@ AudioManager::AudioManager()
   , mIsVolumeInited(false)
   , mAudioOutProfileUpdated(0)
   , mSwitchDone(true)
-#if defined(MOZ_B2G_BT) || ANDROID_VERSION >= 17
-  , mBluetoothA2dpEnabled(false)
-#endif
-#ifdef MOZ_B2G_BT
-  , mA2dpSwitchDone(true)
-#endif
   , mObserver(new HeadphoneSwitchObserver())
-#ifdef MOZ_B2G_RIL
-  , mMuteCallToRIL(false)
-#endif
 {
   AudioSystem::setErrorCallback(BinderDeadCallback);
 #if ANDROID_VERSION >= 21
@@ -713,18 +590,6 @@ AudioManager::AudioManager()
 
   nsCOMPtr<nsIObserverService> obs = services::GetObserverService();
   NS_ENSURE_TRUE_VOID(obs);
-  if (NS_FAILED(obs->AddObserver(this, BLUETOOTH_SCO_STATUS_CHANGED_ID, false))) {
-    NS_WARNING("Failed to add bluetooth sco status changed observer!");
-  }
-  if (NS_FAILED(obs->AddObserver(this, BLUETOOTH_A2DP_STATUS_CHANGED_ID, false))) {
-    NS_WARNING("Failed to add bluetooth a2dp status changed observer!");
-  }
-  if (NS_FAILED(obs->AddObserver(this, BLUETOOTH_HFP_STATUS_CHANGED_ID, false))) {
-    NS_WARNING("Failed to add bluetooth hfp status changed observer!");
-  }
-  if (NS_FAILED(obs->AddObserver(this, BLUETOOTH_HFP_NREC_STATUS_CHANGED_ID, false))) {
-    NS_WARNING("Failed to add bluetooth hfp NREC status changed observer!");
-  }
   if (NS_FAILED(obs->AddObserver(this, MOZ_SETTINGS_CHANGE_ID, false))) {
     NS_WARNING("Failed to add mozsettings-changed observer!");
   }
@@ -750,18 +615,6 @@ AudioManager::~AudioManager() {
 
   nsCOMPtr<nsIObserverService> obs = services::GetObserverService();
   NS_ENSURE_TRUE_VOID(obs);
-  if (NS_FAILED(obs->RemoveObserver(this, BLUETOOTH_SCO_STATUS_CHANGED_ID))) {
-    NS_WARNING("Failed to remove bluetooth sco status changed observer!");
-  }
-  if (NS_FAILED(obs->RemoveObserver(this, BLUETOOTH_A2DP_STATUS_CHANGED_ID))) {
-    NS_WARNING("Failed to remove bluetooth a2dp status changed observer!");
-  }
-  if (NS_FAILED(obs->RemoveObserver(this, BLUETOOTH_HFP_STATUS_CHANGED_ID))) {
-    NS_WARNING("Failed to remove bluetooth hfp status changed observer!");
-  }
-  if (NS_FAILED(obs->RemoveObserver(this, BLUETOOTH_HFP_NREC_STATUS_CHANGED_ID))) {
-    NS_WARNING("Failed to remove bluetooth hfp NREC status changed observer!");
-  }
   if (NS_FAILED(obs->RemoveObserver(this, MOZ_SETTINGS_CHANGE_ID))) {
     NS_WARNING("Failed to remove mozsettings-changed observer!");
   }
@@ -996,9 +849,6 @@ AudioManager::SetStreamVolumeForProfile(AudioOutputProfiles aProfile,
     case DEVICE_HEADSET:
       state->SetVolumeIndexToAliasStreams(aIndex, AUDIO_DEVICE_OUT_WIRED_HEADSET);
       break;
-    case DEVICE_BLUETOOTH:
-      state->SetVolumeIndexToAliasStreams(aIndex, AUDIO_DEVICE_OUT_BLUETOOTH_A2DP);
-      break;
     default:
       break;
   }
@@ -1179,14 +1029,6 @@ AudioManager::MaybeUpdateVolumeSettingToDatabase(bool aForce)
       lock->Set(AppendProfileToVolumeSetting(
                   gVolumeData[idx].mChannelName,
                   DEVICE_HEADSET).get(),
-                  value, nullptr, nullptr);
-    }
-    if (mAudioOutProfileUpdated & (1 << DEVICE_BLUETOOTH)) {
-      volume = streamState->GetVolumeIndex(AUDIO_DEVICE_OUT_BLUETOOTH_A2DP);
-      value.setInt32(volume);
-      lock->Set(AppendProfileToVolumeSetting(
-                  gVolumeData[idx].mChannelName,
-                  DEVICE_BLUETOOTH).get(),
                   value, nullptr, nullptr);
     }
   }
@@ -1465,19 +1307,6 @@ AudioManager::VolumeStreamState::SetVolumeIndexToAliasDevices(uint32_t aIndex,
         return rv;
       }
       mManager.AudioOutProfileUpdated(DEVICE_HEADSET);
-      break;
-    case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
-    case AUDIO_DEVICE_OUT_BLUETOOTH_A2DP:
-      // Apply volume index of DEVICE_BLUETOOTH devices
-      rv = SetVolumeIndex(aIndex, AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET);
-      if (NS_WARN_IF(NS_FAILED(rv))) {
-        return rv;
-      }
-      rv = SetVolumeIndex(aIndex, AUDIO_DEVICE_OUT_BLUETOOTH_A2DP);
-      if (NS_WARN_IF(NS_FAILED(rv))) {
-        return rv;
-      }
-      mManager.AudioOutProfileUpdated(DEVICE_BLUETOOTH);
       break;
     default:
       rv = SetVolumeIndex(aIndex, aDevice);

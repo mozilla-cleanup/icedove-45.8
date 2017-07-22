@@ -24,7 +24,6 @@ import java.util.Timer;
 import com.mozilla.SUTAgentAndroid.service.ASMozStub;
 import com.mozilla.SUTAgentAndroid.service.DoCommand;
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -229,46 +228,6 @@ public class SUTAgentAndroid extends Activity
                         if (macAddress != null)
                             sUniqueID = macAddress;
                     }
-            }
-
-        if (sUniqueID == null)
-            {
-            BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
-            if ((ba != null) && (ba.isEnabled() != true))
-                {
-                ba.enable();
-                while(ba.getState() != BluetoothAdapter.STATE_ON)
-                    {
-                    try {
-                        Thread.sleep(1000);
-                        }
-                    catch (InterruptedException e)
-                        {
-                        e.printStackTrace();
-                        }
-                    }
-
-                sUniqueID = ba.getAddress();
-
-                ba.disable();
-                while(ba.getState() != BluetoothAdapter.STATE_OFF)
-                    {
-                    try {
-                        Thread.sleep(1000);
-                        }
-                    catch (InterruptedException e)
-                        {
-                        e.printStackTrace();
-                        }
-                    }
-                }
-            else
-                {
-                if (ba != null)
-                    {
-                    sUniqueID = ba.getAddress().toLowerCase();
-                    }
-                }
             }
 
         if (sUniqueID == null)

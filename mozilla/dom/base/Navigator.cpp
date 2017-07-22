@@ -82,9 +82,6 @@
 #include "mozilla/dom/MediaDevices.h"
 #include "MediaManager.h"
 #endif
-#ifdef MOZ_B2G_BT
-#include "BluetoothManager.h"
-#endif
 #include "DOMCameraManager.h"
 
 #ifdef MOZ_AUDIO_CHANNEL_MANAGER
@@ -199,9 +196,6 @@ NS_IMPL_CYCLE_COLLECTION_TRAVERSE_BEGIN(Navigator)
 #ifdef MOZ_B2G_RIL
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mMobileConnections)
 #endif
-#ifdef MOZ_B2G_BT
-  NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mBluetooth)
-#endif
 #ifdef MOZ_AUDIO_CHANNEL_MANAGER
   NS_IMPL_CYCLE_COLLECTION_TRAVERSE(mAudioChannelManager)
 #endif
@@ -303,12 +297,6 @@ Navigator::Invalidate()
 #ifdef MOZ_B2G_RIL
   if (mMobileConnections) {
     mMobileConnections = nullptr;
-  }
-#endif
-
-#ifdef MOZ_B2G_BT
-  if (mBluetooth) {
-    mBluetooth = nullptr;
   }
 #endif
 
@@ -1941,22 +1929,6 @@ Navigator::GetConnection(ErrorResult& aRv)
 
   return mConnection;
 }
-
-#ifdef MOZ_B2G_BT
-bluetooth::BluetoothManager*
-Navigator::GetMozBluetooth(ErrorResult& aRv)
-{
-  if (!mBluetooth) {
-    if (!mWindow) {
-      aRv.Throw(NS_ERROR_UNEXPECTED);
-      return nullptr;
-    }
-    mBluetooth = bluetooth::BluetoothManager::Create(mWindow);
-  }
-
-  return mBluetooth;
-}
-#endif //MOZ_B2G_BT
 
 nsresult
 Navigator::EnsureMessagesManager()

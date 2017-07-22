@@ -12,7 +12,6 @@
     "power":{},
     "webapps-manage":{},
     "mobileconnection":{},
-    "bluetooth":{},
     "telephony":{},
     "voicemail":{},
     "device-storage:pictures":{ "access": "readwrite" },

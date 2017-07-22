@@ -3,7 +3,6 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 const TYPE_WIFI = "wifi";
-const TYPE_BLUETOOTH = "bt";
 const TYPE_USB = "usb";
 
 /**

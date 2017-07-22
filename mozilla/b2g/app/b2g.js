@@ -1110,10 +1110,6 @@ pref("dom.vr.cardboard.enabled", true);
 // In B2G by deafult any AudioChannelAgent is muted when created.
 pref("dom.audiochannel.mutedByDefault", true);
 
-// The app origin of bluetooth app, which is responsible for listening pairing
-// requests.
-pref("dom.bluetooth.app-origin", "app://bluetooth.gaiamobile.org");
-
 // Default device name for Presentation API
 pref("dom.presentation.device.name", "Firefox OS");
 
