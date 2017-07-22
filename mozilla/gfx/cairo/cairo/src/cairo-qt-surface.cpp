@@ -44,7 +44,6 @@
 #include "cairo-region-private.h"
 
 #include "cairo-ft.h"
-#include "cairo-qt.h"
 #include "cairo-error-private.h"
 
 #include <memory>

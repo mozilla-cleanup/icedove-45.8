@@ -4,10 +4,6 @@
 
 #include "mozilla/DebugOnly.h"
 
-#if defined(MOZ_WIDGET_QT)
-#include "nsQAppInstance.h"
-#endif
-
 #include "base/basictypes.h"
 
 #include "nsXULAppAPI.h"
@@ -470,10 +466,6 @@ XRE_InitChildProcess(int aArgc,
 #endif
 #if MOZ_WIDGET_GTK == 2
   XRE_GlibInit();
-#endif
-
-#if defined(MOZ_WIDGET_QT)
-  nsQAppInstance::AddRef();
 #endif
 
   if (PR_GetEnv("MOZ_DEBUG_CHILD_PROCESS")) {

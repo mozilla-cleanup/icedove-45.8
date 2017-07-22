@@ -40,11 +40,7 @@ class PuppetWidget;
 using mozilla::widget::PuppetWidget;
 
 #ifdef MOZ_X11
-#ifdef MOZ_WIDGET_QT
-#include "gfxQtNativeRenderer.h"
-#else
 #include "gfxXlibNativeRenderer.h"
-#endif
 #endif
 
 class nsPluginInstanceOwner final : public nsIPluginInstanceOwner,
@@ -349,11 +345,7 @@ private:
 
 #ifdef MOZ_X11
   class Renderer
-#if defined(MOZ_WIDGET_QT)
-  : public gfxQtNativeRenderer
-#else
   : public gfxXlibNativeRenderer
-#endif
   {
   public:
     Renderer(NPWindow* aWindow, nsPluginInstanceOwner* aInstanceOwner,

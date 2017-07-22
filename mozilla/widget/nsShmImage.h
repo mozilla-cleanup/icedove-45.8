@@ -24,11 +24,6 @@
 #include <X11/Xutil.h>
 #include <X11/extensions/XShm.h>
 
-#ifdef MOZ_WIDGET_QT
-class QRect;
-class QWindow;
-#endif
-
 class nsShmImage {
     // bug 1168843, compositor thread may create shared memory instances that are destroyed by main thread on shutdown, so this must use thread-safe RC to avoid hitting assertion
     NS_INLINE_DECL_THREADSAFE_REFCOUNTING(nsShmImage)
@@ -61,8 +56,6 @@ public:
 
 #ifdef MOZ_WIDGET_GTK
     void Put(Display* aDisplay, Drawable aWindow, const nsIntRegion& aRegion);
-#elif defined(MOZ_WIDGET_QT)
-    void Put(QWindow* aWindow, QRect& aRect);
 #endif
 
     mozilla::gfx::IntSize Size() const { return mSize; }

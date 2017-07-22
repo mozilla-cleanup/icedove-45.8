@@ -253,8 +253,6 @@ cairo-win32.h
 cairo-xlib.h
 cairo-xlib-xrender.h
 cairo-directfb.h
-cairo-qpainter.h
-cairo-qt.h
 dfiff.h
 exception
 ffi.h

@@ -26,13 +26,6 @@
 #include "GeckoTaskTracer.h"
 #endif
 
-/* QT has a #define for the word "slots" and jsfriendapi.h has a struct with
- * this variable name, causing compilation problems. Alleviate this for now by
- * removing this #define */
-#ifdef MOZ_WIDGET_QT
-#undef slots
-#endif
-
 // Make sure that we can use std::min here without the Windows headers messing with us.
 #ifdef min
 #undef min

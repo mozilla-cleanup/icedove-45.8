@@ -74,10 +74,6 @@
 #undef KEY_MAP_GTK
 #define KEY_MAP_GTK(aCPPKeyName, aNativeKey) \
   NS_NATIVE_KEY_TO_DOM_KEY_NAME_INDEX(aNativeKey, KEY_NAME_INDEX_##aCPPKeyName)
-#elif defined(MOZ_WIDGET_QT)
-#undef KEY_MAP_QT
-#define KEY_MAP_QT(aCPPKeyName, aNativeKey) \
-  NS_NATIVE_KEY_TO_DOM_KEY_NAME_INDEX(aNativeKey, KEY_NAME_INDEX_##aCPPKeyName)
 #elif defined(ANDROID)
 #undef KEY_MAP_ANDROID
 #define KEY_MAP_ANDROID(aCPPKeyName, aNativeKey) \

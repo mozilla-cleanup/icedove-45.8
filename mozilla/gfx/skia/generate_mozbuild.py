@@ -78,7 +78,7 @@ LOCAL_INCLUDES += [
     'skia/src/utils/win',
 ]
 
-if CONFIG['MOZ_WIDGET_TOOLKIT'] in {'android', 'gtk2', 'gtk3', 'qt', 'gonk', 'cocoa', 'uikit'}:
+if CONFIG['MOZ_WIDGET_TOOLKIT'] in {'android', 'gtk2', 'gtk3', 'gonk', 'cocoa', 'uikit'}:
     DEFINES['SK_USE_POSIX_THREADS'] = 1
 
 if CONFIG['INTEL_ARCHITECTURE'] and CONFIG['HAVE_TOOLCHAIN_SUPPORT_MSSSE3']:
@@ -92,7 +92,6 @@ if CONFIG['MOZ_WIDGET_TOOLKIT'] in {
     'cocoa',
     'uikit',
     'gonk',
-    'qt',
   } or CONFIG['MOZ_WIDGET_GTK']:
     DEFINES['SK_FONTHOST_DOES_NOT_USE_FONTMGR'] = 1
 
@@ -155,11 +154,11 @@ if CONFIG['GNU_CXX']:
     if CONFIG['CPU_ARCH'] == 'arm':
         SOURCES['skia/src/opts/SkBlitRow_opts_arm.cpp'].flags += ['-fomit-frame-pointer']
 
-if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3', 'android', 'gonk', 'qt'):
+if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3', 'android', 'gonk'):
     CXXFLAGS += CONFIG['MOZ_CAIRO_CFLAGS']
     CXXFLAGS += CONFIG['CAIRO_FT_CFLAGS']
 
-if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3', 'qt'):
+if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('gtk2', 'gtk3'):
     CXXFLAGS += CONFIG['MOZ_PANGO_CFLAGS']
 """
 
@@ -406,9 +405,6 @@ def write_mozbuild(sources):
   write_sources(f, sources['mac'], 4)
 
   f.write("if CONFIG['MOZ_WIDGET_GTK']:\n")
-  write_sources(f, sources['linux'], 4)
-
-  f.write("if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'qt':\n")
   write_sources(f, sources['linux'], 4)
 
   f.write("if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':\n")

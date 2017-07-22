@@ -132,34 +132,6 @@ elif CONFIG['MOZ_WIDGET_GTK']:
             'gfxXlibSurface.cpp',
         ]
 
-elif CONFIG['MOZ_WIDGET_TOOLKIT'] == 'qt':
-    EXPORTS += [
-        'gfxFontconfigFonts.h',
-        'gfxFT2FontBase.h',
-        'gfxPDFSurface.h',
-        'gfxQPainterSurface.h',
-        'gfxQtNativeRenderer.h',
-        'gfxQtPlatform.h',
-    ]
-    SOURCES += [
-        'gfxFontconfigFonts.cpp',
-        'gfxFontconfigUtils.cpp',
-        'gfxFT2FontBase.cpp',
-        'gfxFT2Utils.cpp',
-        'gfxPDFSurface.cpp',
-        'gfxQPainterSurface.cpp',
-        'gfxQtPlatform.cpp',
-    ]
-
-    if CONFIG['MOZ_X11']:
-        EXPORTS += [
-            'gfxXlibSurface.h',
-        ]
-        SOURCES += [
-            'gfxQtNativeRenderer.cpp',
-            'gfxXlibSurface.cpp',
-        ]
-
 elif CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':
     EXPORTS += [
         'gfxDWriteFonts.h',

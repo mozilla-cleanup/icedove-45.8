@@ -155,11 +155,6 @@ if os_bsd or os_linux:
         SOURCES += [
             'src/base/message_pump_glib.cc',
         ]
-    if CONFIG['MOZ_ENABLE_QT']:
-        SOURCES += [
-            '!moc_message_pump_qt.cc',
-            'src/base/message_pump_qt.cc',
-        ]
 
 if os_hurd:
     SOURCES += [
@@ -170,13 +165,6 @@ if os_hurd:
     if CONFIG['MOZ_WIDGET_GTK']:
         SOURCES += [
             'src/base/message_pump_glib.cc',
-        ]
-    if CONFIG['MOZ_ENABLE_QT']:
-        SOURCES += [
-            'src/base/message_pump_qt.cc',
-        ]
-        GENERATED_SOURCES += [
-            'moc_message_pump_qt.cc',
         ]
 
 if CONFIG['_MSC_VER']:

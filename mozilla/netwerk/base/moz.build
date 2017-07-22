@@ -272,11 +272,6 @@ else:
         'nsURLHelperUnix.cpp',
     ]
 
-if CONFIG['MOZ_ENABLE_QTNETWORK']:
-    SOURCES += [
-        'nsAutodialQt.cpp',
-    ]
-
 EXTRA_COMPONENTS += [
     'PACGenerator.js',
     'PACGenerator.manifest'
@@ -301,13 +296,5 @@ if 'rtsp' in CONFIG['NECKO_PROTOCOLS']:
         '/netwerk/protocol/rtsp/rtsp',
     ]
 
-if CONFIG['MOZ_ENABLE_QTNETWORK']:
-    LOCAL_INCLUDES += [
-        '/netwerk/system/qt',
-    ]
-
 if CONFIG['ENABLE_TESTS']:
     DEFINES['PREDICTOR_TESTS'] = True
-
-if CONFIG['MOZ_ENABLE_QTNETWORK']:
-    CXXFLAGS += CONFIG['MOZ_QT_CFLAGS']

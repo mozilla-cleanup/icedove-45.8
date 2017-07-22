@@ -4,13 +4,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#ifdef MOZ_WIDGET_QT
-#include <unistd.h> // for _exit()
-#include <QtCore/QTimer>
-#include "nsQAppInstance.h"
-#include "NestedLoopTimer.h"
-#endif
-
 #include "mozilla/plugins/PluginModuleChild.h"
 
 /* This must occur *after* plugins/PluginModuleChild.h to avoid typedefs conflicts. */
@@ -72,12 +65,6 @@ namespace {
 PluginModuleChild* gChromeInstance = nullptr;
 } // namespace
 
-#ifdef MOZ_WIDGET_QT
-typedef void (*_gtk_init_fn)(int argc, char **argv);
-static _gtk_init_fn s_gtk_init = nullptr;
-static PRLibrary *sGtkLib = nullptr;
-#endif
-
 #ifdef XP_WIN
 // Hooking CreateFileW for protected-mode magic
 static WindowsDllInterceptor sKernel32Intercept;
@@ -137,8 +124,6 @@ PluginModuleChild::PluginModuleChild(bool aIsChrome)
   , mGetEntryPointsFunc(0)
 #elif defined(MOZ_WIDGET_GTK)
   , mNestedLoopTimerId(0)
-#elif defined(MOZ_WIDGET_QT)
-  , mNestedLoopTimerObject(0)
 #endif
 #ifdef OS_WIN
   , mNestedEventHook(nullptr)
@@ -562,27 +547,6 @@ PluginModuleChild::ExitedCxxStack()
     g_source_remove(mNestedLoopTimerId);
     mNestedLoopTimerId = 0;
 }
-#elif defined (MOZ_WIDGET_QT)
-
-void
-PluginModuleChild::EnteredCxxStack()
-{
-    MOZ_ASSERT(mNestedLoopTimerObject == nullptr,
-               "previous timer not descheduled");
-    mNestedLoopTimerObject = new NestedLoopTimer(this);
-    QTimer::singleShot(kNestedLoopDetectorIntervalMs,
-                       mNestedLoopTimerObject, SLOT(timeOut()));
-}
-
-void
-PluginModuleChild::ExitedCxxStack()
-{
-    MOZ_ASSERT(mNestedLoopTimerObject != nullptr,
-               "nested loop timeout not scheduled");
-    delete mNestedLoopTimerObject;
-    mNestedLoopTimerObject = nullptr;
-}
-
 #endif
 
 bool
@@ -642,10 +606,6 @@ PluginModuleChild::InitGraphics()
     real_gtk_plug_embedded = *embedded;
     *embedded = wrap_gtk_plug_embedded;
 
-#elif defined(MOZ_WIDGET_QT)
-    nsQAppInstance::AddRef();
-    // Work around plugins that don't interact well without gtk initialized
-    // see bug 566845
 #if defined(MOZ_X11)
     if (!sGtkLib)
          sGtkLib = PR_LoadLibrary("libgtk-x11-2.0.so.0");
@@ -668,15 +628,6 @@ PluginModuleChild::InitGraphics()
 void
 PluginModuleChild::DeinitGraphics()
 {
-#ifdef MOZ_WIDGET_QT
-    nsQAppInstance::Release();
-    if (sGtkLib) {
-        PR_UnloadLibrary(sGtkLib);
-        sGtkLib = nullptr;
-        s_gtk_init = nullptr;
-    }
-#endif
-
 #if defined(MOZ_X11) && defined(NS_FREE_PERMANENT_DATA)
     // We free some data off of XDisplay close hooks, ensure they're
     // run.  Closing the display is pretty scary, so we only do it to
@@ -1168,7 +1119,7 @@ _getvalue(NPP aNPP,
     switch (aVariable) {
         // Copied from nsNPAPIPlugin.cpp
         case NPNVToolkit:
-#if defined(MOZ_WIDGET_GTK) || defined(MOZ_WIDGET_QT)
+#if defined(MOZ_WIDGET_GTK)
             *static_cast<NPNToolkitType*>(aValue) = NPNVGtk2;
             return NPERR_NO_ERROR;
 #endif

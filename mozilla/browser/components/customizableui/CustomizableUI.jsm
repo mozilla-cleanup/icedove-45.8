@@ -251,7 +251,7 @@ var CustomizableUIInternal = {
       ],
       get defaultCollapsed() {
 #ifdef MENUBAR_CAN_AUTOHIDE
-#if defined(MOZ_WIDGET_GTK) || defined(MOZ_WIDGET_QT)
+#if defined(MOZ_WIDGET_GTK)
         return true;
 #else
         // This is duplicated logic from /browser/base/jar.mn
